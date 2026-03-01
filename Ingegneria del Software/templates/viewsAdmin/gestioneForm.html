@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>The Verifiers Admin - GESTIONE FORM</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <style>
+    body, h1, h2, h3, h4, h5, h6 {
+      font-family: "Raleway", sans-serif;
+    }
+
+   body, html {
+      height: 100%;
+      line-height: 1.8;
+      width: 100%;
+      min-height: 100vh;
+      position: relative;
+      background: #7abf7a;
+      background: -webkit-linear-gradient(135deg, #7abf7a 0%, #000000 100%);
+      background: -o-linear-gradient(135deg, #7abf7a 0%, #000000 100%);
+      background: -moz-linear-gradient(135deg, #7abf7a 0%, #000000 100%);
+      background: linear-gradient(135deg, #7abf7a 0%, #000000 100%);
+      background-attachment: fixed; /* Aggiunta: Fissa lo sfondo */
+    }
+
+    .message-container {
+      width: 400px; /* Riduci la larghezza del container a 400px */
+      position: relative;
+      top: 250px;
+      left: 20px; /* Sposta il container a sinistra di 20px */
+      transform: translate(0, -50%); /* Modifica la trasformazione solo verticalmente */
+      padding: 10px; /* Riduci il padding a 10px */
+      background: #fff;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+      margin-bottom: 3.5em;
+    }
+
+    .additional-container {
+      display: none;
+      width: 400px; /* Riduci la larghezza del container a 400px */
+      position: absolute;
+      top: 0;
+      left: 100%; /* Sposta il container a sinistra di 20px */
+      transform: translateX(10px); /* Modifica la trasformazione solo verticalmente */
+      z-index: 9999;
+      padding: 10px; /* Riduci il padding a 10px */
+      background: #fff;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+      margin-bottom: 3.5em;
+      overflow: visible;
+         transition: transform 0.3s ease-in-out;
+    }
+
+    .arrow-icon {
+       position: absolute;
+       right: 10px;
+       top: 50%;
+       transform: translate(0, -50%);
+       cursor: pointer;
+       transition: transform 0.3s ease-in-out; /* Aggiungi un'animazione di transizione */
+       background: #57b846; /* Imposta lo sfondo dell'icona come bianco */
+       padding: 5px; /* Aggiungi un po' di spazio intorno all'icona */
+       border-radius: 50%; /* Rendi l'icona della freccia circolare */
+       box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Aggiungi una leggera ombra all'icona */
+    }
+
+    .show-container {
+   transform: translate(0, -50%) rotate(180deg); /* Ruota l'icona quando il container è visibile */
+}
+ .button {
+        position: relative ;
+        bottom: 10px;
+        top:250px;
+        left: 75%;
+        padding: 10px;
+        background-color: #57b846;
+        color: white;
+        border: none;
+        cursor: pointer;
+         transition: transform 0.3s ease-in-out;
+    }
+
+
+    .w3-bar .w3-button {
+      padding: 16px;
+    }
+
+    .textarea-container textarea {
+      resize: vertical;
+      word-wrap: break-word;
+      height: 200px;
+      overflow-y: scroll;
+    }
+
+    .textarea-container #characterCount {
+      position: absolute;
+      bottom: 5px;
+      left: 5px;
+      font-size: 12px;
+      z-index: 1;
+      background-color: white;
+    }
+
+    .success-message {
+      position: fixed;
+      top: 45%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      padding: 10px;
+      background-color: #f1f1f1;
+      color: #333;
+      font-size: 24px;
+      font-weight: bold;
+      border-radius: 4px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      margin-top: 100px;
+    }
+
+    @import url(https://fonts.googleapis.com/css?family=Noto+Sans:400,700);
+
+    span{
+      position: absolute;
+      font: normal normal normal 14px/28px "Noto Sans", sans-serif;
+    }
+
+    span {
+      top: 0;
+      bottom: 100%;
+      left: 90%;
+      right: 0;
+      margin: auto;
+      width: 28px;
+      height: 28px;
+      text-align: center;
+      background: red;
+      border-radius: 100%;
+      color: white;
+      transition: background .4s ease;
+      -moz-user-select: none;
+      -webkit-user-select: none;
+      user-select: none;
+    }
+
+    span:hover {
+      cursor: pointer;
+      background: darkred;
+    }
+
+        @-webkit-keyframes scaleup {
+          0%,
+          100% {
+            width: 28px;
+            height: 28px;
+            line-height: 28px;
+        }
+      50% {
+        width: 38px;
+        height: 38px;
+        line-height: 38px;
+      }
+    }
+
+    @keyframes scaleup {
+      0%,
+      100% {
+        width: 28px;
+        height: 28px;
+        line-height: 28px;
+      }
+      50% {
+        width: 38px;
+        height: 38px;
+        line-height: 38px;
+      }
+    }
+    .w3-bar-item.active {
+      background-color: #b0b0b0;
+      color: #000;
+    }
+  </style>
+</head>
+<body>
+
+
+<!-- Navbar (sit on top) -->
+<div class="w3-top">
+  <div class="w3-bar w3-white w3-card" id="myNavbar">
+    <a href="/homeAdmin" class="w3-bar-item w3-button w3-wide">The Verifiers Admin</a>
+    <!-- Right-sided navbar links -->
+    <div class="w3-right w3-hide-small">
+      <a href="/homeAdmin" class="w3-bar-item w3-button"><i class="fa fa-home"></i>HOME</a>
+      <a href="/gestioneForm" id="adminform-link" class="w3-bar-item w3-button"><i class="fa fa-tick"></i> GESTIONE FORM</a>
+      <a href="/gestioneDomini" class="w3-bar-item w3-button"><i class="fa fa-tick"></i> GESTIONE DOMINI</a>
+      <a href="/gestioneNotizie" class="w3-bar-item w3-button"><i class="fa fa-th"></i> GESTIONE NOTIZIE</a>
+      <a href="/gestioneSegnalazioni" class="w3-bar-item w3-button"><i class="fa fa-envelope"></i> GESTIONE SEGNALAZIONI</a>
+
+      {% if 'logged_in' in session %}
+        <a href="/logout" class="w3-bar-item w3-button"><i class="fa fa-user"></i> LOGOUT</a>
+      {% endif %}
+
+      {% if 'logged_in' not in session %}
+        <a href="/log_in" class="w3-bar-item w3-button"><i class="fa fa-user"></i> LOGIN</a>
+        <a href="/registration" class="w3-bar-item w3-button"><i class="fa fa-user"></i> REGISTRATI</a>
+      {% endif %}
+    </div>
+    <!-- Hide right-floated links on small screens and replace them with a menu icon -->
+    <a href="javascript:void(0)" class="w3-bar-item w3-button w3-right w3-hide-large w3-hide-medium" onclick="w3_open()">
+      <i class="fa fa-bars"></i>
+    </a>
+  </div>
+</div>
+<a href="/senza_risposta" class="button">
+    {% if count > 0 %}
+        <span>{{ count }}</span>
+    {% endif %}
+    Rispondi ai Form</a>
+<form id="message-form" action="/gestioneForm" >
+{% if form_risposta %}
+    {% for form in form_risposta | reverse %}
+       <div class="message-container" id="team">
+           <h3>{{ form[2] }}</h3>
+           <p>{{ form[3] }}</p>
+           <p><small>Form inviato da: {{ form[1] }}</small></p>
+              <div class="additional-container" id="team">
+                        <h3>{{ form[2] }}</h3>
+                       <p>{{ form[4] }}</p>
+                       <p><small>Risposta inviata da: Admin</small></p>
+              </div>
+           <i class="fa fa-arrow-right arrow-icon"></i>
+        </div>
+
+    {% endfor %}
+{% else %}
+    <div id="successMessage" class="success-message">NON CI SONO FORM DA VISUALIZZARE  A CUI HAI RISPOSTO</div>
+{% endif %}
+</form>
+
+<script src="../../static/js/main.js"></script>
+<script src="../../static/vendor/jquery/jquery-3.2.1.min.js"></script>
+<script src="../../static/vendor/bootstrap/js/popper.js"></script>
+<script src="../../static/vendor/bootstrap/js/bootstrap.min.js"></script>
+<script src="../../static/vendor/select2/select2.min.js"></script>
+<script src="../../static/vendor/tilt/tilt.jquery.min.js"></script>
+
+<script>
+
+
+  $(document).ready(function() {
+       $('.arrow-icon').click(function() {
+          $(this).toggleClass('show-container');
+          var messageContainer = $(this).closest('.message-container')
+          var additionalContainer = messageContainer.find('.additional-container');
+          additionalContainer.slideToggle(300); /* Mostra/Nascondi il container aggiuntivo */
+          if (additionalContainer.is(':visible')) {
+             additionalContainer.css('right', '-600px'); /* Sposta il container aggiuntivo verso destra */
+          }
+       });
+       $('.additional-container').hide();
+  });
+</script>
+<script>
+  function toggleMenu() {
+    var x = document.getElementById("myNavbar");
+    if (x.className.indexOf("w3-show") === -1) {
+      x.className += " w3-show";
+    } else {
+      x.className = x.className.replace(" w3-show", "");
+    }
+  }
+</script>
+<script>
+  $('.js-tilt').tilt({
+    scale: 1.1
+  })
+</script>
+<script>
+  // Alcun codice precedente...
+
+  // Trova il bottone corrispondente alla pagina "HOME" e aggiungi la classe "active"
+  document.getElementById("adminform-link").classList.add("active");
+</script>
+</body>
+</html>

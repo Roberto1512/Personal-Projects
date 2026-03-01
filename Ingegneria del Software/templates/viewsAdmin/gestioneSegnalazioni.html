@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>The Verifiers Admin - GESTIONE SEGNALAZIONI</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="../static/css/switch_button.css">
+
+<style>
+body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", sans-serif}
+
+body, html {
+  height: 100%;
+  line-height: 1.8;
+  overflow-x: auto;
+}
+
+.w3-bar .w3-button {
+  padding: 16px;
+}
+
+/* Add your custom styles below */
+
+body {
+  background-color: #f1f1f1;
+}
+
+.container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  overflow: auto;
+}
+
+table, th, td {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+th {
+  background-color: #f5f5f5;
+}
+
+.checkbox {
+  margin-top: 10px;
+}
+
+.button-container {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.button-container button {
+  padding: 10px 20px;
+  background-color: #4CAF50;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.button-container button:first-child {
+  background-color: #f44336;
+}
+
+.button-container button:not(:first-child) {
+  margin-left: 10px;
+}
+
+.w3-bar-item.active {
+  background-color: #b0b0b0;
+  color: #000;
+}
+
+</style>
+</head>
+<body>
+
+<!-- Navbar (sit on top) -->
+<div class="w3-top">
+  <div class="w3-bar w3-white w3-card" id="myNavbar">
+    <a href="/homeAdmin" class="w3-bar-item w3-button w3-wide">The Verifiers Admin</a>
+    <!-- Right-sided navbar links -->
+    <div class="w3-right w3-hide-small">
+      <a href="/homeAdmin" class="w3-bar-item w3-button"><i class="fa fa-home"></i>HOME</a>
+      <a href="/gestioneForm" class="w3-bar-item w3-button"><i class="fa fa-tick"></i> GESTIONE FORM</a>
+      <a href="/gestioneDomini" class="w3-bar-item w3-button"><i class="fa fa-tick"></i> GESTIONE DOMINI</a>
+      <a href="/gestioneNotizie" class="w3-bar-item w3-button"><i class="fa fa-th"></i> GESTIONE NOTIZIE</a>
+      <a href="/gestioneSegnalazioni" id="gestioneSegnalazioni-link" class="w3-bar-item w3-button"><i class="fa fa-envelope"></i> GESTIONE SEGNALAZIONI</a>
+
+      {% if 'logged_in' in session %}
+        <a href="/logout" class="w3-bar-item w3-button"><i class="fa fa-user"></i> LOGOUT</a>
+      {% endif %}
+
+      {% if 'logged_in' not in session %}
+        <a href="/log_in" class="w3-bar-item w3-button"><i class="fa fa-user"></i> LOGIN</a>
+        <a href="/registration" class="w3-bar-item w3-button"><i class="fa fa-user"></i> REGISTRATI</a>
+      {% endif %}
+    </div>
+    <!-- Hide right-floated links on small screens and replace them with a menu icon -->
+    <a href="javascript:void(0)" class="w3-bar-item w3-button w3-right w3-hide-large w3-hide-medium" onclick="w3_open()">
+      <i class="fa fa-bars"></i>
+    </a>
+  </div>
+</div>
+
+<!-- Page content -->
+<div class="w3-content" style="max-width: 2000px; margin-top: 100px">
+  <div class="w3-container">
+    <div class="container">
+        <h1><b>Gestione Segnalazioni</b></h1>
+
+      <form id="segnalazioni-form" method="post" action="/gestioneSegnalazioni">
+        <div style="overflow: auto; max-height: 400px;">
+          <table>
+            <tr>
+              <th>Seleziona</th>
+              <th>URL</th>
+            </tr>
+            {% for url in urls %}
+            <tr>
+              <td><input type="checkbox" name="seleziona[]" value="{{ url }}"></td>
+              <td><a href="{{ url }}">{{ url }}</a></td>
+            </tr>
+            {% endfor %}
+          </table>
+        </div>
+
+        <div class="button-container">
+          <button type="submit" name="action" value="segna">Segnala</button>
+          <button type="submit" name="action" value="elimina">Elimina</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script src="../static/js/switch_button.js"></script>
+<script src="../static/js/main.js"></script>
+<script src="../static/vendor/jquery/jquery-3.2.1.min.js"></script>
+<script src="../static/vendor/bootstrap/js/popper.js"></script>
+<script src="../static/vendor/bootstrap/js/bootstrap.min.js"></script>
+<script src="../static/vendor/select2/select2.min.js"></script>
+<script src="../static/vendor/tilt/tilt.jquery.min.js"></script>
+
+<script>
+  // Alcun codice precedente...
+
+  // Trova il bottone corrispondente alla pagina "HOME" e aggiungi la classe "active"
+  document.getElementById("gestioneSegnalazioni-link").classList.add("active");
+</script>
+
+</body>
+</html>

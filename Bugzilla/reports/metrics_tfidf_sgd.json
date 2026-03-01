@@ -1,0 +1,18 @@
+{
+  "model": "tfidf_sgd_log_loss",
+  "train_samples": 142452,
+  "n_classes_train": 320,
+  "params": {
+    "max_features": 200000,
+    "min_df": 2,
+    "ngram_range": [
+      1,
+      2
+    ],
+    "alpha": 1e-05
+  },
+  "test_samples": 36040,
+  "accuracy": 0.47902330743618204,
+  "f1_macro": 0.4011660320932075,
+  "f1_micro": 0.47902330743618204
+}

@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>The Verifiers - VERIFICA</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="../static/css/popUp.css">
+
+<style>
+body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", sans-serif}
+
+
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&family=Roboto:wght@400;500;700&display=swap");
+
+
+
+
+
+.w3-bar .w3-button {
+  padding: 16px;
+}
+
+
+body {
+    height: 100%;
+    line-height: 1.8;
+    overflow-x:auto;
+	position: relative;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	min-height: 100vh;
+	 background: #7abf7a;
+        background: -webkit-linear-gradient(135deg, #7abf7a 0%, #000000 100%);
+        background: -o-linear-gradient(135deg, #7abf7a 0%, #000000 100%);
+        background: -moz-linear-gradient(135deg, #7abf7a 0%, #000000 100%);
+        background: linear-gradient(135deg, #7abf7a 0%, #000000 100%);
+}
+
+
+
+
+.container {
+	width: 1000px;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-around;
+}
+.container .btn {
+	position: relative;
+	top: 0;
+	left: 0;
+	width: 250px;
+	height: 50px;
+	margin: 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.container .btn1 {
+	position: relative;
+	top: 0;
+	left: 0;
+	width: 250px;
+	height: 50px;
+	margin: 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.container .btn a {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background: rgba(255, 255, 255, 0.05);
+	box-shadow: 0 15px 15px rgba(0, 0, 0, 0.3);
+	border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+	border-top: 1px solid rgba(255, 255, 255, 0.1);
+	border-radius: 30px;
+	padding: 10px;
+	letter-spacing: 1px;
+	text-decoration: none;
+	overflow: hidden;
+	color: #fff;
+	z-index: 1;
+	transition: 0.5s;
+	backdrop-filter: blur(15px);
+}
+.container .btn1 a {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background: rgba(255, 255, 255, 0.05);
+	box-shadow: 0 15px 15px rgba(0, 0, 0, 0.3);
+	border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+	border-top: 1px solid rgba(255, 255, 255, 0.1);
+	border-radius: 30px;
+	padding: 10px;
+	letter-spacing: 1px;
+	text-decoration: none;
+	overflow: hidden;
+	color: #fff;
+	z-index: 1;
+	transition: 0.5s;
+	backdrop-filter: blur(15px);
+}
+.container .btn:hover a {
+	letter-spacing: 3px;
+}
+.container .btn1:hover a {
+	letter-spacing: 3px;
+}
+.container .btn a::before {
+	content: "";
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 50%;
+	height: 100%;
+	background: linear-gradient(to left, rgba(255, 255, 255, 0.15), transparent);
+	transform: skewX(45deg) translate(0);
+	transition: 0.5s;
+	filter: blur(0px);
+}
+.container .btn1 a::before {
+	content: "";
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 50%;
+	height: 100%;
+	background: linear-gradient(to left, rgba(255, 255, 255, 0.15), transparent);
+	transform: skewX(45deg) translate(0);
+	transition: 0.5s;
+	filter: blur(0px);
+}
+.container .btn:hover a::before {
+	transform: skewX(45deg) translate(200px);
+}
+.container .btn1:hover a::before {
+	transform: skewX(45deg) translate(200px);
+}
+.container .btn::before {
+	content: "";
+	position: absolute;
+	left: 50%;
+	transform: translatex(-50%);
+	bottom: -5px;
+	width: 30px;
+	height: 10px;
+	background: #f00;
+	border-radius: 10px;
+	transition: 0.5s;
+	transition-delay: 0.5s;
+}
+.container .btn1::before {
+	content: "";
+	position: absolute;
+	left: 50%;
+	transform: translatex(-50%);
+	bottom: -5px;
+	width: 30px;
+	height: 10px;
+	background: #f00;
+	border-radius: 10px;
+	transition: 0.5s;
+	transition-delay: 0.5s;
+}
+.container .btn:hover::before /*lightup button*/ {
+	bottom: 0;
+	height: 50%;
+	width: 80%;
+	border-radius: 30px;
+}
+.container .btn1:hover::before /*lightup button*/ {
+	bottom: 0;
+	height: 50%;
+	width: 80%;
+	border-radius: 30px;
+}
+
+.container .btn::after {
+	content: "";
+	position: absolute;
+	left: 50%;
+	transform: translatex(-50%);
+	top: -5px;
+	width: 30px;
+	height: 10px;
+	background: #f00;
+	border-radius: 10px;
+	transition: 0.5s;
+	transition-delay: 0.5s;
+}
+.container .btn1::after {
+	content: "";
+	position: absolute;
+	left: 50%;
+	transform: translatex(-50%);
+	top: -5px;
+	width: 30px;
+	height: 10px;
+	background: #f00;
+	border-radius: 10px;
+	transition: 0.5s;
+	transition-delay: 0.5s;
+}
+.container .btn:hover::after /*lightup button*/ {
+	top: 0;
+	height: 50%;
+	width: 80%;
+	border-radius: 30px;
+}
+.container .btn1:hover::after /*lightup button*/ {
+	top: 0;
+	height: 50%;
+	width: 80%;
+	border-radius: 30px;
+}
+.container .btn:nth-child(1)::before, /*chnage 1*/
+.container .btn:nth-child(1)::after {
+	background: #ff1f71;
+	box-shadow: 0 0 5px #ff1f71, 0 0 15px #ff1f71, 0 0 30px #ff1f71,
+		0 0 60px #ff1f71;
+}
+.container .btn1:nth-child(2)::before, /* 2*/
+.container .btn1:nth-child(2)::after {
+	background: #2db2ff;
+	box-shadow: 0 0 5px #2db2ff, 0 0 15px #2db2ff, 0 0 30px #2db2ff,
+		0 0 60px #2db2ff;
+}
+.container .btn1:nth-child(3)::before, /* 3*/
+.container .btn1:nth-child(3)::after {
+	background: #1eff45;
+	box-shadow: 0 0 5px #1eff45, 0 0 15px #1eff45, 0 0 30px #1eff45,
+		0 0 60px #1eff45;
+}
+
+
+
+   /* Stile personalizzato per la barra */
+    .verify-bar {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: 20px;
+    }
+
+    .verify-bar input[type="text"] {
+      margin-top: 50px;
+      width: 500px;
+      padding: 10px;
+      border-radius: 5px;
+      border: none;
+      border-radius: 20px;
+    }
+
+    .verify-bar button {
+      margin-left: 10px;
+      padding: 10px 20px;
+      border-radius: 5px;
+      border: none;
+      background: linear-gradient(135deg, #7abf7a 0%, #000000 100%);
+      color: #fff;
+      cursor: pointer;
+      border-radius: 20px;
+    }
+
+.w3-bar-item.active {
+  background-color: #b0b0b0;
+  color: #000;
+}
+  </style>
+
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Glassmorphism button</title>
+</head>
+
+<body>
+<!-- Navbar (sit on top) -->
+<div class="w3-top">
+  <div class="w3-bar w3-white w3-card" id="myNavbar">
+    <a href="#home" class="w3-bar-item w3-button w3-wide">The Verifiers</a>
+    <!-- Right-sided navbar links -->
+    <div class="w3-right w3-hide-small">
+      <a href="/" class="w3-bar-item w3-button"><i class="fa fa-home"></i>HOME</a>
+      <a href="/verifica" id="verifica-link" class="w3-bar-item w3-button"><i class="fa fa-search"></i>VERIFICA</a>
+
+      <a href="/segnalazioneNotizie" class="w3-bar-item w3-button"><i class="fa"></i> SEGNALAZIONE NOTIZIE</a>
+      <a href="/dominiVerificati" class="w3-bar-item w3-button"><i class="fa fa-tick"></i>DOMINI VERIFICATI</a>
+      <a href="/notizieVerificate" class="w3-bar-item w3-button"><i class="fa fa-th"></i> NOTIZIE VERIFICATE</a>
+      <a href="/contatti" class="w3-bar-item w3-button"><i class="fa fa-envelope"></i> CONTATTI</a>
+      <a href="/creazioneForm" class="w3-bar-item w3-button"><i class="fa fa-envelope"></i> FORM</a>
+      <a href="/faq" class="w3-bar-item w3-button"><i class="fa fa-info"></i> FAQ</a>
+
+        {% if 'logged_in' in session %}
+      <a href="/gestioneProfilo" class="w3-bar-item w3-button"><i class="fa fa-user"></i> GESTIONE PROFILO</a>
+      <a href="/subscription" class="w3-bar-item w3-button"><i class="fa fa-user"></i> PIANO</a>
+      <a href="/logout" class="w3-bar-item w3-button"><i class="fa fa-user"></i> LOGOUT</a>
+         {% endif %}
+          {% if 'logged_in' not in session %}
+
+      <a href="/log_in" class="w3-bar-item w3-button"><i class="fa fa-user"></i> LOGIN</a>
+      <a href="/registration" class="w3-bar-item w3-button"><i class="fa fa-user"></i> REGISTRATI</a>
+         {% endif %}
+
+    </div>
+    <!-- Hide right-floated links on small screens and replace them with a menu icon -->
+
+    <a href="javascript:void(0)" class="w3-bar-item w3-button w3-right w3-hide-large w3-hide-medium" onclick="w3_open()">
+      <i class="fa fa-bars"></i>
+    </a>
+  </div>
+</div>
+
+
+
+
+<div class="container">
+<form id="uploadForm" action="/verificaImmagine" method="POST" enctype="multipart/form-data">
+  <div class="btn">
+    <a href="#">Verifica Immagine</a>
+    <input id="fileInput" type="file" name="image" accept="image/*" style="display: none;">
+  </div>
+</form>
+
+  <div class="btn1">
+    <a href="#">Verifica Audio</a>
+    <input type="file" accept="audio/*" style="display: none;">
+  </div>
+  <div class="btn1">
+    <a href="#">Verifica Video</a>
+    <input type="file" accept="video/*" style="display: none;">
+  </div>
+
+
+
+{% if message %}
+  <div id="popup" class="popup">
+  <div class="popup-content">
+    <h2>ESITO:</h2>
+    <p>{{ message }}</p>
+    <button onclick="closePopup()">Chiudi</button>
+  </div>
+</div>
+<div id="background" class="background"></div>
+{% endif %}
+
+
+<form action="/verificaImmagine" method="POST">
+{% if checkout %}
+  <div id="popup" class="popup">
+  <div class="popup-content">
+    <h2>ESITO:</h2>
+    <p>{{ checkout }}</p>
+    <button onclick="closePopup()">Chiudi</button>
+  </div>
+</div>
+<div id="background" class="background"></div>
+{% endif %}
+</form>
+<div class="verify-bar">
+<form method="POST" action="{{ url_for('verificaDominio') }}">
+  <input type="text" name="link" placeholder="Inserisci il link della notizia ---> https://www.corriere.it/notizia" required>
+  <button type="submit">Verifica</button>
+</form>
+</div>
+
+</div>
+<script src="../static/js/popUp.js"></script>
+<script>
+    //verifica la presenza dell'immagine e la invia direttamente al server
+  document.getElementById('fileInput').addEventListener('change', function() {
+    document.getElementById('uploadForm').submit();
+  });
+</script>
+<script>
+function handleButtonClick(input) {
+  input.addEventListener('change', function() {
+    var file = input.files[0];
+    if (file) {
+      var formData = new FormData();
+      formData.append('image', file);
+
+      fetch('/verificaImmagine', {
+        method: 'POST',
+        body: formData
+      })
+      .then(response => response.json())
+      .then(data => {
+        // Ricevi i dati elaborati dal server
+        console.log(data);
+      })
+      .catch(error => {
+        // Gestisci eventuali errori
+        console.error(error);
+      });
+    }
+  });
+
+  input.click(); // Apre il selettore del file
+}
+
+
+
+
+
+
+  // Aggiunge un gestore di eventi a tutti i bottoni
+  var buttons = document.querySelectorAll('.btn');
+  buttons.forEach(function(button) {
+    var link = button.querySelector('a');
+    var input = button.querySelector('input[type="file"]');
+    link.onclick = function() {
+      handleButtonClick(input);
+    };
+  });
+</script>
+
+<script>
+function handleButtonClick2(input) {
+input.addEventListener('change', function() {
+    var file = input.files[0];
+    if (file) {
+      // Calcola una percentuale casuale di veridicità
+      var percentuale = Math.floor(Math.random() * 101); // Genera un numero casuale da 0 a 100
+
+
+      // Mostra una finestra di popup con la percentuale di veridicità
+      alert("Percentuale di veridicità del file: " + percentuale + "%");
+    }
+  });
+
+  input.click(); // Apre il selettore del file
+}
+
+  // Aggiunge un gestore di eventi a tutti i bottoni
+  var buttons = document.querySelectorAll('.btn1');
+  buttons.forEach(function(button) {
+    var link = button.querySelector('a');
+    var input = button.querySelector('input[type="file"]');
+    link.onclick = function() {
+      handleButtonClick2(input);
+    };
+  });
+</script>
+
+<script>
+  // Alcun codice precedente...
+
+  // Trova il bottone corrispondente alla pagina "HOME" e aggiungi la classe "active"
+  document.getElementById("verifica-link").classList.add("active");
+</script>
+
+</body>
+</html>
+

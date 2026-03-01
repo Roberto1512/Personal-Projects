@@ -1,0 +1,63 @@
+stages:
+  prepare:
+    cmd: .\.venv\Scripts\python.exe -m naplace.cli.prepare
+    outs:
+    - data/raw/bugbug_dataset.jsonl
+
+    deps:
+    - data/external/bugzilla/bugbug_dataset.jsonl
+    - naplace/cli/prepare.py
+  split:
+    cmd: .\.venv\Scripts\python.exe -m naplace.cli.split
+    deps:
+    - data/raw/bugbug_dataset.jsonl
+    - naplace/cli/split.py
+    outs:
+    - data/interim/test.jsonl
+    - data/interim/train.jsonl
+  train_lstm:
+    cmd: .\.venv\Scripts\python.exe -m naplace.modeling.train_lstm
+    deps:
+    - data/interim/train.jsonl
+    - naplace/modeling/train_lstm.py
+    outs:
+    - models/lstm.h5
+    - models/lstm_label_classes.npy
+    - models/lstm_tokenizer.pkl
+  train_gru:
+    cmd: .\.venv\Scripts\python.exe -m naplace.modeling.train_gru
+    deps:
+    - data/interim/train.jsonl
+    - naplace/modeling/train_gru.py
+    outs:
+    - models/gru.h5
+    - models/gru_label_classes.npy
+    - models/gru_tokenizer.pkl
+  eval_lstm:
+    cmd: .\.venv\Scripts\python.exe -m naplace.modeling.eval_seq --model 
+      models/lstm.h5 --tok models/lstm_tokenizer.pkl --classes 
+      models/lstm_label_classes.npy --data data/interim/test.jsonl --out 
+      reports/metrics_lstm.json --run_name lstm_eval
+    deps:
+    - data/interim/test.jsonl
+    - models/lstm.h5
+    - models/lstm_label_classes.npy
+    - models/lstm_tokenizer.pkl
+    - naplace/modeling/eval_seq.py
+    metrics:
+    - reports/metrics_lstm.json:
+        cache: false
+  eval_gru:
+    cmd: .\.venv\Scripts\python.exe -m naplace.modeling.eval_seq --model 
+      models/gru.h5 --tok models/gru_tokenizer.pkl --classes 
+      models/gru_label_classes.npy --data data/interim/test.jsonl --out 
+      reports/metrics_gru.json --run_name gru_eval
+    deps:
+    - data/interim/test.jsonl
+    - models/gru.h5
+    - models/gru_label_classes.npy
+    - models/gru_tokenizer.pkl
+    - naplace/modeling/eval_seq.py
+    metrics:
+    - reports/metrics_gru.json:
+        cache: false

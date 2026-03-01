@@ -1,0 +1,6 @@
+[core]
+    remote = dagshub
+['remote "gdrive"']
+    url = gdrive://1SSjyXaCSdQrQTbmmJlxLLWzGyXNBxM_H?hl=it
+['remote "dagshub"']
+    url = https://dagshub.com/Roberto1512/SIIA.dvc

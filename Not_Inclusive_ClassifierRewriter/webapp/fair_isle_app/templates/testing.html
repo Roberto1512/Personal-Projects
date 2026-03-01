@@ -1,0 +1,382 @@
+{% include "header.html" %}
+
+{% block content %}
+  <div class="page-hero">
+    <div class="page-title">{{ t.testing.title }}</div>
+    <p class="page-subtitle">{{ t.testing.subtitle }}</p>
+  </div>
+
+  <div class="assistant-card">
+    <div class="assistant-grid">
+      <!-- Left panel -->
+      <div class="panel">
+        <div class="panel-head">
+          <div class="panel-title">{{ t.testing.original_text }}</div>
+          <div class="panel-actions">
+            <button type="button" class="small-btn" id="clear-btn">{{ t.testing["clear"] }}</button>
+          </div>
+        </div>
+        <div class="panel-body">
+          <form id="testing-form" action="/submit_testing" method="post">
+            <textarea class="form-control" id="input_text" name="input_text" placeholder="{{ t.testing.placeholder }}"></textarea>
+
+            <div class="d-flex align-items-center justify-content-between gap-2 mt-2 flex-wrap">
+              <div class="small" style="color: var(--muted); font-weight: 700;">
+                {{ t.testing.tip }}
+              </div>
+              <button type="submit" class="btn btn-primary">{{ t.testing.analyze }}</button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- Right panel -->
+      <div class="panel">
+        <div class="panel-head">
+          <div class="panel-title">{{ t.testing.suggestions }}</div>
+          <div class="panel-actions">
+            <div class="small" style="color: var(--muted); font-weight: 700;">{{ t.testing.structured_results }}</div>
+          </div>
+        </div>
+
+        <!-- CHANGED: output box + legend bar separated -->
+        <div class="panel-body">
+          <div class="output-box" id="output_text">
+            {% if output_html %}
+              {{ output_html|safe }}
+            {% else %}
+              <div class="small" style="color: var(--muted); font-weight: 700;">
+                {{ t.testing.output_placeholder }}
+              </div>
+            {% endif %}
+          </div>
+
+          <div class="legend-bar">
+            <div class="chips">
+              <span class="chip chip--danger">{{ t.testing.legend_not_inclusive }}</span>
+              <span class="chip chip--success">{{ t.testing.legend_inclusive }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Feedback card -->
+  <div class="home-card" style="margin-top: 16px; background:#fff; padding: 18px;">
+    <div class="home-h">{{ t.testing.feedback_title }}</div>
+
+    <form id="feedback-form">
+      <!-- hidden target payload (saved in JSON) -->
+      <input type="hidden" id="fb_target_index" name="target_index" value="">
+      <input type="hidden" id="fb_target_label" name="target_label" value="">
+      <input type="hidden" id="fb_target_score" name="target_score" value="">
+      <input type="hidden" id="fb_target_sentence" name="target_sentence" value="">
+      <input type="hidden" id="fb_system_rewrite_hidden" name="system_rewrite" value="">
+      <input type="hidden" id="fb_input_text_hidden" name="input_text" value="">
+
+      <fieldset id="fb_fieldset" disabled style="opacity:.60;">
+
+        <!-- Q1 -->
+        <div class="mb-2" style="font-weight: 900; font-size: 13px; color: #374151;">
+          {{ t.testing.feedback_q1 }}
+        </div>
+
+        <div class="d-flex gap-3 flex-wrap mb-3">
+          <label class="d-flex align-items-center gap-2" style="color: #374151; font-weight: 800;">
+            <input type="radio" name="rewrite_correct" value="yes" id="fb_yes"> {{ t.testing.yes }}
+          </label>
+          <label class="d-flex align-items-center gap-2" style="color: #374151; font-weight: 800;">
+            <input type="radio" name="rewrite_correct" value="no" id="fb_no"> {{ t.testing.no }}
+          </label>
+        </div>
+
+        <!-- Animated container -->
+        <div class="mb-3 fb-proposed" id="fb_proposed_wrap" aria-hidden="true">
+          <label class="form-label" style="font-weight: 900; font-size: 13px; color: #374151;">
+            {{ t.testing.proposed_label }}
+          </label>
+          <textarea class="form-control" name="proposed_rewrite" id="fb_proposed" rows="3"
+            placeholder="{{ t.testing.proposed_placeholder }}"></textarea>
+        </div>
+
+        <!-- Q2 -->
+        <div class="mb-2" style="font-weight: 900; font-size: 13px; color: #374151;">
+          {{ t.testing.feedback_q2 }}
+        </div>
+
+        <div class="d-flex gap-3 flex-wrap mb-3">
+          <label class="d-flex align-items-center gap-2" style="color: #374151; font-weight: 800;">
+            <input type="radio" name="classification_correct" value="yes" id="cls_yes"> {{ t.testing.yes }}
+          </label>
+          <label class="d-flex align-items-center gap-2" style="color: #374151; font-weight: 800;">
+            <input type="radio" name="classification_correct" value="no" id="cls_no"> {{ t.testing.no }}
+          </label>
+        </div>
+
+      </fieldset>
+
+      <button class="btn btn-ghost" type="submit" id="send-feedback-btn" disabled
+        style="opacity:.55; cursor:not-allowed;">
+        {{ t.testing.send_feedback }}
+      </button>
+    </form>
+  </div>
+
+  <!-- Popup modal -->
+  <div class="modal fade feedback-modal" id="feedbackModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-sm modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-body" id="feedbackModalBody">{{ t.testing.modal_saved }}</div>
+      </div>
+    </div>
+  </div>
+
+  <style>
+    /* Keep output box height aligned with textarea */
+    .output-box{
+      min-height: 250px;              /* same baseline as textarea */
+      max-height: 420px;
+      overflow: auto;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      padding: 12px;
+      background: #fff;
+    }
+
+    /* Separate legend from output, like the left bottom row */
+    .legend-bar{
+      margin-top: 12px;
+      padding-top: 10px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      min-height: 42px;               /* visually similar to left bottom row */
+    }
+
+    /* Smooth reveal for proposed rewrite */
+    .fb-proposed{
+      max-height: 0;
+      opacity: 0;
+      overflow: hidden;
+      transform: translateY(-6px);
+      transition: max-height 220ms ease, opacity 220ms ease, transform 220ms ease;
+      margin-top: 0;
+    }
+    .fb-proposed.is-open{
+      max-height: 260px;
+      opacity: 1;
+      transform: translateY(0);
+      margin-top: 6px;
+    }
+  </style>
+
+  <script>
+    var currentLang = "{{ lang }}";
+    var messages = JSON.parse('{{ t.messages | tojson }}');
+    var testingText = JSON.parse('{{ t.testing | tojson }}');
+    window.fairisleTarget = null;
+
+    function showFeedbackPopup(message, ok){
+      var body = document.getElementById("feedbackModalBody");
+      body.textContent = message;
+      body.style.color = ok ? "#166534" : "#b91c1c";
+
+      var modalEl = document.getElementById("feedbackModal");
+      var modal = bootstrap.Modal.getOrCreateInstance(modalEl, {backdrop: true, keyboard: true});
+      modal.show();
+      setTimeout(function(){ modal.hide(); }, 1400);
+    }
+
+    function openProposed(open){
+      var wrap = document.getElementById("fb_proposed_wrap");
+      wrap.classList.toggle("is-open", !!open);
+      wrap.setAttribute("aria-hidden", open ? "false" : "true");
+      if(!open){
+        document.getElementById("fb_proposed").value = "";
+      }
+    }
+
+    function resetFeedbackForm(){
+      document.getElementById("fb_yes").checked = false;
+      document.getElementById("fb_no").checked = false;
+      document.getElementById("cls_yes").checked = false;
+      document.getElementById("cls_no").checked = false;
+      openProposed(false);
+    }
+
+    function setFeedbackEnabled(enabled, resetOnDisable=true){
+      var btn = document.getElementById("send-feedback-btn");
+      var fs = document.getElementById("fb_fieldset");
+
+      btn.disabled = !enabled;
+      btn.style.opacity = enabled ? "1" : ".55";
+      btn.style.cursor = enabled ? "pointer" : "not-allowed";
+
+      fs.disabled = !enabled;
+      fs.style.opacity = enabled ? "1" : ".60";
+
+      if(!enabled && resetOnDisable){
+        resetFeedbackForm();
+      }
+    }
+
+    function setTargetHiddenFields(target, inputText){
+      window.fairisleTarget = target || null;
+      document.getElementById("fb_input_text_hidden").value = inputText || "";
+
+      if(!target || !target.system_rewrite){
+        document.getElementById("fb_target_index").value = "";
+        document.getElementById("fb_target_label").value = "";
+        document.getElementById("fb_target_score").value = "";
+        document.getElementById("fb_target_sentence").value = "";
+        document.getElementById("fb_system_rewrite_hidden").value = "";
+        setFeedbackEnabled(false, true);
+        return;
+      }
+
+      document.getElementById("fb_target_index").value = (target.index ?? "");
+      document.getElementById("fb_target_label").value = (target.label ?? "");
+      document.getElementById("fb_target_score").value = (target.score ?? "");
+      document.getElementById("fb_target_sentence").value = (target.sentence ?? "");
+      document.getElementById("fb_system_rewrite_hidden").value = (target.system_rewrite ?? "");
+      setFeedbackEnabled(true, false);
+    }
+
+    function toggleProposed(){
+      var noChecked = document.getElementById("fb_no").checked;
+      openProposed(noChecked);
+    }
+
+    document.getElementById("fb_yes").addEventListener("change", toggleProposed);
+    document.getElementById("fb_no").addEventListener("change", toggleProposed);
+
+    function submit_text() {
+      var input_text = document.getElementById("input_text").value;
+
+      JsLoadingOverlay.show({
+        'overlayBackgroundColor': '#111827',
+        'overlayOpacity': 0.65,
+        'spinnerIcon': 'ball-grid-pulse',
+        'spinnerColor': '#ffffff',
+        'spinnerSize': '2x',
+        'overlayIDName': 'overlay',
+        'spinnerIDName': 'spinner',
+        'spinnerZIndex':99999,
+        'overlayZIndex':99998
+      });
+
+      $.ajax({
+        type: "POST",
+        url: "/submit_testing",
+        data: {input_text: input_text, language: currentLang},
+        dataType: "json",
+        success: function(data) {
+          document.getElementById("output_text").innerHTML = data["output_HTML"];
+          setTargetHiddenFields(data["target"] || null, input_text);
+          resetFeedbackForm();
+        },
+        error: function(xhr) {
+          var message = messages.request_failed;
+          if (xhr.responseJSON && xhr.responseJSON.message) {
+            message = xhr.responseJSON.message;
+          }
+          document.getElementById("output_text").innerHTML =
+            '<div class="small" style="color: var(--muted); font-weight: 700;">' + message + '</div>';
+          setTargetHiddenFields(null, input_text);
+          resetFeedbackForm();
+        },
+        complete: function() {
+          JsLoadingOverlay.hide();
+        }
+      });
+    }
+
+    document.getElementById("testing-form").addEventListener("submit", function(event) {
+      event.preventDefault();
+      submit_text();
+    });
+
+    document.getElementById("clear-btn").addEventListener("click", function() {
+      document.getElementById("input_text").value = "";
+      document.getElementById("output_text").innerHTML =
+        '<div class="small" style="color: var(--muted); font-weight: 700;">' + testingText.output_placeholder + '</div>';
+      setTargetHiddenFields(null, "");
+      resetFeedbackForm();
+      document.getElementById("input_text").focus();
+    });
+
+    // initial state
+    setFeedbackEnabled(false, true);
+
+    document.getElementById("feedback-form").addEventListener("submit", function(e){
+      e.preventDefault();
+
+      if(document.getElementById("send-feedback-btn").disabled){
+        return;
+      }
+
+      // READ values BEFORE disabling
+      var rewriteChoice = document.querySelector('input[name="rewrite_correct"]:checked');
+      var classChoice = document.querySelector('input[name="classification_correct"]:checked');
+      var proposed = document.getElementById("fb_proposed").value.trim();
+
+      if(!rewriteChoice){
+        showFeedbackPopup(messages.rewrite_choice_missing, false);
+        return;
+      }
+
+      if(!classChoice){
+        showFeedbackPopup(messages.classification_choice_missing, false);
+        return;
+      }
+
+      if(rewriteChoice.value === "no" && !proposed){
+        showFeedbackPopup(messages.proposed_required, false);
+        return;
+      }
+
+      // Lock UI WITHOUT resetting user inputs
+      setFeedbackEnabled(false, false);
+
+      $.ajax({
+        type: "POST",
+        url: "/submit_feedback",
+        data: {
+          rewrite_correct: rewriteChoice.value,
+          classification_correct: classChoice.value,
+          proposed_rewrite: proposed,
+          input_text: document.getElementById("input_text").value.trim(),
+          language: currentLang,
+
+          target_index: document.getElementById("fb_target_index").value,
+          target_label: document.getElementById("fb_target_label").value,
+          target_score: document.getElementById("fb_target_score").value,
+          target_sentence: document.getElementById("fb_target_sentence").value,
+          system_rewrite: document.getElementById("fb_system_rewrite_hidden").value
+        },
+        dataType: "json",
+        success: function(resp){
+          if(resp && resp.ok){
+            showFeedbackPopup(messages.feedback_saved, true);
+            resetFeedbackForm();
+          } else {
+            showFeedbackPopup(messages.feedback_failed, false);
+          }
+        },
+        error: function(xhr){
+          var msg = messages.feedback_failed;
+          if(xhr.responseJSON && xhr.responseJSON.message) msg = xhr.responseJSON.message;
+          showFeedbackPopup(msg, false);
+        },
+        complete: function(){
+          var stillValid = window.fairisleTarget && window.fairisleTarget.system_rewrite;
+          setFeedbackEnabled(!!stillValid, false);
+        }
+      });
+    });
+  </script>
+{% endblock %}
+
+{% include "footer.html" %}

@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>The Verifiers Admin - RISPONDERE AI FORM</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+      body, h1, h2, h3, h4, h5, h6 {
+      font-family: "Raleway", sans-serif;
+    }
+    body,html {
+       height: 100%;
+      line-height: 1.8;
+      width: 100%;
+      min-height: 100vh;
+      position: relative;
+      background: #7abf7a;
+      background: -webkit-linear-gradient(135deg, #7abf7a 0%, #000000 100%);
+      background: -o-linear-gradient(135deg, #7abf7a 0%, #000000 100%);
+      background: -moz-linear-gradient(135deg, #7abf7a 0%, #000000 100%);
+      background: linear-gradient(135deg, #7abf7a 0%, #000000 100%);
+      background-attachment: fixed; /* Aggiunta: Fissa lo sfondo */
+    }
+    .w3-bar .w3-button {
+      padding: 16px;
+    }
+
+    .form-container {
+      max-width: 800px;
+      padding: 20px;
+      background-color: #fff;
+      border-radius: 5px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      margin-top: 100px ;
+    }
+
+    .form-title {
+      font-size: 24px;
+      font-weight: bold;
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    .form-item {
+      margin-bottom: 20px;
+    }
+
+    .form-item label {
+      font-weight: bold;
+      color: #555;
+    }
+
+    .form-item textarea {
+      height: 100px;
+      resize: vertical;
+    }
+
+    .form-item button {
+      background-color: #57b846;
+      color: #fff;
+      border: none;
+      padding: 8px 20px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      margin-top: 10px
+    }
+
+    .form-item button:hover {
+      background-color: #4ca43e;
+    }
+
+     .success-message {
+      position: fixed;
+      top: 45%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      padding: 10px;
+      background-color: #f1f1f1;
+      color: #333;
+      font-size: 24px;
+      font-weight: bold;
+      border-radius: 4px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      margin-top: 100px;
+    }
+
+      .w3-bar-item.active {
+      background-color: #b0b0b0;
+      color: #000;
+    }
+  </style>
+</head>
+<body>
+<!-- Navbar (sit on top) -->
+<div class="w3-top">
+  <div class="w3-bar w3-white w3-card" id="myNavbar">
+    <a href="/homeAdmin" class="w3-bar-item w3-button w3-wide">The Verifiers Admin</a>
+    <!-- Right-sided navbar links -->
+    <div class="w3-right w3-hide-small">
+      <a href="/homeAdmin" class="w3-bar-item w3-button"><i class="fa fa-home"></i>HOME</a>
+      <a href="/gestioneForm" id="adminform-link" class="w3-bar-item w3-button"><i class="fa fa-tick"></i> GESTIONE FORM</a>
+      <a href="/gestioneDomini" class="w3-bar-item w3-button"><i class="fa fa-tick"></i> GESTIONE DOMINI</a>
+      <a href="/gestioneNotizie" class="w3-bar-item w3-button"><i class="fa fa-th"></i> GESTIONE NOTIZIE</a>
+      <a href="/gestioneSegnalazioni" class="w3-bar-item w3-button"><i class="fa fa-envelope"></i> GESTIONE SEGNALAZIONI</a>
+
+      {% if 'logged_in' in session %}
+        <a href="/logout" class="w3-bar-item w3-button"><i class="fa fa-user"></i> LOGOUT</a>
+      {% endif %}
+
+      {% if 'logged_in' not in session %}
+        <a href="/log_in" class="w3-bar-item w3-button"><i class="fa fa-user"></i> LOGIN</a>
+        <a href="/registration" class="w3-bar-item w3-button"><i class="fa fa-user"></i> REGISTRATI</a>
+      {% endif %}
+    </div>
+    <!-- Hide right-floated links on small screens and replace them with a menu icon -->
+    <a href="javascript:void(0)" class="w3-bar-item w3-button w3-right w3-hide-large w3-hide-medium" onclick="w3_open()">
+      <i class="fa fa-bars"></i>
+    </a>
+  </div>
+</div>
+{% if form_senza_risposta %}
+  <div class="container">
+
+      <h1 class="form-title">Form</h1>
+      <form method="post" action="/rispondiAiForm">
+        {% for form in form_senza_risposta %}
+            <div class="form-container">
+          <div class="form-item">
+            <label>{{ form[3] }}</label>
+            <p>{{ form[4] }}</p>
+            <p><small>Form inviato da: {{ form[1] }}</small></p>
+            <p><small>Email: {{ form[2] }}</small></p>
+            <input type="hidden" name="form_id" value="{{ form[0] }}">
+            <textarea class="form-control" name="risposta" placeholder="Inserisci la risposta"></textarea>
+            <div class="form-item">
+              <button type="submit" class="btn btn-primary">Invia risposta</button>
+            </div>
+          </div>
+          </div>
+        {% endfor %}
+      </form>
+    </div>
+
+{% else %}
+    <div id="successMessage" class="success-message">NON CI SONO FORM A CUI RISPONDERE</div>
+{% endif %}
+<script src="../../static/js/main.js"></script>
+<script src="../../static/vendor/jquery/jquery-3.2.1.min.js"></script>
+<script src="../../static/vendor/bootstrap/js/popper.js"></script>
+<script src="../../static/vendor/bootstrap/js/bootstrap.min.js"></script>
+<script src="../../static/vendor/select2/select2.min.js"></script>
+<script src="../../static/vendor/tilt/tilt.jquery.min.js"></script>
+<script>
+  function toggleMenu() {
+    var x = document.getElementById("myNavbar");
+    if (x.className.indexOf("w3-show") === -1) {
+      x.className += " w3-show";
+    } else {
+      x.className = x.className.replace(" w3-show", "");
+    }
+  }
+</script>
+<script>
+  $('.js-tilt').tilt({
+    scale: 1.1
+  })
+</script>
+<script>
+  // Alcun codice precedente...
+
+  // Trova il bottone corrispondente alla pagina "HOME" e aggiungi la classe "active"
+  document.getElementById("adminform-link").classList.add("active");
+</script>
+
+</body>
+</html>

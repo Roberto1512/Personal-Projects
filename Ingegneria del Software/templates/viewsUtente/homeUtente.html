@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>The Verifiers - HOME</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", sans-serif}
+
+
+body, html {
+  height: 100%;
+  line-height: 1.8;
+}
+
+/* Full height image header */
+.bgimg-1 {
+
+  background-position: center;
+  background-size: cover;
+  min-height: 100%;
+}
+
+.w3-bar .w3-button {
+  padding: 16px;
+}
+
+.w3-spin {
+        animation-duration: 15s; /* Imposta la durata a 3 secondi*/
+}
+
+
+.w3-bar-item.active {
+  background-color: #b0b0b0;
+  color: #000;
+}
+
+</style>
+</head>
+<body>
+
+
+
+<!-- Mi consente di togliere tutti gli spazi bianchi e di riavvicinare gli elementi -->
+<!-- <div id="primary"><div class="flex flex-col-reverse xl:flex-row md:items-center w-full"></div> -->
+
+
+<!-- Navbar (sit on top) -->
+<div class="w3-top">
+  <div class="w3-bar w3-white w3-card" id="myNavbar">
+    <a href="/" class="w3-bar-item w3-button w3-wide">The Verifiers</a>
+    <!-- Right-sided navbar links -->
+    <div class="w3-right w3-hide-small">
+      <a href="/" id="home-link" class="w3-bar-item w3-button"><i class="fa fa-home"></i>HOME</a>
+      <a href="/verifica" class="w3-bar-item w3-button"><i class="fa fa-search"></i>VERIFICA</a>
+
+      <a href="/segnalazioneNotizie" class="w3-bar-item w3-button"><i class="fa"></i> SEGNALAZIONE NOTIZIE</a>
+      <a href="/dominiVerificati" class="w3-bar-item w3-button"><i class="fa fa-tick"></i>DOMINI VERIFICATI</a>
+      <a href="/notizieVerificate" class="w3-bar-item w3-button"><i class="fa fa-th"></i> NOTIZIE VERIFICATE</a>
+      <a href="/contatti" class="w3-bar-item w3-button"><i class="fa fa-envelope"></i> CONTATTI</a>
+      <a href="/creazioneForm" class="w3-bar-item w3-button"><i class="fa fa-envelope"></i> FORM</a>
+      <a href="/faq" class="w3-bar-item w3-button"><i class="fa fa-info"></i> FAQ</a>
+
+        {% if 'logged_in' in session %}
+      <a href="/gestioneProfilo" class="w3-bar-item w3-button"><i class="fa fa-user"></i> GESTIONE PROFILO</a>
+      <a href="/subscription" class="w3-bar-item w3-button"><i class="fa fa-user"></i> PIANO</a>
+      <a href="/logout" class="w3-bar-item w3-button"><i class="fa fa-user"></i> LOGOUT</a>
+        {% endif %}
+
+        {% if 'logged_in' not in session %}
+      <a href="/log_in" class="w3-bar-item w3-button"><i class="fa fa-user"></i> LOGIN</a>
+      <a href="/registration" class="w3-bar-item w3-button"><i class="fa fa-user"></i> REGISTRATI</a>
+        {% endif %}
+
+    </div>
+    <!-- Hide right-floated links on small screens and replace them with a menu icon -->
+
+    <a href="javascript:void(0)" class="w3-bar-item w3-button w3-right w3-hide-large w3-hide-medium" onclick="w3_open()">
+      <i class="fa fa-bars"></i>
+    </a>
+  </div>
+</div>
+
+  <head>
+    <style>
+      img {
+        display: block;
+        margin: 0 auto;
+        margin-top: 210px;
+        width: 500px; /* specifica la larghezza desiderata */
+        height: 500px; /* specifica l'altezza desiderata */
+        border-radius: 50%; /* applica l'arrotondamento del bordo */
+        object-fit: cover; /* scala l'immagine per adattarla al contenitore senza deformarla */
+      }
+    </style>
+  </head>
+  <body>
+    <div class=" w3-spin"> <img src=" {{ url_for('static', filename='images/logo-color.png') }}" alt="Immagine"></div>
+  </body>
+
+
+
+<!-- Header with full-height image -->
+<header class="bgimg-1 w3-display-container w3-grayscale-min" id="home">
+  <div class="w3-display-bottomleft w3-text-grey w3-large" style="padding:24px 48px">
+    <i class="fa fa-facebook-official w3-hover-opacity"></i>
+    <i class="fa fa-instagram w3-hover-opacity"></i>
+    <i class="fa fa-snapchat w3-hover-opacity"></i>
+    <i class="fa fa-pinterest-p w3-hover-opacity"></i>
+    <i class="fa fa-twitter w3-hover-opacity"></i>
+    <i class="fa fa-linkedin w3-hover-opacity"></i>
+  </div>
+</header>
+
+<!-- About Section -->
+
+
+
+
+<!-- Footer -->
+<footer class="w3-center w3-black w3-padding-64">
+  <a href="\" class="w3-button w3-light-grey"><i class="fa fa-arrow-up w3-margin-right"></i>To the top</a>
+  <div class="w3-xlarge w3-section">
+    <i class="fa fa-facebook-official w3-hover-opacity"></i>
+    <i class="fa fa-instagram w3-hover-opacity"></i>
+    <i class="fa fa-snapchat w3-hover-opacity"></i>
+    <i class="fa fa-pinterest-p w3-hover-opacity"></i>
+    <i class="fa fa-twitter w3-hover-opacity"></i>
+    <i class="fa fa-linkedin w3-hover-opacity"></i>
+  </div>
+  <p>Powered by <a href="Inserire un link di riferimento" title="THE VERIFIERS" target="_blank" class="w3-hover-text-green">THE VERIFIERS</a></p>
+</footer>
+
+
+
+<script>
+// Modal Image Gallery
+function onClick(element) {
+  document.getElementById("img01").src = element.src;
+  document.getElementById("modal01").style.display = "block";
+  var captionText = document.getElementById("caption");
+  captionText.innerHTML = element.alt;
+}
+
+
+// Toggle between showing and hiding the sidebar when clicking the menu icon
+var mySidebar = document.getElementById("mySidebar");
+
+function w3_open() {
+  if (mySidebar.style.display === 'block') {
+    mySidebar.style.display = 'none';
+  } else {
+    mySidebar.style.display = 'block';
+  }
+}
+
+// Close the sidebar with the close button
+function w3_close() {
+    mySidebar.style.display = "none";
+}
+
+
+</script>
+
+
+<script>
+  // Alcun codice precedente...
+
+  // Trova il bottone corrispondente alla pagina "HOME" e aggiungi la classe "active"
+  document.getElementById("home-link").classList.add("active");
+</script>
+
+
+</body>
+</html>

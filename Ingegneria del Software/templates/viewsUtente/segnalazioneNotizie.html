@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>The Verifiers - SEGNALAZIONE NOTIZIE</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", sans-serif}
+
+body {
+  height: 100%;
+  line-height: 1.8;
+  overflow-x:auto;
+  background: #7abf7a;
+  background: linear-gradient(135deg, #7abf7a 0%, #000000 100%);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background-size: cover;
+    background-attachment: fixed;
+
+}
+
+.container {
+  width: 800px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 20px;
+  background: #fff;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.w3-bar .w3-button {
+      padding: 16px;
+    }
+
+
+h1 {
+  text-align: center;
+  color: #333;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+  color: #333;
+  font-weight: bold;
+}
+
+input[type="text"] {
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+button[type="submit"] {
+  padding: 10px 20px;
+  background: linear-gradient(135deg, #7abf7a 0%, #000000 100%);
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button[type="submit"]:hover {
+  background: linear-gradient(135deg, #5e995e 0%, #000000 100%);
+}
+
+
+.success-message {
+  color: green;
+  font-weight: bold;
+  margin-top: 10px;
+  text-align: center;
+}
+
+.popup {
+  display: none;
+  position: fixed;
+  top: 25%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 20px;
+  background: rgba(0, 0, 0, 0.8); /* Opacità del 80% per il colore di sfondo nero */
+  color: #fff; /* Colore del testo bianco */
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  z-index: 9999;
+}
+
+.popup.show {
+  display: block;
+}
+.w3-bar-item.active {
+  background-color: #b0b0b0;
+  color: #000;
+}
+</style>
+</head>
+<body>
+<!-- Navbar (sit on top) -->
+<div class="w3-top">
+  <div class="w3-bar w3-white w3-card" id="myNavbar">
+    <a href="#home" class="w3-bar-item w3-button w3-wide">The Verifiers</a>
+    <!-- Right-sided navbar links -->
+    <div class="w3-right w3-hide-small">
+      <a href="/" class="w3-bar-item w3-button"><i class="fa fa-home"></i>HOME</a>
+      <a href="/verifica" class="w3-bar-item w3-button"><i class="fa fa-search"></i>VERIFICA</a>
+      <a href="/segnalazioneNotizie" id="segnalazione-link" class="w3-bar-item w3-button"><i class="fa"></i> SEGNALAZIONE NOTIZIE</a>
+      <a href="/dominiVerificati" class="w3-bar-item w3-button"><i class="fa fa-tick"></i>DOMINI VERIFICATI</a>
+      <a href="/notizieVerificate" class="w3-bar-item w3-button"><i class="fa fa-th"></i> NOTIZIE VERIFICATE</a>
+      <a href="/contatti" class="w3-bar-item w3-button"><i class="fa fa-envelope"></i> CONTATTI</a>
+      <a href="/creazioneForm" class="w3-bar-item w3-button"><i class="fa fa-envelope"></i> FORM</a>
+      <a href="/faq" class="w3-bar-item w3-button"><i class="fa fa-info"></i> FAQ</a>
+      {% if 'logged_in' in session %}
+        <a href="/gestioneProfilo" class="w3-bar-item w3-button"><i class="fa fa-user"></i> GESTIONE PROFILO</a>
+        <a href="/subscription" class="w3-bar-item w3-button"><i class="fa fa-user"></i> PIANO</a>
+        <a href="/logout" class="w3-bar-item w3-button"><i class="fa fa-user"></i> LOGOUT</a>
+      {% endif %}
+      {% if 'logged_in' not in session %}
+        <a href="/log_in" class="w3-bar-item w3-button"><i class="fa fa-user"></i> LOGIN</a>
+        <a href="/registration" class="w3-bar-item w3-button"><i class="fa fa-user"></i> REGISTRATI</a>
+      {% endif %}
+    </div>
+    <!-- Hide right-floated links on small screens and replace them with a menu icon -->
+    <a href="javascript:void(0)" class="w3-bar-item w3-button w3-right w3-hide-large w3-hide-medium" onclick="w3_open()">
+      <i class="fa fa-bars"></i>
+    </a>
+  </div>
+</div>
+
+<div class="container">
+  <h1><b>Segnalazione Notizie</b></h1>
+  <form id="reportForm" method="POST">
+    <div class="form-group">
+      <label for="newsUrl">URL della notizia:</label>
+      <input type="text" id="newsUrl" name="newsUrl" placeholder="Inserisci l'URL della notizia" required>
+    </div>
+    <button type="submit">SEGNALA</button>
+  </form>
+  <div id="successMessage" class="success-message"></div>
+</div>
+
+<div id="successPopup" class="popup">
+  <p>Segnalazione avvenuta con successo. Verrà comunicata agli organi di competenza per ulteriori verifiche. Grazie per il tuo aiuto alla lotta alla disinformazione!</p>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+$(document).ready(function() {
+  $("#reportForm").submit(function(event) {
+    event.preventDefault();
+
+    var newsUrl = $("#newsUrl").val();
+
+    $.ajax({
+      type: "POST",
+      url: "/segnalazioneNotizie",
+      data: { newsUrl: newsUrl },
+      success: function() {
+        $("#successMessage").text("Segnalazione avvenuta con successo.");
+        $("#successPopup").addClass("show");
+
+        setTimeout(function() {
+          $("#successPopup").removeClass("show");
+          window.location.reload();
+        }, 3000); // Timeout di 3 secondi
+      },
+      error: function() {
+        alert("Si è verificato un errore durante la segnalazione.");
+      }
+    });
+  });
+});
+</script>
+<script>
+  // Alcun codice precedente...
+
+  // Trova il bottone corrispondente alla pagina "HOME" e aggiungi la classe "active"
+  document.getElementById("segnalazione-link").classList.add("active");
+</script>
+</body>
+</html>

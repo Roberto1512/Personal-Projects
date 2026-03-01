@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="{{ lang }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ title or "FAIR-ISLE" }}</title>
+
+  <!-- Bootstrap CSS -->
+  <link href="{{ url_for('static', filename='vendor/bootstrap/bootstrap.min.css') }}" rel="stylesheet">
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+  <nav class="topbar">
+    <div class="container topbar-inner">
+      <a class="brand" href="/">
+        <img src="/static/images/logo_icon.png" alt="FAIR-ISLE" class="brand-mark">
+        <span class="brand-name">FAIR-ISLE</span>
+      </a>
+
+      <div class="topbar-actions">
+        <a class="topbar-link {% if request.path == '/testing' %}is-active{% endif %}" href="/testing">
+          {{ t.header.writing_assistant }}
+        </a>
+        <form class="lang-toggle" action="/set_language" method="post">
+          <input type="hidden" name="next" value="{{ request.path }}">
+          <span class="lang-toggle-label">{{ t.header.language_label }}</span>
+          <div class="lang-toggle-group" role="group" aria-label="{{ t.header.language_label }}">
+            <button type="submit" name="lang" value="en"
+              class="lang-toggle-btn {% if lang == 'en' %}is-active{% endif %}">EN</button>
+            <button type="submit" name="lang" value="it"
+              class="lang-toggle-btn {% if lang == 'it' %}is-active{% endif %}">IT</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </nav>
+
+  <main class="container app-container">

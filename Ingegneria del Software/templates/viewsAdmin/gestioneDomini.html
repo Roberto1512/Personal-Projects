@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>The Verifiers  Admin - GESTIONE DOMINI</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="../static/css/switch_button.css">
+
+<style>
+body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", sans-serif}
+
+body, html {
+  height: 100%;
+  line-height: 1.8;
+  overflow-x: auto;
+}
+
+.w3-bar .w3-button {
+  padding: 16px;
+}
+
+/* Add your custom styles below */
+
+body {
+  background-color: #f1f1f1;
+}
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  overflow: auto;
+}
+
+table, th, td {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+th {
+  background-color: #f5f5f5;
+}
+
+.checkbox {
+  margin-top: 10px;
+}
+
+.button-container {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.button-container button {
+  padding: 10px 20px;
+  background-color: #4CAF50;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.button-container button:first-child {
+  background-color: #f44336;
+}
+
+
+
+.add-remove-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.add-remove-container > div {
+  margin: 10px;
+}
+
+
+.alert-container {
+  margin-top: 10px;
+}
+
+.alert {
+  padding: 10px;
+  border-radius: 4px;
+  font-weight: bold;
+}
+
+.alert.success {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.alert.warning {
+  background-color: #f44336;
+  color: white;
+}
+
+.w3-bar-item.active {
+  background-color: #b0b0b0;
+  color: #000;
+}
+
+</style>
+</head>
+<body>
+
+<!-- Navbar (sit on top) -->
+<div class="w3-top">
+  <div class="w3-bar w3-white w3-card" id="myNavbar">
+    <a href="/homeAdmin" class="w3-bar-item w3-button w3-wide">The Verifiers Admin</a>
+    <!-- Right-sided navbar links -->
+    <div class="w3-right w3-hide-small">
+      <a href="/homeAdmin" class="w3-bar-item w3-button"><i class="fa fa-home"></i>HOME</a>
+      <a href="/gestioneForm" class="w3-bar-item w3-button"><i class="fa fa-tick"></i> GESTIONE FORM</a>
+      <a href="/gestioneDomini" id="gestioneDomini-link" class="w3-bar-item w3-button"><i class="fa fa-tick"></i> GESTIONE DOMINI</a>
+      <a href="/gestioneNotizie" class="w3-bar-item w3-button"><i class="fa fa-th"></i> GESTIONE NOTIZIE</a>
+      <a href="/gestioneSegnalazioni" class="w3-bar-item w3-button"><i class="fa fa-envelope"></i> GESTIONE SEGNALAZIONI</a>
+
+      {% if 'logged_in' in session %}
+        <a href="/logout" class="w3-bar-item w3-button"><i class="fa fa-user"></i> LOGOUT</a>
+      {% endif %}
+
+      {% if 'logged_in' not in session %}
+        <a href="/log_in" class="w3-bar-item w3-button"><i class="fa fa-user"></i> LOGIN</a>
+        <a href="/registration" class="w3-bar-item w3-button"><i class="fa fa-user"></i> REGISTRATI</a>
+      {% endif %}
+    </div>
+    <!-- Hide right-floated links on small screens and replace them with a menu icon -->
+    <a href="javascript:void(0)" class="w3-bar-item w3-button w3-right w3-hide-large w3-hide-medium" onclick="w3_open()">
+      <i class="fa fa-bars"></i>
+    </a>
+  </div>
+</div>
+
+<!-- Page content -->
+<div class="w3-content" style="max-width: 2000px; margin-top: 100px">
+  <div class="w3-container">
+    <div class="container">
+        <h1><b>Gestione Domini</b></h1>
+
+      <form id="segnalazioni-form" method="post" action="/elimina_domini_selezionati">
+        <div style="overflow: auto; max-height: 400px;">
+          <table>
+            <tr>
+              <th>Seleziona</th>
+              <th>URL</th>
+            </tr>
+             {% for domain in domains %}
+            <tr>
+              <td><input type="checkbox" name="domain" class="domain-checkbox" value="{{ domain[0] }}"></td>
+              <td><a href="{{ domain[0] }}" target="_blank">{{ domain[0] }}</a></td>
+
+            </tr>
+            {% endfor %}
+          </table>
+        </div>
+
+        <div class="button-container">
+            <button type="submit" onclick="return confirm('Sei sicuro di voler eliminare i domini selezionati?');">Elimina selezionati</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div class="add-remove-container">
+  <div>
+    <form action="/aggiungi_dominio" method="post">
+      <input type="text" name="domain" placeholder="Inserisci il dominio da aggiungere" required>
+        <button type="submit" onclick="return confirm('Sei sicuro di voler aggiungere il dominio?');">Aggiungi</button>
+    </form>
+  </div>
+
+  <div>
+    <form action="/rimuovi_dominio" method="post">
+      <input type="text" name="domain" placeholder="Inserisci il dominio da rimuovere" required>
+        <button type="submit" onclick="return confirm('Sei sicuro di voler eliminare il dominio?');">Rimuovi</button>
+
+    </form>
+  </div>
+</div>
+
+
+
+<script src="../static/js/switch_button.js"></script>
+<script src="../static/js/main.js"></script>
+<script src="../static/vendor/jquery/jquery-3.2.1.min.js"></script>
+<script src="../static/vendor/bootstrap/js/popper.js"></script>
+<script src="../static/vendor/bootstrap/js/bootstrap.min.js"></script>
+<script src="../static/vendor/select2/select2.min.js"></script>
+<script src="../static/vendor/tilt/tilt.jquery.min.js"></script>
+
+<script>
+  // Aggiungi un event listener al checkbox di selezione totale
+  document.getElementById('select-all-checkbox').addEventListener('change', function() {
+    // Ottieni tutti i checkbox dei domini
+    var checkboxes = document.getElementsByClassName('domain-checkbox');
+    // Itera su tutti i checkbox e imposta il loro stato in base al checkbox di selezione totale
+    for (var i = 0; i < checkboxes.length; i++) {
+      checkboxes[i].checked = this.checked;
+    }
+  });
+</script>
+
+<script>
+  // Alcun codice precedente...
+
+  // Trova il bottone corrispondente alla pagina "HOME" e aggiungi la classe "active"
+  document.getElementById("gestioneDomini-link").classList.add("active");
+</script>
+
+</body>
+</html>

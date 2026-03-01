@@ -1,0 +1,40 @@
+# ---- Python / venv ----
+.venv/
+venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.json
+
+# ---- OS / editor ----
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+# Word temporary files
+~$*.docx
+~WRL*.tmp
+*.tmp
+
+# ---- Logs ----
+*.log
+service/server.log
+
+# ---- Runtime data / feedback ----
+webapp/**/feedback/feedback.json
+webapp/**/feedback/*.bak
+
+# ---- Models (choose one approach) ----
+models/
+modelli/
+*.safetensors
+*.bin
+*.pt
+
+# ---- Large datasets (optional) ----
+# If too big, ignore raw and keep only small samples
+# data/raw/
+# data/**/split/
+/data
+/models

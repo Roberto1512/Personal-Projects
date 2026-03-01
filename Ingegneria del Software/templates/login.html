@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>The Verifiers - LOGIN</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="../static/css/switch_button.css">
+
+
+<style>
+body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", sans-serif}
+
+
+body, html {
+  height: 100%;
+  line-height: 1.8;
+}
+
+.w3-bar .w3-button {
+  padding: 16px;
+}
+.w3-bar-item.active {
+  background-color: #b0b0b0;
+  color: #000;
+}
+</style>
+</head>
+<body>
+
+<!-- Navbar (sit on top) -->
+<div class="w3-top">
+  <div class="w3-bar w3-white w3-card" id="myNavbar">
+    <a href="#home" class="w3-bar-item w3-button w3-wide">The Verifiers</a>
+    <!-- Right-sided navbar links -->
+    <div class="w3-right w3-hide-small">
+      <a href="/" class="w3-bar-item w3-button"><i class="fa fa-home"></i>HOME</a>
+      <a href="/verifica" class="w3-bar-item w3-button"><i class="fa fa-search"></i>VERIFICA</a>
+
+      <a href="/segnalazioneNotizie" class="w3-bar-item w3-button"><i class="fa"></i> SEGNALAZIONE NOTIZIE</a>
+      <a href="/dominiVerificati" class="w3-bar-item w3-button"><i class="fa fa-tick"></i>DOMINI VERIFICATI</a>
+      <a href="/notizieVerificate" class="w3-bar-item w3-button"><i class="fa fa-th"></i> NOTIZIE VERIFICATE</a>
+      <a href="/contatti" class="w3-bar-item w3-button"><i class="fa fa-envelope"></i> CONTATTI</a>
+      <a href="/creazioneForm" class="w3-bar-item w3-button"><i class="fa fa-envelope"></i> FORM</a>
+      <a href="/faq" class="w3-bar-item w3-button"><i class="fa fa-info"></i> FAQ</a>
+
+        {% if 'logged_in' in session %}
+      <a href="/gestioneProfilo" class="w3-bar-item w3-button"><i class="fa fa-user"></i> GESTIONE PROFILO</a>
+      <a href="/logout" class="w3-bar-item w3-button"><i class="fa fa-user"></i> LOGOUT</a>
+         {% endif %}
+          {% if 'logged_in' not in session %}
+
+      <a href="/log_in" id="login-link" class="w3-bar-item w3-button"><i class="fa fa-user"></i> LOGIN</a>
+      <a href="/registration" class="w3-bar-item w3-button"><i class="fa fa-user"></i> REGISTRATI</a>
+         {% endif %}
+
+    </div>
+    <!-- Hide right-floated links on small screens and replace them with a menu icon -->
+
+    <a href="javascript:void(0)" class="w3-bar-item w3-button w3-right w3-hide-large w3-hide-medium" onclick="w3_open()">
+      <i class="fa fa-bars"></i>
+    </a>
+  </div>
+</div>
+<!-- Page content -->
+<div class="w3-content" style="max-width: 2000px; margin-top: 100px">
+  <div class="w3-container">
+
+<div class="wrapper">
+  <div class="title-text">
+    <div class="title login">Member Login</div>
+    <div class="title signup">Admin Login</div>
+  </div>
+    <div class="limiter">
+		<div class="container-login100">
+			<div class="wrap-login100">
+				<div class="login100-pic js-tilt" data-tilt>
+					<img src="../static/images/img-01.jpg" alt="IMG">
+                </div>
+            </div>
+        </div>
+    </div>
+  <div class="form-container">
+    <div class="slide-controls">
+      <input type="radio" name="slide" id="login" checked>
+      <input type="radio" name="slide" id="signup">
+      <label for="login" class="slide login">Member Login</label>
+      <label for="signup" class="slide signup">Admin Login</label>
+      <div class="slider-tab"></div>
+    </div>
+    <div class="form-inner">
+      <form action="/log_in" class="login" method="post">
+        <div class="wrap-input100 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
+						<input class="input100" type="text" name="email" required placeholder="Email">
+						<span class="focus-input100"></span>
+						<span class="symbol-input100">
+							<i class="fa fa-envelope" aria-hidden="true"></i>
+						</span>
+					</div>
+        <div class="wrap-input100 validate-input" data-validate = "Password is required">
+						<input class="input100" type="password" name="pass" required placeholder="Password" value="">
+						<span class="focus-input100"></span>
+						<span class="symbol-input100">
+							<i class="fa fa-lock" aria-hidden="true"></i>
+						</span>
+					</div>
+        <div class="pass-link"><a href="/recovery">Forgot password?</a></div>
+        <div class="field btn">
+          <div class="btn-layer"></div>
+          <input type="submit" value="Login">
+        </div>
+        <div class="pass-link"><a href="/registration">Create your account</a></div>
+      </form>
+      <form action="/log_inAdmin" class="login" method="post">
+        <div class="wrap-input100 validate-input" data-validate = "ID is required">
+						<input class="input100" type="identification_number" name="id" placeholder="ID">
+						<span class="focus-input100"></span>
+						<span class="symbol-input100">
+							<i class="fa fa-key" aria-hidden="true"></i>
+						</span>
+					</div>
+       <div class="wrap-input100 validate-input" data-validate = "Password is required">
+						<input class="input100" type="password" name="pass" placeholder="Password" value="">
+						<span class="focus-input100"></span>
+						<span class="symbol-input100">
+							<i class="fa fa-lock" aria-hidden="true"></i>
+						</span>
+       </div>
+        <div class="field btn">
+          <div class="btn-layer"></div>
+          <input type="submit" value="Login">
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+<script src="../static/js/switch_button.js"></script>
+	<script src="../static/js/main.js"></script>
+
+	<script src="../static/vendor/jquery/jquery-3.2.1.min.js"></script>
+<!--===============================================================================================-->
+	<script src="../static/vendor/bootstrap/js/popper.js"></script>
+	<script src="../static/vendor/bootstrap/js/bootstrap.min.js"></script>
+<!--===============================================================================================-->
+	<script src="../static/vendor/select2/select2.min.js"></script>
+<!--===============================================================================================-->
+	<script src="../static/vendor/tilt/tilt.jquery.min.js"></script>
+      <script>
+function toggleMenu() {
+  var x = document.getElementById("myNavbar");
+  if (x.className.indexOf("w3-show") === -1) {
+    x.className += " w3-show";
+  } else {
+    x.className = x.className.replace(" w3-show", "");
+  }
+}
+</script>
+	<script >
+		$('.js-tilt').tilt({
+			scale: 1.1
+		})
+	</script>
+
+      <script>
+  // Alcun codice precedente...
+
+  // Trova il bottone corrispondente alla pagina "HOME" e aggiungi la classe "active"
+  document.getElementById("login-link").classList.add("active");
+</script>
+
+</body>
+</html>

@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>The Verifiers - GESTIONE PROFILO</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/png" href="../../static/images/icons/favicon.ico"/>
+    <link rel="stylesheet" type="text/css" href="../../static/vendor/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="../../static/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="../../static/vendor/animate/animate.css">
+    <link rel="stylesheet" type="text/css" href="../../static/vendor/css-hamburgers/hamburgers.min.css">
+    <link rel="stylesheet" type="text/css" href="../../static/vendor/select2/select2.min.css">
+    <link rel="stylesheet" type="text/css" href="../../static/css/util.css">
+    <link rel="stylesheet" type="text/css" href="../../static/css/main.css">
+
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", sans-serif}
+        body, html {
+            height: 100%;
+            line-height: 1.8;
+        }
+        /* Full height image header */
+        .bgimg-1 {
+            background-position: center;
+            background-size: cover;
+            min-height: 100%;
+        }
+        .w3-bar .w3-button {
+            padding: 16px;
+        }
+        .w3-top {
+            position: fixed;
+            width: 100%;
+            z-index: 9999;
+        }
+        .container-login100 {
+            margin-top: 50px;
+        }
+        .w3-spin {
+            animation-duration: 15s;
+        }
+        .login100-pic img {
+            margin-top: 0px;
+        }
+
+        img.logo {
+            display: block;
+            margin: 0 auto;
+            margin-top: 210px;
+            width: 500px;
+            height: 500px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        .profile-container {
+            margin-top: 10px;
+        }
+        .profile-info {
+            text-align: center;
+        }
+        .profile-info h2 {
+            margin-bottom: 20px;
+        }
+        .profile-info p {
+            margin-bottom: 10px;
+        }
+        .profile-info button {
+            margin-top: 20px;
+        }
+         login100-form-title {
+            font-size: 70px;
+        }
+        .w3-bar-item.active {
+            background-color: #b0b0b0;
+            color: #000;
+        }
+    </style>
+
+</head>
+<body>
+<!-- Navbar (sit on top) -->
+<div class="w3-top">
+  <div class="w3-bar w3-white w3-card" id="myNavbar">
+    <a href="#home" class="w3-bar-item w3-button w3-wide">The Verifiers</a>
+    <!-- Right-sided navbar links -->
+    <div class="w3-right w3-hide-small">
+      <a href="/" class="w3-bar-item w3-button"><i class="fa fa-home"></i>HOME</a>
+      <a href="/verifica" class="w3-bar-item w3-button"><i class="fa fa-search"></i>VERIFICA</a>
+
+      <a href="/segnalazioneNotizie" class="w3-bar-item w3-button"><i class="fa"></i> SEGNALAZIONE NOTIZIE</a>
+      <a href="/dominiVerificati" class="w3-bar-item w3-button"><i class="fa fa-tick"></i>DOMINI VERIFICATI</a>
+      <a href="/notizieVerificate" class="w3-bar-item w3-button"><i class="fa fa-th"></i> NOTIZIE VERIFICATE</a>
+      <a href="/contatti" class="w3-bar-item w3-button"><i class="fa fa-envelope"></i> CONTATTI</a>
+
+      <a href="/creazioneForm" class="w3-bar-item w3-button"><i class="fa fa-envelope"></i> FORM</a>
+      <a href="/faq" class="w3-bar-item w3-button"><i class="fa fa-info"></i> FAQ</a>
+
+        {% if 'logged_in' in session %}
+      <a href="/gestioneProfilo" id="gestioneProfilo-link" class="w3-bar-item w3-button"><i class="fa fa-user"></i> GESTIONE PROFILO</a>
+      <a href="/subscription" class="w3-bar-item w3-button"><i class="fa fa-user"></i> PIANO</a>
+      <a href="/logout" class="w3-bar-item w3-button"><i class="fa fa-user"></i> LOGOUT</a>
+         {% endif %}
+          {% if 'logged_in' not in session %}
+
+      <a href="/log_in" class="w3-bar-item w3-button"><i class="fa fa-user"></i> LOGIN</a>
+      <a href="/registration" class="w3-bar-item w3-button"><i class="fa fa-user"></i> REGISTRATI</a>
+         {% endif %}
+
+    </div>
+    <!-- Hide right-floated links on small screens and replace them with a menu icon -->
+
+    <a href="javascript:void(0)" class="w3-bar-item w3-button w3-right w3-hide-large w3-hide-medium" onclick="w3_open()">
+      <i class="fa fa-bars"></i>
+    </a>
+  </div>
+</div>
+
+<div class="limiter">
+    <div class="container-login100">
+        <div class="wrap-login100">
+            <div class="login100-pic js-tilt" data-tilt>
+                <img src="../../static/images/img-01.jpg" alt="IMG">
+            </div>
+                    <div class="profile-container">
+            <div class="profile-info">
+               <span class="login100-form-title">
+                    User Profile
+                </span>
+                <p><strong>Name:</strong> {{ data[0] }}</p>
+                <p><strong>Surname:</strong> {{ data[1] }}</p>
+                <p><strong>Email:</strong> {{ data[2] }}</p>
+                <p><strong>Phone Number:</strong> {{ data[3] }}</p>
+                <p><strong>Interests:</strong> Politics, Sports, Science</p>
+               <a class="btn btn-primary" href="/modificaProfilo">Modifica Profilo</a>
+               <a class="btn btn-primary" href="#" onclick="confermaEliminazione()">Elimina Profilo</a>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<script src="../../static/vendor/jquery/jquery-3.2.1.min.js"></script>
+<script src="../../static/vendor/bootstrap/js/popper.js"></script>
+<script src="../../static/vendor/bootstrap/js/bootstrap.min.js"></script>
+<script src="../../static/vendor/select2/select2.min.js"></script>
+<script src="../../static/vendor/tilt/tilt.jquery.min.js"></script>
+<script src="../../static/js/main.js"></script>
+  <script>
+    function confermaEliminazione() {
+        var conferma = confirm("Sei sicuro di voler eliminare il profilo?");
+        if (conferma) {
+            // Esegui una richiesta POST per eliminare il profilo
+            $.post("/elimina_profilo", function (data) {
+                alert("Il profilo è stato eliminato con successo!");
+                window.location.href = "/";  // Reindirizza alla home dopo l'eliminazione
+            });
+        } else {
+            // L'utente ha annullato l'eliminazione
+            alert("Eliminazione annullata.");
+        }
+    }
+</script>
+
+<script>
+  // Alcun codice precedente...
+
+  // Trova il bottone corrispondente alla pagina "HOME" e aggiungi la classe "active"
+  document.getElementById("gestioneProfilo-link").classList.add("active");
+</script>
+</body>
+</html>
+

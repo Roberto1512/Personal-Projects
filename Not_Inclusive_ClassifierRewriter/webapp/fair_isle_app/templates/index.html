@@ -1,0 +1,68 @@
+{% include "header.html" %}
+
+{% block content %}
+  <div class="page-hero">
+    <img src="/static/images/logo_color.png" alt="FAIR-ISLE">
+    <div class="page-title">FAIR-ISLE</div>
+    <p class="page-subtitle">{{ t.index.subtitle }}</p>
+  </div>
+
+  <div class="home-card">
+    <div class="home-grid">
+      <div>
+        <div class="home-h">{{ t.index.what_it_does_title }}</div>
+        <p class="home-p">{{ t.index.what_it_does_body }}</p>
+
+        <div class="demo-box">
+          <div class="demo-block">
+            <div class="demo-head">
+              <span class="pill pill-danger">{{ t.index.detect_label }}</span>
+              <span class="pill">{{ t.index.detect_detail }}</span>
+            </div>
+            <div class="demo-body demo-body-muted">
+              <span class="demo-strike">
+                {{ t.index.detect_example }}
+              </span>
+            </div>
+          </div>
+
+          <div class="demo-block">
+            <div class="demo-head">
+              <span class="pill pill-success">{{ t.index.rewrite_label }}</span>
+              <span class="pill">{{ t.index.rewrite_detail }}</span>
+            </div>
+            <div class="demo-body demo-body-success">
+              {{ t.index.rewrite_example }}
+            </div>
+          </div>
+        </div>
+
+        <a href="/testing" class="cta-btn">{{ t.index.cta }}</a>
+      </div>
+
+      <div>
+        <div class="home-h" style="text-align:right;">{{ t.index.pipeline_title }}</div>
+        <ul class="pipe-list">
+          <li><b>{{ t.index.pipeline_detection_label }}</b> {{ t.index.pipeline_detection_desc }}</li>
+          <li><b>{{ t.index.pipeline_rewriting_label }}</b> {{ t.index.pipeline_rewriting_desc }}</li>
+          <li><b>{{ t.index.pipeline_feedback_label }}</b> {{ t.index.pipeline_feedback_desc }}</li>
+        </ul>
+
+        <div class="home-h home-h-sm">{{ t.index.languages_title }}</div>
+        <div class="lang-row">
+          <span class="lang-pill">{{ t.index.lang_it }}</span>
+          <span class="lang-pill">{{ t.index.lang_en }}</span>
+        </div>
+
+        <div class="info-box">
+          <div class="home-h home-h-sm" style="margin-bottom:6px;">{{ t.index.good_to_know_title }}</div>
+          <div class="info-text">
+            {{ t.index.good_to_know_body }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+
+{% include "footer.html" %}

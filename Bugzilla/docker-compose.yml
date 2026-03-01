@@ -1,0 +1,13 @@
+services:
+  api:
+    build: .
+    image: naplace-api:milestone5
+    container_name: naplace_api
+    ports:
+      - "8000:7860"
+    volumes:
+      - ./data:/app/data
+      - ./models:/app/models:ro
+    environment:
+      - NAPLACE_LABELS_PATH=/app/labels/manual_labels.jsonl
+    restart: unless-stopped

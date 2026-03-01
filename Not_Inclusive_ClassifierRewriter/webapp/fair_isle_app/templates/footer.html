@@ -1,0 +1,30 @@
+  </main>
+
+  <footer class="app-footer">
+    <div class="container app-footer-inner">
+      <div class="footer-left">
+        <div class="footer-title">FAIR-ISLE</div>
+        <div class="footer-sub">
+          {{ t.footer.tagline }}
+        </div>
+      </div>
+
+      <div class="footer-right">
+        <div>
+          {{ t.footer.byline }}
+          <a href="https://www.ai2b.it">AI2B srl</a>.
+        </div>
+        <div>
+          {{ t.footer.oss_prefix }}
+          <a href="https://github.com/MorenoLaQuatra/inclusively/">Inclusively</a>
+          {{ t.footer.oss_suffix }}
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="{{ url_for('static', filename='vendor/jquery/jquery.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='vendor/bootstrap/bootstrap.bundle.min.js') }}"></script>
+  <script src="/static/js/js-loading-overlay-min.js"></script>
+</body>
+</html>

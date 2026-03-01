@@ -1,0 +1,148 @@
+schema: '2.0'
+stages:
+  prepare:
+    cmd: .\.venv\Scripts\python.exe -m naplace.cli.prepare
+    deps:
+    - path: data/external/bugzilla/bugbug_dataset.jsonl
+      hash: md5
+      md5: cbea6e15961079317cd294d60c9212e2
+      size: 17945677572
+    - path: naplace/cli/prepare.py
+      hash: md5
+      md5: b8813bd3968fe0226fabcb6fd5b34ebf
+      size: 2301
+    outs:
+    - path: data/raw/bugbug_dataset.jsonl
+      hash: md5
+      md5: 9698de2018f6f48fca724f3fb07a99de
+      size: 9417420034
+  split:
+    cmd: .\.venv\Scripts\python.exe -m naplace.cli.split
+    deps:
+    - path: data/raw/bugbug_dataset.jsonl
+      hash: md5
+      md5: 9698de2018f6f48fca724f3fb07a99de
+      size: 9417420034
+    - path: naplace/cli/split.py
+      hash: md5
+      md5: 2ddc799b7454ce1f2136ed47993f01b5
+      size: 3701
+    outs:
+    - path: data/interim/test.jsonl
+      hash: md5
+      md5: b37d49c9ffb9260fdf7b1ca8f4887ed0
+      size: 1921404865
+    - path: data/interim/train.jsonl
+      hash: md5
+      md5: f17184524ee3ff3b0a4ca577b98585ed
+      size: 7793000446
+  train_lstm:
+    cmd: .\.venv\Scripts\python.exe -m naplace.modeling.train_lstm
+    deps:
+    - path: data/interim/train.jsonl
+      hash: md5
+      md5: f17184524ee3ff3b0a4ca577b98585ed
+      size: 7793000446
+    - path: naplace/modeling/train_lstm.py
+      hash: md5
+      md5: b877324e00dd7e59a202e8a28075d33e
+      size: 2088
+    outs:
+    - path: models/lstm.h5
+      hash: md5
+      md5: d12eb1d5b56d1e05fc180b8d109ca596
+      size: 49063172
+    - path: models/lstm_label_classes.npy
+      hash: md5
+      md5: 2135b672a4426326d9f0c10cc516070a
+      size: 176728
+    - path: models/lstm_tokenizer.pkl
+      hash: md5
+      md5: c5682e46683279babf43c386522ccb8f
+      size: 17116302
+  train_gru:
+    cmd: .\.venv\Scripts\python.exe -m naplace.modeling.train_gru
+    deps:
+    - path: data/interim/train.jsonl
+      hash: md5
+      md5: f17184524ee3ff3b0a4ca577b98585ed
+      size: 7793000446
+    - path: naplace/modeling/train_gru.py
+      hash: md5
+      md5: b40a9b1c35aa2327a1ba3254ec2ef545
+      size: 2009
+    outs:
+    - path: models/gru.h5
+      hash: md5
+      md5: 1c283e8b8f807b34dcbf73c79267790f
+      size: 48673028
+    - path: models/gru_label_classes.npy
+      hash: md5
+      md5: 2135b672a4426326d9f0c10cc516070a
+      size: 176728
+    - path: models/gru_tokenizer.pkl
+      hash: md5
+      md5: c78fedea899dfe7677866515681597ee
+      size: 17116302
+  eval_lstm:
+    cmd: .\.venv\Scripts\python.exe -m naplace.modeling.eval_seq --model 
+      models/lstm.h5 --tok models/lstm_tokenizer.pkl --classes 
+      models/lstm_label_classes.npy --data data/interim/test.jsonl --out 
+      reports/metrics_lstm.json --run_name lstm_eval
+    deps:
+    - path: data/interim/test.jsonl
+      hash: md5
+      md5: b37d49c9ffb9260fdf7b1ca8f4887ed0
+      size: 1921404865
+    - path: models/lstm.h5
+      hash: md5
+      md5: d12eb1d5b56d1e05fc180b8d109ca596
+      size: 49063172
+    - path: models/lstm_label_classes.npy
+      hash: md5
+      md5: 2135b672a4426326d9f0c10cc516070a
+      size: 176728
+    - path: models/lstm_tokenizer.pkl
+      hash: md5
+      md5: c5682e46683279babf43c386522ccb8f
+      size: 17116302
+    - path: naplace/modeling/eval_seq.py
+      hash: md5
+      md5: 03497eb156f002fd00b46bcd98dbee2f
+      size: 2115
+    outs:
+    - path: reports/metrics_lstm.json
+      hash: md5
+      md5: c2202ad08f5c5b1da1fa4b8b0cf6325a
+      size: 109
+  eval_gru:
+    cmd: .\.venv\Scripts\python.exe -m naplace.modeling.eval_seq --model 
+      models/gru.h5 --tok models/gru_tokenizer.pkl --classes 
+      models/gru_label_classes.npy --data data/interim/test.jsonl --out 
+      reports/metrics_gru.json --run_name gru_eval
+    deps:
+    - path: data/interim/test.jsonl
+      hash: md5
+      md5: b37d49c9ffb9260fdf7b1ca8f4887ed0
+      size: 1921404865
+    - path: models/gru.h5
+      hash: md5
+      md5: 1c283e8b8f807b34dcbf73c79267790f
+      size: 48673028
+    - path: models/gru_label_classes.npy
+      hash: md5
+      md5: 2135b672a4426326d9f0c10cc516070a
+      size: 176728
+    - path: models/gru_tokenizer.pkl
+      hash: md5
+      md5: c78fedea899dfe7677866515681597ee
+      size: 17116302
+    - path: naplace/modeling/eval_seq.py
+      hash: md5
+      md5: 03497eb156f002fd00b46bcd98dbee2f
+      size: 2115
+    outs:
+    - path: reports/metrics_gru.json
+      hash: md5
+      md5: e73970ed7ece23895dc505a56aefd420
+      size: 111

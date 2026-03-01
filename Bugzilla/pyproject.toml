@@ -1,0 +1,50 @@
+[build-system]
+requires = ["flit_core >=3.2,<4"]
+build-backend = "flit_core.buildapi"
+
+[project]
+name = "naplace"
+version = "0.0.1"
+description = "Issue Report Classification w/Mozilla"
+authors = [
+  { name = "naplace" },
+]
+
+readme = "README.md"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    
+]
+requires-python = "~=3.11.0"
+
+
+[tool.ruff]
+line-length = 99
+
+target-version = "py311"
+
+src = ["naplace", "scripts"]
+
+include = [
+    "pyproject.toml",
+    "naplace/**/*.py",
+    "scripts/**/*.py",
+]
+
+exclude = [
+    ".git",
+    ".venv",
+    ".dvc",
+    "models",
+    "reports",
+    "docs",
+    "notebooks",
+    "references",
+]
+
+[tool.ruff.lint]
+extend-select = ["I"]
+
+[tool.ruff.lint.isort]
+known-first-party = ["naplace"]
+force-sort-within-sections = true

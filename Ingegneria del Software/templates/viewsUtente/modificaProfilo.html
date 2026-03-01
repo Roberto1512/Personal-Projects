@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>The Verifiers - MODIFICA PROFILO</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/png" href="../../static/images/icons/favicon.ico"/>
+    <link rel="stylesheet" type="text/css" href="../../static/vendor/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="../../static/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="../../static/vendor/animate/animate.css">
+    <link rel="stylesheet" type="text/css" href="../../static/vendor/css-hamburgers/hamburgers.min.css">
+    <link rel="stylesheet" type="text/css" href="../../static/vendor/select2/select2.min.css">
+    <link rel="stylesheet" type="text/css" href="../../static/css/util.css">
+    <link rel="stylesheet" type="text/css" href="../../static/css/main.css">
+
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        body, h1, h2, h3, h4, h5, h6 {
+            font-family: "Raleway", sans-serif;
+        }
+
+        body, html {
+            height: 100%;
+            line-height: 1.8;
+        }
+
+        /* Full height image header */
+        .bgimg-1 {
+            background-position: center;
+            background-size: cover;
+            min-height: 100%;
+        }
+
+        .w3-bar .w3-button {
+            padding: 16px;
+        }
+
+        .w3-top {
+            position: fixed;
+            width: 100%;
+            z-index: 9999;
+        }
+
+        .container-login100 {
+            margin-top: 50px;
+        }
+
+        img.logo {
+            display: block;
+            margin: 0 auto;
+            margin-top: 210px;
+            width: 500px;
+            height: 500px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        login100-form-title {
+            font-size: 70px;
+        }
+        .w3-bar-item.active {
+            background-color: #b0b0b0;
+            color: #000;
+        }
+    </style>
+</head>
+<body>
+<!-- Navbar (sit on top) -->
+<div class="w3-top">
+  <div class="w3-bar w3-white w3-card" id="myNavbar">
+    <a href="#home" class="w3-bar-item w3-button w3-wide">The Verifiers</a>
+    <!-- Right-sided navbar links -->
+    <div class="w3-right w3-hide-small">
+      <a href="/" class="w3-bar-item w3-button"><i class="fa fa-home"></i>HOME</a>
+      <a href="/verifica" class="w3-bar-item w3-button"><i class="fa fa-search"></i>VERIFICA</a>
+
+      <a href="/segnalazioneNotizie" class="w3-bar-item w3-button"><i class="fa"></i> SEGNALAZIONE NOTIZIE</a>
+      <a href="/dominiVerificati" class="w3-bar-item w3-button"><i class="fa fa-tick"></i>DOMINI VERIFICATI</a>
+      <a href="/notizieVerificate" class="w3-bar-item w3-button"><i class="fa fa-th"></i> NOTIZIE VERIFICATE</a>
+      <a href="/contatti" class="w3-bar-item w3-button"><i class="fa fa-envelope"></i> CONTATTI</a>
+      <a href="/creazioneForm" class="w3-bar-item w3-button"><i class="fa fa-envelope"></i> FORM</a>
+      <a href="/faq" class="w3-bar-item w3-button"><i class="fa fa-info"></i> FAQ</a>
+
+        {% if 'logged_in' in session %}
+      <a href="/gestioneProfilo" id="modificaProfilo-link" class="w3-bar-item w3-button"><i class="fa fa-user"></i> GESTIONE PROFILO</a>
+      <a href="/subscription" class="w3-bar-item w3-button"><i class="fa fa-user"></i> PIANO</a>
+      <a href="/logout" class="w3-bar-item w3-button"><i class="fa fa-user"></i> LOGOUT</a>
+         {% endif %}
+          {% if 'logged_in' not in session %}
+
+      <a href="/log_in" class="w3-bar-item w3-button"><i class="fa fa-user"></i> LOGIN</a>
+      <a href="/registration" class="w3-bar-item w3-button"><i class="fa fa-user"></i> REGISTRATI</a>
+         {% endif %}
+
+    </div>
+    <!-- Hide right-floated links on small screens and replace them with a menu icon -->
+
+    <a href="javascript:void(0)" class="w3-bar-item w3-button w3-right w3-hide-large w3-hide-medium" onclick="w3_open()">
+      <i class="fa fa-bars"></i>
+    </a>
+  </div>
+</div>
+<div class="limiter">
+    <div class="container-login100">
+        <div class="wrap-login100">
+            <div class="login100-pic js-tilt" data-tilt>
+                <img src="../../static/images/img-01.jpg" alt="IMG">
+            </div>
+
+
+
+            <form action="/modificaProfilo" method="POST">
+                <span class="login100-form-title">
+                    Modifica Profilo
+                </span>
+
+                 <div class="wrap-input100 validate-input" data-validate="Phone number is required">
+                    <input class="input100" type="text" name="phone" placeholder="Numero Cellulare" value="{{ data[3] }}" readonly>
+                    <span class="focus-input100"></span>
+                    <span class="symbol-input100">
+                        <i class="fa fa-phone" aria-hidden="true"></i>
+                    </span>
+                 </div>
+
+                <div class="wrap-input100 validate-input" data-validate="Valid email is required: ex@abc.xyz">
+                    <input class="input100" type="text" name="email" placeholder="Email" value="{{ data[2] }}" readonly>
+                    <span class="focus-input100"></span>
+                    <span class="symbol-input100">
+                        <i class="fa fa-envelope" aria-hidden="true"></i>
+                    </span>
+                </div>
+
+                <div class="wrap-input100 validate-input" data-validate="Name is required">
+                    <input class="input100" type="text" name="name" placeholder="Nome" value="{{ data[0] }}" readonly>
+                    <span class="focus-input100"></span>
+                    <span class="symbol-input100">
+                        <i class="fa fa-user" aria-hidden="true"></i>
+                    </span>
+                </div>
+
+                <div class="wrap-input100 validate-input" data-validate="Surname is required">
+                    <input class="input100" type="text" name="surname" placeholder="Cognome" value="{{ data[1] }}" readonly>
+                    <span class="focus-input100"></span>
+                    <span class="symbol-input100">
+                        <i class="fa fa-user" aria-hidden="true"></i>
+                    </span>
+                </div>
+
+
+
+                <div class="wrap-input100 validate-input" data-validate="Password is required">
+                    <input class="input100" type="password" name="old_password" placeholder="Vecchia Password" value="" required>
+                    <span class="focus-input100"></span>
+                    <span class="symbol-input100">
+                        <i class="fa fa-lock" aria-hidden="true"></i>
+                    </span>
+                </div>
+
+
+                <div class="wrap-input100 validate-input" data-validate="Password is required">
+                    <input class="input100" type="password" name="new_password" placeholder="Nuova Password" value="" required>
+                    <span class="focus-input100"></span>
+                    <span class="symbol-input100">
+                        <i class="fa fa-lock" aria-hidden="true"></i>
+                    </span>
+                </div>
+
+
+                <div class="interests-container">
+                    <div class="interest-row">
+                        <div class="interest">
+                            <input type="checkbox" id="interest1" name="interests" value="interest1" checked>
+                            <label for="interest1">Politica</label>
+                        </div>
+                        <div class="interest">
+                            <input type="checkbox" id="interest2" name="interests" value="interest2">
+                            <label for="interest2">Sport</label>
+                        </div>
+                        <div class="interest">
+                            <input type="checkbox" id="interest3" name="interests" value="interest3" checked>
+                            <label for="interest3">Mercati</label>
+                        </div>
+                    </div>
+                    <div class="interest-row">
+                        <div class="interest">
+                            <input type="checkbox" id="interest4" name="interests" value="interest4">
+                            <label for="interest4">Scienza</label>
+                        </div>
+                        <div class="interest">
+                            <input type="checkbox" id="interest5" name="interests" value="interest5" checked>
+                            <label for="interest5">Cronaca</label>
+                        </div>
+                        <div class="interest">
+                            <input type="checkbox" id="interest6" name="interests" value="interest6">
+                            <label for="interest6">Esteri</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="container-login100-form-btn">
+                    <button class="login100-form-btn" type="submit">
+                        Update Profile
+                    </button>
+                </div>
+
+
+                <div class="text-center p-t-12">
+                    <span class="txt1">
+                        Already have an account?
+                    </span>
+                    <a class="txt2" href="/log_in">
+                        Login
+                    </a>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="../../static/vendor/jquery/jquery-3.2.1.min.js"></script>
+<script src="../../static/vendor/bootstrap/js/popper.js"></script>
+<script src="../../static/vendor/bootstrap/js/bootstrap.min.js"></script>
+<script src="../../static/vendor/select2/select2.min.js"></script>
+<script src="../../static/vendor/tilt/tilt.jquery.min.js"></script>
+<script src="../../static/js/main.js"></script>
+<script>
+  // Alcun codice precedente...
+
+  // Trova il bottone corrispondente alla pagina "HOME" e aggiungi la classe "active"
+  document.getElementById("modificaProfilo-link").classList.add("active");
+</script>
+</body>
+</html>
+

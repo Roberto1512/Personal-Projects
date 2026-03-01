@@ -1,0 +1,381 @@
+{% include "header.html" %}
+
+{% block content %}
+    <img src="/static/images/logo_color.png" alt="logo" style="display: block; margin-left: auto; margin-right: auto; width: 30%; margin-top: -20px; margin-bottom: -20px;">
+    <br>
+    <h4 style="text-align: center;">{{ t.evaluation.title }}</h4>
+    <p style="text-align: center;">
+        {{ t.evaluation.intro }}
+    </p>
+    <hr>
+
+    <!-- divide page in two columns -->
+    <div class="row">
+        <div class="col-md-6">
+            <!-- Textbox to enter text + button to submit -->
+            <form action="/testing" method="post">
+                <div class="mb-3">
+                    <label for="input_text" class="form-label"><b>{{ t.evaluation.input_label }}</b></label>
+                    <textarea class="form-control" id="input_text" name="input_text" rows="3" placeholder="{{ t.evaluation.input_placeholder }}"></textarea>
+                </div>
+                <!-- Submit button with onclick event - call function submit_text() -->
+                <button type="button" class="btn btn-primary" onclick="submit_text()">{{ t.evaluation.submit_button }}</button>
+            </form>
+            
+        </div>
+        <div class="col-md-6">
+            <div class="mb-3">
+                <label for="output_text" class="form-label"><b>{{ t.evaluation.human_feedback_label }}</b></label>
+                <div id="output_text">
+                    <p>{{ t.evaluation.no_text_submitted }}</p>
+                </div>
+            </div>
+        </div>
+            
+    </div>
+
+    <div class="color_coding_explaination" style="margin-top: 20px; text-align: right; font-size: 14px;">
+        <p style="margin-bottom: 0px !important;"><b>{{ t.evaluation.color_coding_title }}</b></p>
+        <p style="margin-bottom: 0px !important;"><span class="inclusive">{{ t.labels.inclusive }}</span> - {{ t.evaluation.inclusive_explain }}</p>
+        <p style="margin-bottom: 0px !important;"><span class="not_inclusive">{{ t.labels.not_inclusive }}</span> - {{ t.evaluation.not_inclusive_explain }}</p>
+        <p style="margin-bottom: 0px !important;"><span class="not_pertinent">{{ t.labels.not_pertinent }}</span> - {{ t.evaluation.not_pertinent_explain }}</p>
+    </div>
+
+    <script>
+        var evalTexts = {{ t.evaluation.js | tojson }};
+
+        function create_form_data(data) {
+            //create a form
+            var form = document.createElement("form");
+            form.setAttribute("method", "post");
+            form.setAttribute("action", "/submit_feedback_evaluation");
+            form.setAttribute("id", "form_feedback");
+            form.setAttribute("class", "form_feedback");
+
+            // for each element in the list of original sentences (use a for loop with index)
+            for (var i = 0; i < data["output"]["original_sentences"].length; i++) {
+                // create a div
+                original_sentence = data["output"]["original_sentences"][i];
+                rewriting = data["output"]["rewriting"][i];
+                classification = data["output"]["classification"][i];
+
+                var div = document.createElement("div");
+                div.setAttribute("class", "mb-3");
+                // paragraph with the original sentence
+                // add classification as a class to the paragraph
+                var p_original = document.createElement("p");
+                p_original.setAttribute("class", classification + " original");
+                p_original.innerHTML = original_sentence;
+                div.appendChild(p_original);
+                // if classification is "not_inclusive" then add rewriting
+                if (classification == "not_inclusive") {
+                    var p_rewriting = document.createElement("p");
+                    p_rewriting.setAttribute("class", "rewriting");
+                    p_rewriting.innerHTML = rewriting;
+                    div.appendChild(p_rewriting);
+                }
+
+                // add a checkbox to get the feedback for the classification
+                var input = document.createElement("input");
+                input.setAttribute("type", "checkbox");
+                input.setAttribute("name", "not_correct_classification_" + i);
+                input.setAttribute("id", "not_correct_classification_" + i);
+                input.setAttribute("class", "form-check-input");
+
+                // label for the checkbox - Correct
+                var label = document.createElement("label");
+                label.setAttribute("for", "not_correct_classification_" + i);
+                label.setAttribute("class", "form-check-label");
+                label.innerHTML = evalTexts.classification_not_correct;
+                div.appendChild(input);
+                div.appendChild(label);
+
+                // add a selector with 3 options: "not_inclusive", "inclusive", "not_pertinent"
+                var select = document.createElement("select");
+                select.setAttribute("name", "classification_feedback_" + i);
+                select.setAttribute("id", "classification_feedback_" + i);
+                select.setAttribute("class", "form-select");
+                // empty option
+                var option0 = document.createElement("option");
+                option0.setAttribute("value", "");
+                option0.innerHTML = evalTexts.classification_feedback;
+                var option1 = document.createElement("option");
+                option1.setAttribute("value", "not_inclusive");
+                option1.innerHTML = evalTexts.not_inclusive;
+                var option2 = document.createElement("option");
+                option2.setAttribute("value", "inclusive");
+                option2.innerHTML = evalTexts.inclusive;
+                var option3 = document.createElement("option");
+                option3.setAttribute("value", "not_pertinent");
+                option3.innerHTML = evalTexts.not_pertinent;
+                select.appendChild(option0);
+                select.appendChild(option1);
+                select.appendChild(option2);
+                select.appendChild(option3);
+                div.appendChild(select);
+
+                // separate with a br
+                var br = document.createElement("br");
+                div.appendChild(br);
+                div.appendChild(br);
+
+                // add a checkbox to get the feedback for the rewriting
+                /*
+                var input = document.createElement("input");
+                input.setAttribute("type", "checkbox");
+                input.setAttribute("name", "not_correct_rewriting_" + i);
+                input.setAttribute("id", "not_correct_rewriting_" + i);
+                input.setAttribute("class", "form-check-input");
+                // label for the checkbox - Correct
+                var label = document.createElement("label");
+                label.setAttribute("for", "not_correct_rewriting_" + i);
+                label.setAttribute("class", "form-check-label");
+                label.innerHTML = "&nbsp;Rewriting is <b>not</b> correct&nbsp;&nbsp;";
+                div.appendChild(input);
+                div.appendChild(label);
+                // Checkbox rewriting is correct
+                var input = document.createElement("input");
+                input.setAttribute("type", "checkbox");
+                input.setAttribute("name", "correct_rewriting_" + i);
+                input.setAttribute("id", "correct_rewriting_" + i);
+                input.setAttribute("class", "form-check-input");
+                // label for the checkbox - Correct
+                var label = document.createElement("label");
+                label.setAttribute("for", "correct_rewriting_" + i);
+                label.setAttribute("class", "form-check-label");
+                label.innerHTML = "&nbsp;Rewriting is correct";
+                div.appendChild(input);
+                div.appendChild(label);
+                */
+
+                // radio button with 2 options: "correct", "not_correct"
+                var input = document.createElement("input");
+                input.setAttribute("type", "radio");
+                input.setAttribute("name", "rewriting_radio_" + i);
+                input.setAttribute("id", "rewriting_radio_correct_" + i);
+                input.setAttribute("class", "form-check-input");
+                input.setAttribute("value", "correct");
+                // make it selected by default
+                input.setAttribute("checked", "checked");
+                // label for the checkbox - Correct
+                var label = document.createElement("label");
+                label.setAttribute("for", "rewriting_radio_correct_" + i);
+                label.setAttribute("class", "form-check-label");
+                label.innerHTML = evalTexts.rewriting_correct;
+                div.appendChild(input);
+                div.appendChild(label);
+                // radio button with 2 options: "correct", "not_correct"
+                var input = document.createElement("input");
+                input.setAttribute("type", "radio");
+                input.setAttribute("name", "rewriting_radio_" + i);
+                input.setAttribute("id", "rewriting_radio_not_correct_" + i);
+                input.setAttribute("class", "form-check-input");
+                input.setAttribute("value", "not_correct");
+                // label for the checkbox - Correct
+                var label = document.createElement("label");
+                label.setAttribute("for", "rewriting_radio_not_correct_" + i);
+                label.setAttribute("class", "form-check-label");
+                label.innerHTML = evalTexts.rewriting_not_correct;
+                div.appendChild(input);
+                div.appendChild(label);
+                
+
+                // separate with a br
+                var br = document.createElement("br");
+                div.appendChild(br);
+                div.appendChild(br);
+
+                // add a textarea input to insert possible rewriting
+                var textarea = document.createElement("textarea");
+                textarea.setAttribute("class", "form-control");
+                textarea.setAttribute("id", "rewriting_feedback_" + i);
+                textarea.setAttribute("name", "rewriting_feedback_" + i);
+                textarea.setAttribute("rows", "3");
+                textarea.setAttribute("placeholder", evalTexts.rewriting_placeholder);
+                div.appendChild(textarea);
+
+                // separate with a br
+                var br = document.createElement("br");
+                div.appendChild(br);
+                div.appendChild(br);
+                
+                form.appendChild(div);
+
+                // append hr to the form
+                var hr = document.createElement("hr");
+                form.appendChild(hr);
+
+
+            }
+
+            //append a submit button to the form
+            var button = document.createElement("button");
+            button.setAttribute("type", "button");
+            button.setAttribute("class", "btn btn-success");
+            button.setAttribute("onclick", "submit_feedback()");
+            button.innerHTML = evalTexts.submit_feedback;
+            form.appendChild(button);
+
+            return form;
+
+        }
+
+        function submit_text() {
+            // get the input text
+            var input_text = document.getElementById("input_text").value;
+            JsLoadingOverlay.show({
+                'overlayBackgroundColor': '#444444',
+                'overlayOpacity': 0.8,
+                'spinnerIcon': 'ball-grid-pulse',
+                'spinnerColor': '#ffffff',
+                'spinnerSize': '2x',
+                'overlayIDName': 'overlay',
+                'spinnerIDName': 'spinner',
+                'spinnerZIndex':99999,
+                'overlayZIndex':99998
+              });
+
+            // send a POST request to the server
+            // the server will return the output text
+            // the output text will be displayed in the output text box
+            $.ajax({
+                type: "POST",
+                url: "/submit_evaluation",
+                data: {input_text: input_text},
+                success: function(data) {
+                    // get the dictionary. 
+                    // if "success" is false then write the error message to the output_text html element
+                    if (data["success"] == false) {
+                        document.getElementById("output_text").innerHTML =
+                            "<p style='color: red;'>" + evalTexts.no_data + "</p>";
+                    } else {
+                        // if "success"
+                        // "output" -> "original_sentences" contains a list of the original sentences
+                        // "output" -> "rewriting" contains a list of the modified sentences
+                        // "output" -> "classification" contains a list of the classification of each sentence
+
+                        output_form = create_form_data(data);
+                        // put the form in the output_text html element
+                        document.getElementById("output_text").innerHTML = "";
+                        document.getElementById("output_text").appendChild(output_form);
+
+                    }
+
+                    //
+                    JsLoadingOverlay.hide();
+
+                }
+            });
+        }
+
+        function resize_textarea() {
+            var textarea = document.getElementById("input_text");
+            textarea.style.height = "";
+            textarea.style.height = Math.min(textarea.scrollHeight, 450) + "px";
+        }
+
+        // call resize_textarea() when the text in the input_text box changes
+        document.getElementById("input_text").addEventListener("input", resize_textarea);
+
+        function collect_feedbacks(){
+            // get the form
+            var form = document.getElementById("output_text").getElementsByTagName("form")[0];
+            // get all classification checkboxes - not_correct_classification_ + index
+            var checkboxes_classification= form.querySelectorAll("input[name^='not_correct_classification_']");
+            // get all classification select - classification_feedback_ + index
+            var selects_classification = form.querySelectorAll("select[name^='classification_feedback_']");
+            // get all rewriting checkboxes - not_correct_rewriting_ + index
+            var radio_rewriting = form.querySelectorAll("input[name^='rewriting_radio_']");
+            // get all textarea - rewriting_feedback_ + index
+            var textareas = form.querySelectorAll("textarea[name^='rewriting_feedback_']");
+            // get all original sentences - class contains "original"
+            var original_sentences = form.querySelectorAll("p[class*='original']");
+            // get all rewriting sentences - class = "rewriting"
+            var rewrites = form.querySelectorAll("p[class='rewriting']");
+
+            // print how many checkboxes, textareas, original sentences and rewrites are found
+            console.log("checkboxes_classification: " + checkboxes_classification.length)
+            console.log("selects_classification: " + selects_classification.length)
+            console.log("radio_rewriting: " + radio_rewriting.length)
+            console.log("textareas: " + textareas.length)
+            console.log("original_sentences: " + original_sentences.length)
+
+            var data = {
+                "original_sentences": [],
+                "rewriting": [],
+                "classification": [],
+                "classification_feedback": [],
+                "rewriting_feedback": []
+            };
+
+            // for each original sentence
+            console.log(original_sentences.length)
+            for (var i = 0; i < original_sentences.length; i++) {
+                // add the original sentence to the dictionary
+                data["original_sentences"].push(original_sentences[i].innerHTML);
+                // if the classification checkbox is checked
+                if (checkboxes_classification[i].checked) {
+                    data["classification"].push("wrong");
+                } else {
+                    data["classification"].push("correct");
+                }
+                
+                // if the classification checkbox is checked
+                if (checkboxes_classification[i].checked) {
+                    // add the classification feedback to the dictionary
+                    data["classification_feedback"].push(selects_classification[i].value);
+                } else {
+                    // add "" to the dictionary
+                    data["classification_feedback"].push("");
+                }
+
+                // get rewriting radio button
+                var radio = radio_rewriting[i];
+                // get the value of the selected radio button
+                var value = radio.value;
+                data["rewriting"].push(value);
+                
+                // add the rewriting feedback to the dictionary - if empty add ""
+                if (textareas[i].value == "") {
+                    data["rewriting_feedback"].push("");
+                } else {
+                    data["rewriting_feedback"].push(textareas[i].value);
+                }
+            }
+
+            return data;
+        }
+
+        function submit_feedback(){
+            // function used to submit feedback
+            data = collect_feedbacks();
+            // prepare the data to be sent to the server
+            data = JSON.stringify(data);
+            console.log(data);
+
+
+            // send a POST request to the server
+            // if success then display a message to thank the user
+            $.ajax({
+                type: "POST",
+                url: "/submit_feedback_evaluation",
+                data: data,
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                success: function(data) {
+                    if (data["success"] == false) {
+                        alert(evalTexts.submit_error);
+                    } else {
+                        alert(data["message"]);
+                    }
+                }
+            });
+
+        }
+
+    </script>
+
+    
+{% endblock %}
+  
+{% include "footer.html" %}

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>The Verifiers - RECUPERA CREDENZIALI</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/png" href="../../static/images/icons/favicon.ico"/>
+    <link rel="stylesheet" type="text/css" href="../../static/css/recovery_style.css">
+    <link rel="stylesheet" type="text/css" href="../../static/css/main.css">
+
+</head>
+<body>
+    <div class="container-recovery">
+        <div class="wrap-recovery">
+            <div class="recovery-pic">
+                <img src="../../static/images/img-01.jpg" alt="Recovery Image">
+            </div>
+            <div class="recovery-form">
+                <h1 class="recovery-form-title">Credentials Recovery</h1>
+                <p class="method-selection">Choose the credentials recovery method:</p>
+                <div class="method-options">
+                    <div class="method-option">
+                        <input type="radio" id="recovery-email" name="recovery-method" value="email">
+                        <label for="recovery-email">Email</label>
+                    </div>
+                    <div class="method-option">
+                        <input type="radio" id="recovery-phone" name="recovery-method" value="phone">
+                        <label for="recovery-phone">Phone Number</label>
+                    </div>
+                </div>
+                <div id="email-recovery" class="recovery-inputs">
+                    <div class="wrap-input-recovery">
+                        <input class="input-recovery" type="text" placeholder="Email">
+                    </div>
+                </div>
+                <div id="phone-recovery" class="recovery-inputs">
+                    <div class="wrap-input-recovery">
+                        <input class="input-recovery" type="text" placeholder="Phone Number">
+                    </div>
+                </div>
+                <div class="container-login100-form-btn">
+                    <button id="recovery-button" class="login100-form-btn" type="submit">
+                        Recover Credentials
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../../static/js/main.js"></script>
+</body>
+</html>
+

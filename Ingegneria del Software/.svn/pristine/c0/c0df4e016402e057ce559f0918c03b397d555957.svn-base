@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>The Verifiers - GESTIONE PIANO</title>
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,700' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="../../static/css/style.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
+<meta name="viewport" content="width=device-width"><link rel="stylesheet" href="../../static/css/style.css">
+  <style>
+    body {
+      background: linear-gradient(135deg, #7abf7a 0%, #000000 100%);
+      background-size: cover;
+      background-attachment: fixed;
+    }
+
+    .select {
+      background: linear-gradient(135deg, #7abf7a 0%, #000000 100%);
+    }
+
+
+    .pricing-header h2 {
+      white-space: nowrap; /* Evita il testo di andare a capo */
+    }
+
+  </style>
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<div class="pricing-container">
+		<div class="pricing-switcher">
+			<p class="fieldset">
+				<input type="radio" name="duration-1" value="monthly" id="monthly-1" checked>
+				<label for="monthly-1">Mensile</label>
+				<input type="radio" name="duration-1" value="yearly" id="yearly-1">
+				<label for="yearly-1">Annuale</label>
+				<span class="switch"></span>
+			</p>
+		</div>
+		<ul class="pricing-list bounce-invert">
+			<li>
+				<ul class="pricing-wrapper">
+					<li data-type="monthly" class="is-visible">
+						<header class="pricing-header">
+							<h2>Senza registrazione</h2>
+							<div class="price">
+								<span class="currency">$</span>
+								<span class="value">0</span>
+								<span class="duration">mo</span>
+							</div>
+						</header>
+						<div class="pricing-body">
+							<ul class="pricing-features">
+								<li><em>5</em> Verifiche Link</li>
+								<li><em>3</em> Verifiche Foto</li>
+                                <li><em>1</em> Verifiche Video/Audio</li>
+								<li><em>Nessuna</em> notizia verificata</li>
+                                <li><em>Nessun</em> accesso alla lista di domini verificati </li>
+								<li><em>Nessun</em> confronto con altre notizie </li>
+							</ul>
+						</div>
+						<footer class="pricing-footer">
+							<a class="select" href="#">Seleziona</a>
+						</footer>
+					</li>
+					<li data-type="yearly" class="is-hidden">
+						<header class="pricing-header">
+							<h2>Senza Registrazione</h2>
+							<div class="price">
+								<span class="currency">$</span>
+								<span class="value">0</span>
+								<span class="duration">yr</span>
+							</div>
+						</header>
+						<div class="pricing-body">
+							<ul class="pricing-features">
+								<li><em>5</em> Verifiche Link</li>
+								<li><em>3</em> Verifiche Foto</li>
+                                <li><em>1</em> Verifiche Video/Audio</li>
+								<li><em>Nessuna</em> notizia verificata</li>
+                                <li><em>Nessun</em> accesso alla lista di domini verificati </li>
+								<li><em>Nessun</em> confronto con altre notizie </li>
+							</ul>
+						</div>
+						<footer class="pricing-footer">
+							<a class="select" href="#">Seleziona</a>
+						</footer>
+					</li>
+				</ul>
+			</li>
+			<li class="exclusive">
+				<ul class="pricing-wrapper">
+					<li data-type="monthly" class="is-visible">
+						<header class="pricing-header">
+							<h2>Con Registrazione</h2>
+							<div class="price">
+								<span class="currency">$</span>
+								<span class="value">0</span>
+								<span class="duration">mo</span>
+							</div>
+						</header>
+						<div class="pricing-body">
+							<ul class="pricing-features">
+								<li><em>15</em> Verifiche Link</li>
+								<li><em>10</em> Verifiche Foto</li>
+                                <li><em>5</em> Verifiche Video/Audio</li>
+								<li><em>Sezione</em> notizie verificate</li>
+                                <li><em>Nessun</em> accesso alla lista di domini verificati </li>
+								<li><em>Nessun</em> confronto con altre notizie </li>
+							</ul>
+						</div>
+						<footer class="pricing-footer">
+							<a class="select" href="#">Seleziona</a>
+						</footer>
+					</li>
+					<li data-type="yearly" class="is-hidden">
+						<header class="pricing-header">
+							<h2>Con Registrazione</h2>
+							<div class="price">
+								<span class="currency">$</span>
+								<span class="value">0</span>
+								<span class="duration">yr</span>
+							</div>
+						</header>
+						<div class="pricing-body">
+							<ul class="pricing-features">
+								<li><em>15</em> Verifiche Link</li>
+								<li><em>10</em> Verifiche Foto</li>
+                                <li><em>5</em> Verifiche Video/Audio</li>
+								<li><em>Sezione</em> notizie verificate</li>
+                                <li><em>Nessun</em> accesso alla lista di domini verificati </li>
+								<li><em>Nessun</em> confronto con altre notizie </li>
+							</ul>
+						</div>
+						<footer class="pricing-footer">
+							<a class="select" href="#">Seleziona</a>
+						</footer>
+					</li>
+				</ul>
+			</li>
+			<li>
+				<ul class="pricing-wrapper">
+					<li data-type="monthly" class="is-visible">
+						<header class="pricing-header">
+							<h2>Pro</h2>
+							<div class="price">
+								<span class="currency">$</span>
+								<span class="value">15</span>
+								<span class="duration">mo</span>
+							</div>
+						</header>
+						<div class="pricing-body">
+							<ul class="pricing-features">
+								<li><em>Illimitate</em> Verifiche Link</li>
+								<li><em>Illimitate</em> Verifiche Foto</li>
+                                <li><em>Illimitate</em> Verifiche Video/Audio</li>
+								<li><em>Sezione</em> notizie verificate</li>
+                                <li><em>Accesso</em> accesso alla lista di domini verificati </li>
+								<li><em>Confronto</em> con altre notizie </li>
+							</ul>
+						</div>
+						<footer class="pricing-footer">
+							<a class="select" href="#">Seleziona</a>
+						</footer>
+					</li>
+					<li data-type="yearly" class="is-hidden">
+						<header class="pricing-header">
+							<h2>Pro</h2>
+							<div class="price">
+								<span class="currency">$</span>
+								<span class="value">150</span>
+								<span class="duration">yr</span>
+							</div>
+						</header>
+						<div class="pricing-body">
+							<ul class="pricing-features">
+								<li><em>Illimitate</em> Verifiche Link</li>
+								<li><em>Illimitate</em> Verifiche Foto</li>
+                                <li><em>Illimitate</em> Verifiche Video/Audio</li>
+								<li><em>Sezione</em> notizie verificate</li>
+                                <li><em>Accesso</em> accesso alla lista di domini verificati </li>
+								<li><em>Confronto</em> con altre notizie </li>
+							</ul>
+						</div>
+						<footer class="pricing-footer">
+							<a class="select" href="#">Seleziona</a>
+						</footer>
+					</li>
+				</ul>
+			</li>
+            <!-- Add Skip Button -->
+          <a style="text-align: center;" class="skip-button" href="/">Skip</a>
+		</ul>
+	</div>
+<!-- partial -->
+  <script src='//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js'></script>
+<script  src="../../static/js/script.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <title>The Verifiers - Verifica Tossicità</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/png" href="logo.png">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    :root {
+      --primary-color: #305073;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(135deg, #16222A, #3A6073);
+      color: #fff;
+      transition: all 0.3s ease-in-out;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      min-height: 100vh;
+      padding: 2rem;
+    }
+
+    .dark-theme {
+      background: linear-gradient(135deg, #0e0e0e, #1e1e1e);
+      color: #ddd;
+    }
+
+    .container {
+      background: rgba(255, 255, 255, 0.06);
+      backdrop-filter: blur(12px);
+      border-radius: 16px;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+      padding: 2rem;
+      max-width: 750px;
+      width: 100%;
+      position: relative;
+    }
+
+    .theme-toggle {
+      position: absolute;
+      top: 15px;
+      right: 20px;
+      background: none;
+      border: none;
+      font-size: 1.3rem;
+      color: inherit;
+      cursor: pointer;
+    }
+
+    .logo {
+      display: block;
+      max-width: 100px;
+      margin: 0 auto 1.2rem;
+      animation: fadeInScale 1.2s ease forwards;
+      opacity: 0;
+    }
+
+    @keyframes fadeInScale {
+      0% { transform: scale(0.8); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 2rem;
+      margin-bottom: 1.5rem;
+    }
+
+    textarea {
+      width: 100%;
+      padding: 1rem;
+      border-radius: 10px;
+      font-size: 1rem;
+      border: 1px solid #ccc;
+      resize: vertical;
+      margin-bottom: 1rem;
+    }
+
+    textarea:focus {
+      outline: none;
+      border: 2px solid var(--primary-color);
+    }
+
+    button {
+      padding: 10px 18px;
+      border: none;
+      border-radius: 25px;
+      margin: 0.5rem 0.5rem 0 0;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease-in-out;
+    }
+
+    button:hover {
+      opacity: 0.9;
+    }
+
+    .btn-primary {
+      background: var(--primary-color);
+      color: #fff;
+    }
+
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.15);
+      border: 1px solid #fff;
+      color: #fff;
+    }
+
+    .btn-icon i {
+      margin-right: 6px;
+      color: #88c1f5;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: 12px;
+      margin-left: 10px;
+      font-size: 0.85rem;
+    }
+
+    .badge.green {
+      background: var(--primary-color);
+    }
+
+    .badge.red {
+      background: #f44336;
+    }
+
+    .loader {
+      display: none;
+      margin: 20px auto;
+      border: 4px solid rgba(255, 255, 255, 0.2);
+      border-top: 4px solid #fff;
+      border-radius: 50%;
+      width: 36px;
+      height: 36px;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .history, .result, .timer {
+      margin-top: 20px;
+    }
+
+    .history-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .history-item {
+      background: rgba(255,255,255,0.05);
+      padding: 10px;
+      border-radius: 10px;
+      margin-bottom: 10px;
+    }
+
+    .toxic-phrase {
+      background: #f44336;
+      padding: 5px;
+      border-radius: 6px;
+      display: inline-block;
+      font-weight: bold;
+    }
+
+    .btn-icon {
+      font-size: 0.9rem;
+      padding: 8px 14px;
+      display: flex;
+      align-items: center;
+    }
+
+    .timer {
+      font-size: 0.9rem;
+      opacity: 0.8;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <button class="theme-toggle" onclick="toggleTheme()">🌓</button>
+    <img src="logo.png" alt="Logo The Verifiers" class="logo">
+    <h1>Verifica Tossicità</h1>
+
+    <form id="toxForm">
+      <label for="text">Inserisci una conversazione:</label><br>
+      <textarea id="text" required placeholder="Mario: Ciao, come stai?\nLuca: Bene, grazie!"></textarea><br>
+      <button type="submit" class="btn-primary">Analizza</button>
+      <button type="button" class="btn-secondary" onclick="resetForm()">Pulisci</button>
+    </form>
+
+    <div id="loader" class="loader"></div>
+    <div id="timer" class="timer"></div>
+    <div id="result" class="result"></div>
+
+    <div class="history">
+      <div class="history-header">
+        <h3>🕓 Ultime analisi</h3>
+        <button class="btn-secondary btn-icon" onclick="exportCSV()">
+          <i class="fas fa-file-csv"></i>Esporta CSV
+        </button>
+      </div>
+      <div id="history-list"></div>
+    </div>
+  </div>
+
+  <script>
+    const baseTitle = "The Verifiers - Verifica Tossicità";
+    let pos = 0;
+    function animateTitle() {
+      document.title = baseTitle.slice(pos) + " | " + baseTitle.slice(0, pos);
+      pos = (pos + 1) % baseTitle.length;
+      setTimeout(animateTitle, 250);
+    }
+    animateTitle();
+
+    function toggleTheme() {
+      document.body.classList.toggle("dark-theme");
+    }
+
+    function resetForm() {
+      document.getElementById("text").value = "";
+      document.getElementById("result").innerHTML = "";
+      document.getElementById("timer").innerText = "";
+    }
+
+    function exportCSV() {
+      const history = JSON.parse(localStorage.getItem("toxHistory")) || [];
+      let csv = "Conversazione,Etichetta,Score\n";
+      history.forEach(h => {
+        csv += `"${h.text.replace(/\n/g, ' ')}",${h.label},${h.score}\n`;
+      });
+      const blob = new Blob([csv], { type: "text/csv" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "cronologia_tossicita.csv";
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+
+    function renderHistory() {
+      const history = JSON.parse(localStorage.getItem("toxHistory")) || [];
+      const container = document.getElementById("history-list");
+      container.innerHTML = "";
+      history.forEach(item => {
+        const el = document.createElement("div");
+        el.className = "history-item";
+        el.innerHTML = `<strong>${item.label}</strong> (score: ${item.score.toFixed(3)})<br>${item.text}`;
+        container.appendChild(el);
+      });
+    }
+
+    renderHistory();
+  </script>
+</body>
+</html>

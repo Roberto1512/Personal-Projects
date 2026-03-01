@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>The Verifiers - NOTIZIE VERIFICATE</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", sans-serif}
+.news-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.news-item {
+  width: 48%;
+  margin-bottom: 20px;
+}
+.news{
+
+}
+.news-item h2 {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.news-item img {
+  width: 100%;
+  height: auto;
+  margin-bottom: 10px;
+}
+
+.news-item p {
+  font-size: 14px;
+  line-height: 1.5;
+}
+body, html {
+    padding-top: 20px;
+  height: 100%;
+  line-height: 1.8;
+  width: 100%;
+  min-height: 100vh;
+  background: #7abf7a;
+  background: -webkit-linear-gradient(135deg, #7abf7a 0%, #000000 100%);
+  background: -o-linear-gradient(135deg, #7abf7a 0%, #000000 100%);
+  background: -moz-linear-gradient(135deg, #7abf7a 0%, #000000 100%);
+  background: linear-gradient(135deg, #7abf7a 0%, #000000 100%);
+}
+.news-container {
+  padding-bottom: 100px; /* Spazio vuoto in fondo alla pagina per posizionare i pulsanti */
+}
+
+#pagination {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: #f9f9f9;
+  padding: 10px;
+  text-align: center;
+    display: flex;
+  align-items: center;
+}
+.pagination-center {
+  margin: 0 10px;
+}
+
+#previous-button,
+#next-button {
+  margin-right: 10px;
+}
+</style>
+</head>
+<body>
+
+<!-- Mi consente di togliere tutti gli spazi bianchi e di riavvicinare gli elementi -->
+<!-- <div id="primary"><div class="flex flex-col-reverse xl:flex-row md:items-center w-full"></div> -->
+
+<!-- Navbar (sit on top) -->
+<div class="w3-top">
+  <div class="w3-bar w3-white w3-card" id="myNavbar">
+    <a href="#home" class="w3-bar-item w3-button w3-wide">The Verifiers</a>
+    <!-- Right-sided navbar links -->
+    <div class="w3-right w3-hide-small">
+      <a href="/" class="w3-bar-item w3-button"><i class="fa fa-home"></i>HOME</a>
+      <a href="/verifica" class="w3-bar-item w3-button"><i class="fa fa-search"></i>VERIFICA</a>
+
+      <a href="/segnalazioneNotizie" class="w3-bar-item w3-button"><i class="fa"></i> SEGNALAZIONE NOTIZIE</a>
+      <a href="/dominiVerificati" class="w3-bar-item w3-button"><i class="fa fa-tick"></i>DOMINI VERIFICATI</a>
+      <a href="/notizieVerificate" class="w3-bar-item w3-button"><i class="fa fa-th"></i> NOTIZIE VERIFICATE</a>
+      <a href="/contatti" class="w3-bar-item w3-button"><i class="fa fa-envelope"></i> CONTATTI</a>
+      <a href="/creazioneForm" class="w3-bar-item w3-button"><i class="fa fa-envelope"></i> FORM</a>
+      <a href="/faq" class="w3-bar-item w3-button"><i class="fa fa-info"></i> FAQ</a>
+
+        {% if 'logged_in' in session %}
+      <a href="/gestioneProfilo" class="w3-bar-item w3-button"><i class="fa fa-user"></i> GESTIONE PROFILO</a>
+      <a href="/logout" class="w3-bar-item w3-button"><i class="fa fa-user"></i> LOGOUT</a>
+         {% endif %}
+          {% if 'logged_in' not in session %}
+
+      <a href="/log_in" class="w3-bar-item w3-button"><i class="fa fa-user"></i> LOGIN</a>
+      <a href="/registration" class="w3-bar-item w3-button"><i class="fa fa-user"></i> REGISTRATI</a>
+         {% endif %}
+
+    </div>
+    <!-- Hide right-floated links on small screens and replace them with a menu icon -->
+
+    <a href="javascript:void(0)" class="w3-bar-item w3-button w3-right w3-hide-large w3-hide-medium" onclick="w3_open()">
+      <i class="fa fa-bars"></i>
+    </a>
+  </div>
+</div>
+
+<div class="w3-content w3-padding" style="max-width:1564px">
+    <section id="news-section" class="w3-container w3-center">
+      <h2 class="w3-wide">Notizie Verificate</h2>
+      <div class="w3-row-padding w3-padding-16 w3-center">
+        <div class="w3-quarter">
+          <img src="https://www.theverifiers.it/static/images/logo-verifiers.png" alt="The Verifiers" class="logo">
+        </div>
+      </div>
+    </section>
+
+<div class="filter-container">
+    <input type="text" id="keyword-input" placeholder="Enter keyword">
+    <button id="filter-button">Filter</button>
+  </div>
+
+    <div class="news-container">
+      <div id="news-container" class="news"></div>
+      <div id="pagination">
+  <button id="previous-button" onclick="loadPreviousPage()">Precedente</button>
+  <div class="pagination-center">
+    <label for="source-select">Seleziona una fonte:</label>
+    <select id="source-select">
+      <option value="la-repubblica">La Repubblica</option>
+      <option value="il-sole-24-ore">Il Sole 24 Ore</option>
+         <option value="ansa">ANSA</option>
+      <option value="abc-news">ABC News</option>
+      <option value="bbc-sport">BBC Sport</option>
+        <option value="fox-news">Fox News</option>
+    </select>
+  </div>
+  <button id="next-button" onclick="loadNextPage()">Successivo</button>
+</div>
+    </div>
+</div>
+
+
+<script>
+    const maxPages = 3; // Numero massimo di pagine visualizzabili
+  const pageSize = 3; // Numero massimo di notizie per pagina
+  let currentPageIndex = 1; // Indice della pagina corrente
+  let newsData = []; // Archiviazione dei dati delle notizie
+
+ function loadNews(source, page) {
+  const apiKey = '0df1565c2528449a91143626c9d0194e';
+  const startIndex = (page - 1) * pageSize;
+  // Calcola l'indice di partenza per la pagina corrente
+
+ fetch(`https://newsapi.org/v2/top-headlines?sources=${source}&apiKey=${apiKey}&pageSize=${pageSize}&page=${page}`)
+    .then(response => response.json())
+    .then(data => {
+      // Recupera le notizie dalla risposta JSON
+      const articles = data.articles;
+
+      // Aggiorna le notizie nell'archiviazione dei dati
+      newsData = articles;
+
+      // Crea l'HTML per visualizzare le notizie
+      let newsHTML = '';
+      newsData.forEach(article => {
+        // Verifica se l'articolo ha un'immagine
+        const imageUrl = article.urlToImage ? article.urlToImage : 'placeholder.jpg'; // Replace 'placeholder.jpg' with the path to your default image
+
+        newsHTML += `
+          <div class="news-item">
+            <h2><a href="${article.url}" target="_blank">${article.title}</a></h2>
+            <img src="${imageUrl}" alt="News Image">
+            <p>${article.description}</p>
+          </div>
+        `;
+      });
+
+      // Aggiorna il contenuto della sezione delle notizie
+      const newsContainer = document.getElementById('news-container');
+      newsContainer.innerHTML = newsHTML;
+    })
+    .catch(error => {
+      console.log('Si è verificato un errore:', error);
+    });
+        document.getElementById('next-button').style.display = 'block';
+}
+
+  function loadPreviousPage() {
+  if (currentPageIndex > 1) {
+    currentPageIndex--;
+    loadNews(getSelectedSource(), currentPageIndex);
+  }
+
+  // Mostra il pulsante "Successivo" quando si carica una pagina precedente
+  document.getElementById('next-button').style.display = 'block';
+}
+
+  function loadNextPage() {
+  if (currentPageIndex < maxPages) {
+    currentPageIndex++;
+    loadNews(getSelectedSource(), currentPageIndex);
+  }
+
+  // Nascondi il pulsante "Successivo" se si raggiunge la pagina 3
+  if (currentPageIndex === maxPages) {
+    document.getElementById('next-button').style.display = 'none';
+  }
+}
+
+  function getSelectedSource() {
+    const sourceSelect = document.getElementById('source-select');
+    return sourceSelect.value;
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const selectElement = document.getElementById('source-select');
+
+    // Carica le notizie iniziali dalla fonte di default
+    loadNews(selectElement.value, currentPageIndex);
+
+    // Aggiungi un gestore di eventi per il cambio della fonte selezionata
+    selectElement.addEventListener('change', () => {
+      // Resetta l'archiviazione dei dati delle notizie e l'indice della pagina corrente
+      newsData = [];
+      currentPageIndex = 1;
+
+      // Carica le notizie dalla nuova fonte selezionata
+      loadNews(selectElement.value, currentPageIndex);
+    });
+  });
+   const filterButton = document.getElementById('filter-button');
+    filterButton.addEventListener('click', () => {
+      const keywordInput = document.getElementById('keyword-input');
+      const keyword = keywordInput.value;
+
+      // Reset current page index and load news with the filtered keyword
+      currentPageIndex = 1;
+      loadNewsWithKeyword(getSelectedSource(), keyword, currentPageIndex);
+    });
+
+    function loadNewsWithKeyword(source, keyword, page) {
+  const apiKey = '0df1565c2528449a91143626c9d0194e';
+  const startIndex = (page - 1) * pageSize;
+
+  fetch(`https://newsapi.org/v2/top-headlines?sources=${source}&apiKey=${apiKey}&pageSize=${pageSize}&page=${page}`)
+    .then(response => response.json())
+    .then(data => {
+      // Retrieve news from JSON response
+      const articles = data.articles;
+
+      // Filter news based on keyword
+      const filteredArticles = articles.filter(article => article.title.toLowerCase().includes(keyword.toLowerCase()));
+
+      // Update news data storage with filtered articles
+      newsData = filteredArticles;
+
+      // Create HTML to display the filtered news
+      let newsHTML = '';
+      newsData.forEach(article => {
+        const imageUrl = article.urlToImage ? article.urlToImage : 'placeholder.jpg';
+
+        newsHTML += `
+          <div class="news-item">
+            <h2><a href="${article.url}" target="_blank">${article.title}</a></h2>
+            <img src="${imageUrl}" alt="News Image">
+            <p>${article.description}</p>
+          </div>
+        `;
+      });
+
+      // Update the content of the news section
+      const newsContainer = document.getElementById('news-container');
+      newsContainer.innerHTML = newsHTML;
+    })
+    .catch(error => {
+      console.log('An error occurred:', error);
+    });
+
+  // Show the "Next" button when loading a previous page
+  document.getElementById('next-button').style.display = 'block';
+}
+</script>
+<!-- About Section -->
+</body>
+</html>

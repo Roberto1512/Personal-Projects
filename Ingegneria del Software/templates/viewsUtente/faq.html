@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>The Verifiers - FAQ</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", sans-serif}
+
+body, html {
+  height: 100%;
+  line-height: 1.8;
+  width: 100%;
+  min-height: 100vh;
+  background: #7abf7a;
+  background: -webkit-linear-gradient(135deg, #7abf7a 0%, #000000 100%);
+  background: -o-linear-gradient(135deg, #7abf7a 0%, #000000 100%);
+  background: -moz-linear-gradient(135deg, #7abf7a 0%, #000000 100%);
+  background: linear-gradient(135deg, #7abf7a 0%, #000000 100%);
+}
+
+.bgimg-1 {
+  background-position: center;
+  background-size: cover;
+  min-height: 100%;
+}
+
+.w3-bar .w3-button {
+  padding: 16px;
+}
+
+.w3-spin {
+  animation-duration: 15s;
+}
+
+img.logo {
+  display: block;
+  margin: 0 auto;
+  margin-top: 210px;
+  width: 500px;
+  height: 500px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.w3-bar-item.active {
+  background-color: #b0b0b0;
+  color: #000;
+}
+</style>
+</head>
+<body>
+
+<!-- Navbar (sit on top) -->
+<div class="w3-top">
+  <div class="w3-bar w3-white w3-card" id="myNavbar">
+    <a href="#home" class="w3-bar-item w3-button w3-wide">The Verifiers</a>
+    <!-- Right-sided navbar links -->
+    <div class="w3-right w3-hide-small">
+      <a href="/" class="w3-bar-item w3-button"><i class="fa fa-home"></i>HOME</a>
+      <a href="/verifica" class="w3-bar-item w3-button"><i class="fa fa-search"></i>VERIFICA</a>
+
+      <a href="/segnalazioneNotizie" class="w3-bar-item w3-button"><i class="fa"></i> SEGNALAZIONE NOTIZIE</a>
+      <a href="/dominiVerificati" class="w3-bar-item w3-button"><i class="fa fa-tick"></i>DOMINI VERIFICATI</a>
+      <a href="/notizieVerificate" class="w3-bar-item w3-button"><i class="fa fa-th"></i> NOTIZIE VERIFICATE</a>
+      <a href="/contatti" class="w3-bar-item w3-button"><i class="fa fa-envelope"></i> CONTATTI</a>
+      <a href="/creazioneForm" class="w3-bar-item w3-button"><i class="fa fa-envelope"></i> FORM</a>
+      <a href="/faq" id="faq-link" class="w3-bar-item w3-button"><i class="fa fa-info"></i> FAQ</a>
+
+        {% if 'logged_in' in session %}
+      <a href="/gestioneProfilo" class="w3-bar-item w3-button"><i class="fa fa-user"></i> GESTIONE PROFILO</a>
+      <a href="/subscription" class="w3-bar-item w3-button"><i class="fa fa-user"></i> PIANO</a>
+      <a href="/logout" class="w3-bar-item w3-button"><i class="fa fa-user"></i> LOGOUT</a>
+         {% endif %}
+          {% if 'logged_in' not in session %}
+
+      <a href="/log_in" class="w3-bar-item w3-button"><i class="fa fa-user"></i> LOGIN</a>
+      <a href="/registration" class="w3-bar-item w3-button"><i class="fa fa-user"></i> REGISTRATI</a>
+         {% endif %}
+
+    </div>
+    <!-- Hide right-floated links on small screens and replace them with a menu icon -->
+
+    <a href="javascript:void(0)" class="w3-bar-item w3-button w3-right w3-hide-large w3-hide-medium" onclick="w3_open()">
+      <i class="fa fa-bars"></i>
+    </a>
+  </div>
+</div>
+
+<!-- FAQ Section -->
+<div class="w3-container w3-padding-64" id="faq">
+  <h2 class="w3-text-light-grey">Domande frequenti</h2>
+
+  <h3 class="w3-text-light-grey">Domanda 1: Quali tipi di contenuti posso verificare?</h3>
+  <p>Risposta: Il nostro servizio di verifica supporta immagini, video e file audio. Puoi caricare tali contenuti per una valutazione accurata.</p>
+
+  <h3 class="w3-text-light-grey">Domanda 2: Come funziona la verifica dei contenuti?</h3>
+  <p>Risposta: La nostra piattaforma utilizza algoritmi avanzati per analizzare e valutare i contenuti forniti dagli utenti. Utilizziamo tecniche di intelligenza artificiale e apprendimento automatico per determinare l'attendibilità dei contenuti e del dominio associato.</p>
+
+  <h3 class="w3-text-light-grey">Domanda 3: Quali fattori vengono considerati per valutare l'attendibilità di un dominio?</h3>
+  <p>Risposta: La valutazione dell'attendibilità di un dominio si basa su diversi fattori, tra cui l'età del dominio, la reputazione dell'hosting, la presenza di contenuti dannosi o sospetti, la storia di phishing o frodi associate al dominio e altre metriche di sicurezza.</p>
+
+  <h3 class="w3-text-light-grey">Domanda 4: Cosa devo fare se un contenuto viene valutato come non affidabile?</h3>
+  <p>Risposta: Se un contenuto viene segnalato come non affidabile, ti consigliamo di prestare attenzione e di considerare ulteriori verifiche o precauzioni. Puoi contattarci per ulteriori informazioni e assistenza.</p>
+
+  <h3 class="w3-text-light-grey">Domanda 5: Posso integrare il servizio di verifica dei contenuti nel mio sito?</h3>
+  <p>Risposta: Sì, offriamo API che consentono l'integrazione del nostro servizio di verifica dei contenuti nelle tue applicazioni o siti web. Contattaci per ulteriori dettagli e documentazione.</p>
+
+  <h3 class="w3-text-light-grey">Domanda 6: Quali sono i tempi di risposta per la verifica dei contenuti?</h3>
+  <p>Risposta: I tempi di risposta possono variare a seconda del carico di lavoro e della complessità del contenuto da verificare. Generalmente, ci impegniamo a fornire risultati entro pochi minuti dall'invio dei contenuti.</p>
+</div>
+
+<!-- Footer -->
+<footer class="w3-center w3-light-grey w3-padding-32">
+  <p>Powered by The Verifiers</p>
+</footer>
+
+<script>
+// Toggle between showing and hiding the sidebar when clicking the menu icon
+function w3_open() {
+  var x = document.getElementById("mySidebar");
+  if (x.style.display === 'block') {
+    x.style.display = 'none';
+  } else {
+    x.style.display = 'block';
+  }
+}
+</script>
+
+<script>
+  // Alcun codice precedente...
+
+  // Trova il bottone corrispondente alla pagina "HOME" e aggiungi la classe "active"
+  document.getElementById("faq-link").classList.add("active");
+</script>
+
+</body>
+</html>

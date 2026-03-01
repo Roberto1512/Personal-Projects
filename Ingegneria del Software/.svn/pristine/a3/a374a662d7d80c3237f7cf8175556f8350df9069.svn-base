@@ -1,0 +1,86 @@
+.container-recovery {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f2f2f2;
+}
+
+.wrap-recovery {
+    width: 400px;
+    background-color: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.recovery-pic {
+    text-align: center;
+    padding: 30px 0;
+}
+
+.recovery-pic img {
+    max-width: 100%;
+}
+
+.recovery-form {
+    padding: 40px;
+}
+
+.recovery-form-title {
+    font-size: 24px;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.method-selection {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.method-options {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.method-option {
+    margin-bottom: 10px;
+}
+
+.recovery-inputs {
+    display: none;
+}
+
+.input-recovery {
+    width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.container-login100-form-btn {
+    text-align: center;
+    margin-top: 40px;
+}
+
+.login100-form-btn {
+    width: 100%;
+    background-color: #4CAF50;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 15px 0;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.login100-form-btn:hover {
+    background-color: #45a049;
+}
+.recovery-pic img {
+    max-width: 100%;
+    height: auto;
+    width: 200px; /* Imposta la larghezza desiderata */
+}
+

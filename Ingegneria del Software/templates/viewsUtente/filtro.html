@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>The Verifiers - FILTRO</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+  body, h1, h2, h3, h4, h5, h6 {
+    font-family: "Raleway", sans-serif;
+    margin: 0;
+  }
+
+  body,
+  html {
+    padding-top: 20px;
+    height: 100%;
+    line-height: 1.8;
+    width: 100%;
+    min-height: 100vh;
+  }
+
+  .w3-top {
+      top: 0;
+    z-index: 100;
+  }
+
+  .news-container {
+    margin-top: 80px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 20px;
+    padding-bottom: 100px;
+  }
+
+.news-item {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: #fff;
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  position: relative;
+  transition: transform 0.3s ease;
+  cursor: pointer;
+}
+
+.news-item:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.1);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+  border-radius: 5px;
+}
+
+.news-item:hover {
+  transform: translateY(-5px);
+}
+
+.news-item:hover:before {
+  opacity: 1;
+}
+.news-item h2 {
+  font-size: 16px;
+  margin-bottom: 10px;
+  color: #333333;
+}
+
+.news-item img {
+  width: 100%;
+  height: auto;
+  margin-bottom: 10px;
+  border-radius: 5px;
+}
+
+.news-item p {
+  font-size: 12px;
+  line-height: 1.5;
+  color: #666666;
+}
+
+#pagination {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: #f9f9f9;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Aggiunto un'ombra */
+}
+
+#previous-button,
+#next-button {
+  margin: 0 5px; /* Ridotto il margine laterale */
+  padding: 8px 12px; /* Aggiunto un padding per rendere i pulsanti più grandi */
+  background-color: #e9e9e9; /* Aggiunto un colore di sfondo leggermente più scuro */
+  border: none;
+  border-radius: 4px;
+  font-size: 14px;
+  color: #555;
+  cursor: pointer;
+  transition: background-color 0.3s ease; /* Aggiunto un effetto di transizione al passaggio del mouse */
+}
+
+#previous-button:hover,
+#next-button:hover {
+  background-color: #dcdcdc; /* Cambiato il colore di sfondo al passaggio del mouse */
+}
+
+#previous-button:disabled,
+#next-button:disabled {
+  opacity: 0.6; /* Ridotta l'opacità dei pulsanti disabilitati */
+  cursor: not-allowed; /* Cambiato il cursore per i pulsanti disabilitati */
+}
+.language-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.language-label {
+  margin-right: 10px;
+  font-size: 16px;
+  color: #333333;
+}
+
+.language-button {
+  background-color: #ffffff;
+  border: none;
+  color: #000000;
+  padding: 8px 16px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 14px;
+  margin-right: 5px;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+
+.language-button.active {
+  background-color: #e0e0e0;
+}
+
+.language-button:hover {
+  background-color: #f0f0f0;
+}
+
+
+.category-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.category-label {
+  margin-right: 10px;
+  font-size: 16px;
+  color: #333333;
+}
+
+.category-button {
+  background-color: #ffffff;
+  border: none;
+  color: #000000;
+  padding: 8px 16px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 14px;
+  margin-right: 5px;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+
+.category-button.active {
+  background-color: #e0e0e0;
+}
+
+.category-button:hover {
+  background-color: #f0f0f0;
+}
+  .active-category {
+    background-color: #4CAF50;
+    color: white;
+  }
+
+  .active-language {
+    background-color: #4CAF50;
+    color: white;
+  }
+</style>
+</head>
+<body>
+
+<!-- Navbar (sit on top) -->
+<div class="w3-top">
+  <div class="w3-bar w3-white w3-card" id="myNavbar">
+    <a href="/filtro" class="w3-bar-item w3-button w3-wide">The Verifiers</a>
+    <a href="/notizieVerificate" class="w3-bar-item w3-button w3-right">Back</a>
+    <div id="category-buttons">
+              <button class="category-button" class="w3-bar-item w3-button filter-button" data-category="general">General</button>
+      <button class="category-button" class="w3-bar-item w3-button filter-button" data-category="business">Business</button>
+      <button class="category-button" class="w3-bar-item w3-button filter-button" data-category="entertainment">Entertainment</button>
+      <button class="category-button" class="w3-bar-item w3-button filter-button" data-category="health">Health</button>
+      <button class="category-button" class="w3-bar-item w3-button filter-button" data-category="science">Science</button>
+      <button class="category-button" class="w3-bar-item w3-button filter-button" data-category="sports">Sports</button>
+      <button class="category-button" class="w3-bar-item w3-button filter-button" data-category="technology">Technology</button>
+    </div>
+    <div id="language-buttons">
+        <button class="language-button filter-button" data-language="all">All</button>
+      <button class="language-button filter-button" data-language="en">English</button>
+      <button class="language-button filter-button" data-language="it">Italiano</button>
+    </div>
+  </div>
+</div>
+<div id="news-container" class="news-container"></div>
+<div id="pagination" class="pagination">
+
+</div>
+
+<script>
+const apiKey = '8aedadae26fd4223b8ce8ae594706d56';
+
+// Variabili globali
+let currentPage = 1;
+let currentCategory = '';
+let currentLanguage = '';
+
+  // Funzione per gestire il click sui bottoni di categoria
+  var categoryButtons = document.getElementsByClassName('category-button');
+  for (var i = 0; i < categoryButtons.length; i++) {
+    categoryButtons[i].addEventListener('click', function() {
+      var current = document.getElementsByClassName('active-category');
+      if (current.length > 0) {
+        current[0].className = current[0].className.replace(' active-category', '');
+      }
+      this.className += ' active-category';
+    });
+  }
+
+  // Funzione per gestire il click sui bottoni di lingua
+  var languageButtons = document.getElementsByClassName('language-button');
+  for (var j = 0; j < languageButtons.length; j++) {
+    languageButtons[j].addEventListener('click', function() {
+      var current = document.getElementsByClassName('active-language');
+      if (current.length > 0) {
+        current[0].className = current[0].className.replace(' active-language', '');
+      }
+      this.className += ' active-language';
+    });
+  }
+
+function getNews(category, language) {
+  const pageSize = 12;
+  const dateRange = getPastDateRange(7); // Ottenere la data di sette giorni fa
+
+  const apiUrl = `https://newsapi.org/v2/top-headlines?category=${category}&language=${language}&apiKey=${apiKey}&pageSize=${pageSize}&from=${dateRange.startDate}&to=${dateRange.endDate}`;
+
+  fetch(apiUrl)
+    .then(response => response.json())
+    .then(data => {
+      const articles = data.articles;
+      let newsHTML = '';
+
+      articles.forEach(article => {
+  const formattedDate = new Date(article.publishedAt).toLocaleDateString('it-IT', { day: 'numeric', month: 'long', year: 'numeric' });
+
+  let imageHTML = '';
+  if (article.urlToImage) {
+    imageHTML = `<img src="${article.urlToImage}" alt="${article.title}">`;
+  } else {
+    imageHTML = `<img src="static/images/News.jpg" alt="Default Image">`;
+  }
+
+  newsHTML += `
+    <div class="news-item">
+      ${imageHTML}
+      <h2><a href="${article.url}" target="_blank">${article.title}</a></h2>
+      <p>${formattedDate}</p>
+    </div>
+  `;
+});
+
+      const newsContainer = document.getElementById('news-container');
+      newsContainer.innerHTML = newsHTML;
+    })
+    .catch(error => {
+      console.log('Si è verificato un errore:', error);
+    });
+}
+
+function getPastDateRange(daysAgo) {
+  const today = new Date();
+  const endDate = today.toISOString().split('T')[0]; // Data di fine (oggi)
+  const startDate = new Date(today.setDate(today.getDate() - daysAgo)).toISOString().split('T')[0]; // Data di inizio (sette giorni fa)
+
+  return {
+    startDate,
+    endDate
+  };
+}
+
+function createPaginationButtons(category, language) {
+  const paginationContainer = document.getElementById('pagination');
+  paginationContainer.innerHTML = '';
+
+  const previousButton = document.createElement('button');
+  previousButton.id = 'previous-button';
+  previousButton.className = 'pagination-button';
+  previousButton.innerText = 'Precedente';
+  previousButton.disabled = true;
+
+  const nextButton = document.createElement('button');
+  nextButton.id = 'next-button';
+  nextButton.className = 'pagination-button';
+  nextButton.innerText = 'Successivo';
+
+  paginationContainer.appendChild(previousButton);
+  paginationContainer.appendChild(nextButton);
+
+  let page = 1;
+
+  previousButton.addEventListener('click', () => {
+    if (page > 1) {
+      page--;
+      getNewsByPage(category, language, page);
+    }
+  });
+
+  nextButton.addEventListener('click', () => {
+    page++;
+  getNewsByPage(category, language, page);
+  });
+}
+
+function getNewsByPage(category, language, page) {
+  const pageSize = 12;
+  const dateRange = getPastDateRange(7);
+
+  const apiUrl = `https://newsapi.org/v2/top-headlines?category=${category}&language=${language}&apiKey=${apiKey}&pageSize=${pageSize}&page=${page}&from=${dateRange.startDate}&to=${dateRange.endDate}`;
+
+  fetch(apiUrl)
+    .then(response => response.json())
+    .then(data => {
+      const articles = data.articles;
+      let newsHTML = '';
+
+      articles.forEach(article => {
+        const formattedDate = new Date(article.publishedAt).toLocaleDateString('it-IT', { day: 'numeric', month: 'long', year: 'numeric' });
+
+        let imageHTML = '';
+        if (article.urlToImage) {
+          imageHTML = `<img src="${article.urlToImage}" alt="${article.title}">`;
+        } else {
+          imageHTML = `<img src="static/images/News.jpg" alt="Default Image">`;
+        }
+
+        newsHTML += `
+          <div class="news-item">
+            ${imageHTML}
+            <h2><a href="${article.url}" target="_blank">${article.title}</a></h2>
+            <p>${formattedDate}</p>
+          </div>
+        `;
+      });
+
+      const newsContainer = document.getElementById('news-container');
+      newsContainer.innerHTML = newsHTML;
+
+      const previousButton = document.getElementById('previous-button');
+      const nextButton = document.getElementById('next-button');
+
+      previousButton.disabled = page === 1;
+      nextButton.disabled = articles.length < pageSize;
+
+      if (articles.length === 0) {
+        nextButton.style.display = 'none'; // Hide the "Successivo" button
+      } else {
+        nextButton.style.display = 'block'; // Show the "Successivo" button
+      }
+    })
+    .catch(error => {
+      console.log('Si è verificato un errore:', error);
+    });
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  const categoryButtons = document.querySelectorAll('.category-button');
+  const languageButtons = document.querySelectorAll('.language-button');
+
+  categoryButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      const category = button.dataset.category;
+      currentCategory = category;
+      getNews(currentCategory, currentLanguage);
+      createPaginationButtons(currentCategory, currentLanguage);
+    });
+  });
+
+  languageButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      const language = button.dataset.language;
+      if (language === 'all') {
+        currentLanguage = '';
+      } else {
+        currentLanguage = language;
+      }
+      getNews(currentCategory, currentLanguage);
+      createPaginationButtons(currentCategory, currentLanguage);
+    });
+  });
+
+  // Set the initial category to "general" and retrieve the news
+  currentCategory = "general";
+  currentLanguage = '';
+  getNews(currentCategory, currentLanguage);
+  createPaginationButtons(currentCategory, currentLanguage);
+});
+</script>
+
+</body>
+</html>

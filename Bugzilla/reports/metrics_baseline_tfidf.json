@@ -1,0 +1,1928 @@
+{
+  "accuracy": 0.5878468368479467,
+  "f1_macro": 0.4433415775065352,
+  "f1_micro": 0.5878468368479467,
+  "classification_report": {
+    "Core::Audio/Video": {
+      "precision": 0.47540983606557374,
+      "recall": 0.28019323671497587,
+      "f1-score": 0.3525835866261398,
+      "support": 207.0
+    },
+    "Core::Audio/Video: GMP": {
+      "precision": 0.84,
+      "recall": 0.39622641509433965,
+      "f1-score": 0.5384615384615384,
+      "support": 53.0
+    },
+    "Core::Audio/Video: MediaStreamGraph": {
+      "precision": 0.3333333333333333,
+      "recall": 0.14285714285714285,
+      "f1-score": 0.2,
+      "support": 28.0
+    },
+    "Core::Audio/Video: Playback": {
+      "precision": 0.5370813397129187,
+      "recall": 0.682370820668693,
+      "f1-score": 0.6010709504685409,
+      "support": 658.0
+    },
+    "Core::Audio/Video: Recording": {
+      "precision": 0.9411764705882353,
+      "recall": 0.5517241379310345,
+      "f1-score": 0.6956521739130435,
+      "support": 29.0
+    },
+    "Core::Audio/Video: Web Codecs": {
+      "precision": 0.9818181818181818,
+      "recall": 0.6,
+      "f1-score": 0.7448275862068966,
+      "support": 90.0
+    },
+    "Core::Audio/Video: cubeb": {
+      "precision": 0.6538461538461539,
+      "recall": 0.4722222222222222,
+      "f1-score": 0.5483870967741935,
+      "support": 72.0
+    },
+    "Core::AutoConfig (Mission Control Desktop)": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1-score": 0.0,
+      "support": 6.0
+    },
+    "Core::CSS Parsing and Computation": {
+      "precision": 0.5482479784366577,
+      "recall": 0.7131837307152875,
+      "f1-score": 0.6199329472721731,
+      "support": 1426.0
+    },
+    "Core::CSS Transitions and Animations": {
+      "precision": 0.5217391304347826,
+      "recall": 0.2727272727272727,
+      "f1-score": 0.3582089552238806,
+      "support": 88.0
+    },
+    "Core::Cycle Collector": {
+      "precision": 1.0,
+      "recall": 0.05,
+      "f1-score": 0.09523809523809523,
+      "support": 20.0
+    },
+    "Core::DLL Services": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1-score": 0.0,
+      "support": 5.0
+    },
+    "Core::DMD": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1-score": 0.0,
+      "support": 7.0
+    },
+    "Core::DOM": {
+      "precision": 0.45363908275174475,
+      "recall": 0.7524807056229328,
+      "f1-score": 0.5660377358490566,
+      "support": 1814.0
+    },
+    "Core::DOM: Animation": {
+      "precision": 0.6551724137931034,
+      "recall": 0.3220338983050847,
+      "f1-score": 0.4318181818181818,
+      "support": 59.0
+    },
+    "Core::DOM: Bindings (WebIDL)": {
+      "precision": 0.5,
+      "recall": 0.16363636363636364,
+      "f1-score": 0.2465753424657534,
+      "support": 55.0
+    },
+    "Core::DOM: CSS Object Model": {
+      "precision": 0.8421052631578947,
+      "recall": 0.32989690721649484,
+      "f1-score": 0.4740740740740741,
+      "support": 97.0
+    },
+    "Core::DOM: Content Processes": {
+      "precision": 0.3130434782608696,
+      "recall": 0.37894736842105264,
+      "f1-score": 0.34285714285714286,
+      "support": 95.0
+    },
+    "Core::DOM: Copy & Paste and Drag & Drop": {
+      "precision": 0.38,
+      "recall": 0.3064516129032258,
+      "f1-score": 0.3392857142857143,
+      "support": 62.0
+    },
+    "Core::DOM: Credential Management": {
+      "precision": 0.84375,
+      "recall": 0.72,
+      "f1-score": 0.7769784172661871,
+      "support": 75.0
+    },
+    "Core::DOM: Device Interfaces": {
+      "precision": 0.6470588235294118,
+      "recall": 0.19642857142857142,
+      "f1-score": 0.3013698630136986,
+      "support": 56.0
+    },
+    "Core::DOM: Editor": {
+      "precision": 0.6241379310344828,
+      "recall": 0.6830188679245283,
+      "f1-score": 0.6522522522522523,
+      "support": 265.0
+    },
+    "Core::DOM: Events": {
+      "precision": 0.51875,
+      "recall": 0.49700598802395207,
+      "f1-score": 0.5076452599388379,
+      "support": 167.0
+    },
+    "Core::DOM: File": {
+      "precision": 0.864406779661017,
+      "recall": 0.5543478260869565,
+      "f1-score": 0.6754966887417219,
+      "support": 92.0
+    },
+    "Core::DOM: Forms": {
+      "precision": 0.6666666666666666,
+      "recall": 0.05714285714285714,
+      "f1-score": 0.10526315789473684,
+      "support": 35.0
+    },
+    "Core::DOM: Geolocation": {
+      "precision": 0.45454545454545453,
+      "recall": 0.25,
+      "f1-score": 0.3225806451612903,
+      "support": 20.0
+    },
+    "Core::DOM: HTML Parser": {
+      "precision": 0.8,
+      "recall": 0.09090909090909091,
+      "f1-score": 0.16326530612244897,
+      "support": 44.0
+    },
+    "Core::DOM: Navigation": {
+      "precision": 0.5116279069767442,
+      "recall": 0.555956678700361,
+      "f1-score": 0.532871972318339,
+      "support": 277.0
+    },
+    "Core::DOM: Networking": {
+      "precision": 0.7357512953367875,
+      "recall": 0.5966386554621849,
+      "f1-score": 0.6589327146171694,
+      "support": 238.0
+    },
+    "Core::DOM: Notifications": {
+      "precision": 0.6666666666666666,
+      "recall": 0.5238095238095238,
+      "f1-score": 0.5866666666666667,
+      "support": 42.0
+    },
+    "Core::DOM: Performance APIs": {
+      "precision": 0.7547169811320755,
+      "recall": 0.5063291139240507,
+      "f1-score": 0.6060606060606061,
+      "support": 79.0
+    },
+    "Core::DOM: Push Subscriptions": {
+      "precision": 0.5,
+      "recall": 0.10526315789473684,
+      "f1-score": 0.17391304347826086,
+      "support": 19.0
+    },
+    "Core::DOM: Security": {
+      "precision": 0.7130434782608696,
+      "recall": 0.6520874751491054,
+      "f1-score": 0.6812045690550363,
+      "support": 503.0
+    },
+    "Core::DOM: Selection": {
+      "precision": 0.42424242424242425,
+      "recall": 0.3111111111111111,
+      "f1-score": 0.358974358974359,
+      "support": 90.0
+    },
+    "Core::DOM: Serializers": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1-score": 0.0,
+      "support": 24.0
+    },
+    "Core::DOM: Service Workers": {
+      "precision": 0.8449612403100775,
+      "recall": 0.6123595505617978,
+      "f1-score": 0.7100977198697068,
+      "support": 178.0
+    },
+    "Core::DOM: Streams": {
+      "precision": 0.8974358974358975,
+      "recall": 0.5223880597014925,
+      "f1-score": 0.660377358490566,
+      "support": 67.0
+    },
+    "Core::DOM: UI Events & Focus Handling": {
+      "precision": 0.3488372093023256,
+      "recall": 0.3125,
+      "f1-score": 0.32967032967032966,
+      "support": 192.0
+    },
+    "Core::DOM: Web Authentication": {
+      "precision": 0.8412698412698413,
+      "recall": 0.654320987654321,
+      "f1-score": 0.7361111111111112,
+      "support": 81.0
+    },
+    "Core::DOM: Web Crypto": {
+      "precision": 0.8888888888888888,
+      "recall": 0.6486486486486487,
+      "f1-score": 0.75,
+      "support": 37.0
+    },
+    "Core::DOM: Web Payments": {
+      "precision": 1.0,
+      "recall": 0.3333333333333333,
+      "f1-score": 0.5,
+      "support": 9.0
+    },
+    "Core::DOM: Web Share": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1-score": 0.0,
+      "support": 4.0
+    },
+    "Core::DOM: Window and Location": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1-score": 0.0,
+      "support": 5.0
+    },
+    "Core::DOM: Workers": {
+      "precision": 0.5764705882352941,
+      "recall": 0.5384615384615384,
+      "f1-score": 0.5568181818181818,
+      "support": 91.0
+    },
+    "Core::DOM: postMessage": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1-score": 0.0,
+      "support": 10.0
+    },
+    "Core::Disability Access APIs": {
+      "precision": 0.787292817679558,
+      "recall": 0.7019704433497537,
+      "f1-score": 0.7421875,
+      "support": 406.0
+    },
+    "Core::Find Backend": {
+      "precision": 1.0,
+      "recall": 0.16666666666666666,
+      "f1-score": 0.2857142857142857,
+      "support": 6.0
+    },
+    "Core::Fuzzing": {
+      "precision": 0.4444444444444444,
+      "recall": 0.3076923076923077,
+      "f1-score": 0.36363636363636365,
+      "support": 26.0
+    },
+    "Core::Gecko Profiler": {
+      "precision": 0.6451612903225806,
+      "recall": 0.5405405405405406,
+      "f1-score": 0.5882352941176471,
+      "support": 185.0
+    },
+    "Core::Graphics": {
+      "precision": 0.40634920634920635,
+      "recall": 0.44912280701754387,
+      "f1-score": 0.4266666666666667,
+      "support": 570.0
+    },
+    "Core::Graphics: Canvas2D": {
+      "precision": 0.7188940092165899,
+      "recall": 0.5714285714285714,
+      "f1-score": 0.636734693877551,
+      "support": 273.0
+    },
+    "Core::Graphics: CanvasWebGL": {
+      "precision": 0.8193548387096774,
+      "recall": 0.5906976744186047,
+      "f1-score": 0.6864864864864865,
+      "support": 215.0
+    },
+    "Core::Graphics: Color Management": {
+      "precision": 0.8,
+      "recall": 0.26666666666666666,
+      "f1-score": 0.4,
+      "support": 30.0
+    },
+    "Core::Graphics: Image Blocking": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1-score": 0.0,
+      "support": 3.0
+    },
+    "Core::Graphics: ImageLib": {
+      "precision": 0.659217877094972,
+      "recall": 0.5784313725490197,
+      "f1-score": 0.6161879895561357,
+      "support": 204.0
+    },
+    "Core::Graphics: Layers": {
+      "precision": 0.36363636363636365,
+      "recall": 0.06779661016949153,
+      "f1-score": 0.11428571428571428,
+      "support": 59.0
+    },
+    "Core::Graphics: Text": {
+      "precision": 0.6721311475409836,
+      "recall": 0.3416666666666667,
+      "f1-score": 0.4530386740331492,
+      "support": 120.0
+    },
+    "Core::Graphics: WebGPU": {
+      "precision": 0.8943661971830986,
+      "recall": 0.8300653594771242,
+      "f1-score": 0.8610169491525423,
+      "support": 306.0
+    },
+    "Core::Graphics: WebRender": {
+      "precision": 0.5046728971962616,
+      "recall": 0.6136363636363636,
+      "f1-score": 0.5538461538461539,
+      "support": 704.0
+    },
+    "Core::Hardware Abstraction Layer (HAL)": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1-score": 0.0,
+      "support": 5.0
+    },
+    "Core::IPC": {
+      "precision": 0.5315315315315315,
+      "recall": 0.42142857142857143,
+      "f1-score": 0.4701195219123506,
+      "support": 140.0
+    },
+    "Core::IPC: MSCOM": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1-score": 0.0,
+      "support": 7.0
+    },
+    "Core::Internationalization": {
+      "precision": 0.5,
+      "recall": 0.4025974025974026,
+      "f1-score": 0.4460431654676259,
+      "support": 154.0
+    },
+    "Core::Internationalization: Localization": {
+      "precision": 0.3333333333333333,
+      "recall": 0.058823529411764705,
+      "f1-score": 0.1,
+      "support": 17.0
+    },
+    "Core::JavaScript": {
+      "precision": 0.42920110192837463,
+      "recall": 0.7404942965779467,
+      "f1-score": 0.5434251831182421,
+      "support": 1052.0
+    },
+    "Core::JavaScript Engine: JIT": {
+      "precision": 0.6013513513513513,
+      "recall": 0.5798045602605864,
+      "f1-score": 0.5903814262023217,
+      "support": 307.0
+    },
+    "Core::JavaScript: GC": {
+      "precision": 0.5828571428571429,
+      "recall": 0.49514563106796117,
+      "f1-score": 0.5354330708661418,
+      "support": 206.0
+    },
+    "Core::JavaScript: Internationalization API": {
+      "precision": 0.5,
+      "recall": 0.1724137931034483,
+      "f1-score": 0.2564102564102564,
+      "support": 29.0
+    },
+    "Core::JavaScript: Standard Library": {
+      "precision": 0.6,
+      "recall": 0.27906976744186046,
+      "f1-score": 0.38095238095238093,
+      "support": 43.0
+    },
+    "Core::JavaScript: WebAssembly": {
+      "precision": 0.7248908296943232,
+      "recall": 0.6125461254612546,
+      "f1-score": 0.664,
+      "support": 271.0
+    },
+    "Core::Layout": {
+      "precision": 0.44261168384879723,
+      "recall": 0.5719360568383659,
+      "f1-score": 0.4990313831848121,
+      "support": 1126.0
+    },
+    "Core::Layout: Block and Inline": {
+      "precision": 0.6875,
+      "recall": 0.4782608695652174,
+      "f1-score": 0.5641025641025641,
+      "support": 92.0
+    },
+    "Core::Layout: Columns": {
+      "precision": 0.8275862068965517,
+      "recall": 0.5,
+      "f1-score": 0.6233766233766234,
+      "support": 48.0
+    },
+    "Core::Layout: Flexbox": {
+      "precision": 0.7866666666666666,
+      "recall": 0.5841584158415841,
+      "f1-score": 0.6704545454545454,
+      "support": 101.0
+    },
+    "Core::Layout: Floats": {
+      "precision": 0.7407407407407407,
+      "recall": 0.4444444444444444,
+      "f1-score": 0.5555555555555556,
+      "support": 45.0
+    },
+    "Core::Layout: Form Controls": {
+      "precision": 0.4881889763779528,
+      "recall": 0.4189189189189189,
+      "f1-score": 0.4509090909090909,
+      "support": 148.0
+    },
+    "Core::Layout: Generated Content, Lists, and Counters": {
+      "precision": 0.7555555555555555,
+      "recall": 0.5074626865671642,
+      "f1-score": 0.6071428571428571,
+      "support": 67.0
+    },
+    "Core::Layout: Grid": {
+      "precision": 0.7457627118644068,
+      "recall": 0.6929133858267716,
+      "f1-score": 0.7183673469387755,
+      "support": 127.0
+    },
+    "Core::Layout: Images, Video, and HTML Frames": {
+      "precision": 0.703125,
+      "recall": 0.42452830188679247,
+      "f1-score": 0.5294117647058824,
+      "support": 106.0
+    },
+    "Core::Layout: Positioned": {
+      "precision": 0.6808510638297872,
+      "recall": 0.4266666666666667,
+      "f1-score": 0.5245901639344263,
+      "support": 75.0
+    },
+    "Core::Layout: Ruby": {
+      "precision": 0.75,
+      "recall": 0.5294117647058824,
+      "f1-score": 0.6206896551724138,
+      "support": 17.0
+    },
+    "Core::Layout: Scrolling and Overflow": {
+      "precision": 0.6533333333333333,
+      "recall": 0.5185185185185185,
+      "f1-score": 0.5781710914454278,
+      "support": 189.0
+    },
+    "Core::Layout: Tables": {
+      "precision": 0.6283185840707964,
+      "recall": 0.6826923076923077,
+      "f1-score": 0.6543778801843319,
+      "support": 104.0
+    },
+    "Core::Layout: Text and Fonts": {
+      "precision": 0.5706051873198847,
+      "recall": 0.592814371257485,
+      "f1-score": 0.5814977973568282,
+      "support": 334.0
+    },
+    "Core::MFBT": {
+      "precision": 0.7115384615384616,
+      "recall": 0.47435897435897434,
+      "f1-score": 0.5692307692307692,
+      "support": 78.0
+    },
+    "Core::Machine Learning": {
+      "precision": 0.736318407960199,
+      "recall": 0.6666666666666666,
+      "f1-score": 0.6997635933806147,
+      "support": 222.0
+    },
+    "Core::MathML": {
+      "precision": 0.9555555555555556,
+      "recall": 0.6935483870967742,
+      "f1-score": 0.8037383177570093,
+      "support": 62.0
+    },
+    "Core::Memory Allocator": {
+      "precision": 0.7941176470588235,
+      "recall": 0.4153846153846154,
+      "f1-score": 0.5454545454545454,
+      "support": 65.0
+    },
+    "Core::Networking": {
+      "precision": 0.3547400611620795,
+      "recall": 0.49678800856531047,
+      "f1-score": 0.41391614629794826,
+      "support": 467.0
+    },
+    "Core::Networking: Cache": {
+      "precision": 0.6785714285714286,
+      "recall": 0.37254901960784315,
+      "f1-score": 0.4810126582278481,
+      "support": 51.0
+    },
+    "Core::Networking: Cookies": {
+      "precision": 0.7195121951219512,
+      "recall": 0.6082474226804123,
+      "f1-score": 0.659217877094972,
+      "support": 97.0
+    },
+    "Core::Networking: DNS": {
+      "precision": 0.6290322580645161,
+      "recall": 0.47560975609756095,
+      "f1-score": 0.5416666666666666,
+      "support": 82.0
+    },
+    "Core::Networking: File": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1-score": 0.0,
+      "support": 6.0
+    },
+    "Core::Networking: HTTP": {
+      "precision": 0.5,
+      "recall": 0.35864978902953587,
+      "f1-score": 0.4176904176904177,
+      "support": 237.0
+    },
+    "Core::Networking: JAR": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1-score": 0.0,
+      "support": 10.0
+    },
+    "Core::Networking: Proxy": {
+      "precision": 0.3333333333333333,
+      "recall": 0.2,
+      "f1-score": 0.25,
+      "support": 15.0
+    },
+    "Core::Networking: WebSockets": {
+      "precision": 0.8055555555555556,
+      "recall": 0.6744186046511628,
+      "f1-score": 0.7341772151898734,
+      "support": 43.0
+    },
+    "Core::Panning and Zooming": {
+      "precision": 0.5474006116207951,
+      "recall": 0.613013698630137,
+      "f1-score": 0.5783521809369951,
+      "support": 292.0
+    },
+    "Core::Performance Engineering": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1-score": 0.0,
+      "support": 20.0
+    },
+    "Core::Performance: General": {
+      "precision": 0.3888888888888889,
+      "recall": 0.2916666666666667,
+      "f1-score": 0.3333333333333333,
+      "support": 120.0
+    },
+    "Core::Performance: Memory": {
+      "precision": 0.4117647058823529,
+      "recall": 0.2916666666666667,
+      "f1-score": 0.34146341463414637,
+      "support": 24.0
+    },
+    "Core::Performance: Navigation": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1-score": 0.0,
+      "support": 2.0
+    },
+    "Core::Performance: Responsiveness": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1-score": 0.0,
+      "support": 12.0
+    },
+    "Core::Performance: Startup": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1-score": 0.0,
+      "support": 1.0
+    },
+    "Core::Permission Manager": {
+      "precision": 0.8333333333333334,
+      "recall": 0.3125,
+      "f1-score": 0.45454545454545453,
+      "support": 16.0
+    },
+    "Core::Preferences: Backend": {
+      "precision": 0.75,
+      "recall": 0.25,
+      "f1-score": 0.375,
+      "support": 24.0
+    },
+    "Core::Print": {
+      "precision": 0.5862068965517241,
+      "recall": 0.4473684210526316,
+      "f1-score": 0.5074626865671642,
+      "support": 114.0
+    },
+    "Core::Print Preview": {
+      "precision": 0.21428571428571427,
+      "recall": 0.23076923076923078,
+      "f1-score": 0.2222222222222222,
+      "support": 13.0
+    },
+    "Core::Printing: Setup": {
+      "precision": 0.45454545454545453,
+      "recall": 0.22727272727272727,
+      "f1-score": 0.30303030303030304,
+      "support": 22.0
+    },
+    "Core::Privacy: Anti-Tracking": {
+      "precision": 0.6435845213849287,
+      "recall": 0.7101123595505618,
+      "f1-score": 0.6752136752136753,
+      "support": 445.0
+    },
+    "Core::SQLite and Embedded Database Bindings": {
+      "precision": 0.6086956521739131,
+      "recall": 0.4827586206896552,
+      "f1-score": 0.5384615384615384,
+      "support": 29.0
+    },
+    "Core::SVG": {
+      "precision": 0.6428571428571429,
+      "recall": 0.6450511945392492,
+      "f1-score": 0.6439522998296422,
+      "support": 293.0
+    },
+    "Core::Sanitizers": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1-score": 0.0,
+      "support": 8.0
+    },
+    "Core::Security": {
+      "precision": 0.4,
+      "recall": 0.05128205128205128,
+      "f1-score": 0.09090909090909091,
+      "support": 39.0
+    },
+    "Core::Security Block-lists, Allow-lists, and other State": {
+      "precision": 1.0,
+      "recall": 0.5714285714285714,
+      "f1-score": 0.7272727272727273,
+      "support": 7.0
+    },
+    "Core::Security: CAPS": {
+      "precision": 0.75,
+      "recall": 0.16666666666666666,
+      "f1-score": 0.2727272727272727,
+      "support": 18.0
+    },
+    "Core::Security: PSM": {
+      "precision": 0.6626506024096386,
+      "recall": 0.5641025641025641,
+      "f1-score": 0.6094182825484764,
+      "support": 195.0
+    },
+    "Core::Security: Process Sandboxing": {
+      "precision": 0.6282051282051282,
+      "recall": 0.4117647058823529,
+      "f1-score": 0.49746192893401014,
+      "support": 119.0
+    },
+    "Core::Security: RLBox": {
+      "precision": 0.6666666666666666,
+      "recall": 0.3333333333333333,
+      "f1-score": 0.4444444444444444,
+      "support": 6.0
+    },
+    "Core::Session Restore": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1-score": 0.0,
+      "support": 7.0
+    },
+    "Core::Spelling Checker: en-US Dictionary": {
+      "precision": 1.0,
+      "recall": 0.6666666666666666,
+      "f1-score": 0.8,
+      "support": 3.0
+    },
+    "Core::Spelling checker": {
+      "precision": 0.5882352941176471,
+      "recall": 0.43478260869565216,
+      "f1-score": 0.5,
+      "support": 23.0
+    },
+    "Core::Storage: Bucket File System": {
+      "precision": 1.0,
+      "recall": 0.3333333333333333,
+      "f1-score": 0.5,
+      "support": 6.0
+    },
+    "Core::Storage: Cache API": {
+      "precision": 0.875,
+      "recall": 0.5,
+      "f1-score": 0.6363636363636364,
+      "support": 28.0
+    },
+    "Core::Storage: IndexedDB": {
+      "precision": 0.9029126213592233,
+      "recall": 0.775,
+      "f1-score": 0.8340807174887892,
+      "support": 120.0
+    },
+    "Core::Storage: Quota Manager": {
+      "precision": 0.8108108108108109,
+      "recall": 0.6896551724137931,
+      "f1-score": 0.7453416149068323,
+      "support": 87.0
+    },
+    "Core::Storage: StorageManager": {
+      "precision": 1.0,
+      "recall": 0.5454545454545454,
+      "f1-score": 0.7058823529411765,
+      "support": 11.0
+    },
+    "Core::Storage: localStorage & sessionStorage": {
+      "precision": 0.7948717948717948,
+      "recall": 0.7045454545454546,
+      "f1-score": 0.7469879518072289,
+      "support": 44.0
+    },
+    "Core::String": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1-score": 0.0,
+      "support": 3.0
+    },
+    "Core::Web Audio": {
+      "precision": 0.8783783783783784,
+      "recall": 0.6018518518518519,
+      "f1-score": 0.7142857142857143,
+      "support": 108.0
+    },
+    "Core::Web Painting": {
+      "precision": 0.6267605633802817,
+      "recall": 0.37083333333333335,
+      "f1-score": 0.46596858638743455,
+      "support": 240.0
+    },
+    "Core::Web Speech": {
+      "precision": 1.0,
+      "recall": 0.16666666666666666,
+      "f1-score": 0.2857142857142857,
+      "support": 24.0
+    },
+    "Core::WebRTC": {
+      "precision": 0.6755555555555556,
+      "recall": 0.5779467680608364,
+      "f1-score": 0.6229508196721312,
+      "support": 263.0
+    },
+    "Core::WebRTC: Audio/Video": {
+      "precision": 0.5661375661375662,
+      "recall": 0.5047169811320755,
+      "f1-score": 0.5336658354114713,
+      "support": 212.0
+    },
+    "Core::WebRTC: Networking": {
+      "precision": 0.6363636363636364,
+      "recall": 0.2413793103448276,
+      "f1-score": 0.35,
+      "support": 58.0
+    },
+    "Core::WebRTC: Signaling": {
+      "precision": 0.64,
+      "recall": 0.27586206896551724,
+      "f1-score": 0.3855421686746988,
+      "support": 58.0
+    },
+    "Core::WebVR": {
+      "precision": 0.9354838709677419,
+      "recall": 0.6170212765957447,
+      "f1-score": 0.7435897435897436,
+      "support": 47.0
+    },
+    "Core::Widget": {
+      "precision": 0.6111111111111112,
+      "recall": 0.18333333333333332,
+      "f1-score": 0.28205128205128205,
+      "support": 60.0
+    },
+    "Core::Widget: Cocoa": {
+      "precision": 0.5242718446601942,
+      "recall": 0.47577092511013214,
+      "f1-score": 0.49884526558891457,
+      "support": 227.0
+    },
+    "Core::Widget: Gtk": {
+      "precision": 0.41170097508125675,
+      "recall": 0.6737588652482269,
+      "f1-score": 0.5110961667787491,
+      "support": 564.0
+    },
+    "Core::Widget: Win32": {
+      "precision": 0.4084507042253521,
+      "recall": 0.30526315789473685,
+      "f1-score": 0.3493975903614458,
+      "support": 190.0
+    },
+    "Core::Window Management": {
+      "precision": 1.0,
+      "recall": 0.2,
+      "f1-score": 0.3333333333333333,
+      "support": 10.0
+    },
+    "Core::XBL": {
+      "precision": 0.3333333333333333,
+      "recall": 0.2,
+      "f1-score": 0.25,
+      "support": 5.0
+    },
+    "Core::XML": {
+      "precision": 0.5,
+      "recall": 0.18181818181818182,
+      "f1-score": 0.26666666666666666,
+      "support": 22.0
+    },
+    "Core::XPCOM": {
+      "precision": 0.3434343434343434,
+      "recall": 0.425,
+      "f1-score": 0.37988826815642457,
+      "support": 240.0
+    },
+    "Core::XPConnect": {
+      "precision": 0.7777777777777778,
+      "recall": 0.3088235294117647,
+      "f1-score": 0.4421052631578947,
+      "support": 68.0
+    },
+    "Core::XSLT": {
+      "precision": 1.0,
+      "recall": 0.17647058823529413,
+      "f1-score": 0.3,
+      "support": 17.0
+    },
+    "Core::XUL": {
+      "precision": 0.3488372093023256,
+      "recall": 0.24,
+      "f1-score": 0.2843601895734597,
+      "support": 125.0
+    },
+    "Core::js-ctypes": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1-score": 0.0,
+      "support": 3.0
+    },
+    "Core::mozglue": {
+      "precision": 0.3333333333333333,
+      "recall": 0.09090909090909091,
+      "f1-score": 0.14285714285714285,
+      "support": 22.0
+    },
+    "DevTools::Accessibility Tools": {
+      "precision": 0.6666666666666666,
+      "recall": 0.1,
+      "f1-score": 0.17391304347826086,
+      "support": 20.0
+    },
+    "DevTools::Application Panel": {
+      "precision": 0.8,
+      "recall": 0.3076923076923077,
+      "f1-score": 0.4444444444444444,
+      "support": 13.0
+    },
+    "DevTools::Console": {
+      "precision": 0.6946902654867256,
+      "recall": 0.6796536796536796,
+      "f1-score": 0.687089715536105,
+      "support": 231.0
+    },
+    "DevTools::DOM": {
+      "precision": 1.0,
+      "recall": 0.6666666666666666,
+      "f1-score": 0.8,
+      "support": 3.0
+    },
+    "DevTools::Debugger": {
+      "precision": 0.7162162162162162,
+      "recall": 0.7699757869249395,
+      "f1-score": 0.7421236872812136,
+      "support": 413.0
+    },
+    "DevTools::Documentation": {
+      "precision": 0.8333333333333334,
+      "recall": 0.45454545454545453,
+      "f1-score": 0.5882352941176471,
+      "support": 33.0
+    },
+    "DevTools::Framework": {
+      "precision": 0.5607476635514018,
+      "recall": 0.5217391304347826,
+      "f1-score": 0.5405405405405406,
+      "support": 115.0
+    },
+    "DevTools::Inspector": {
+      "precision": 0.6379310344827587,
+      "recall": 0.5751295336787565,
+      "f1-score": 0.6049046321525886,
+      "support": 193.0
+    },
+    "DevTools::Inspector: Animations": {
+      "precision": 1.0,
+      "recall": 0.5625,
+      "f1-score": 0.72,
+      "support": 16.0
+    },
+    "DevTools::Inspector: Changes": {
+      "precision": 1.0,
+      "recall": 0.5,
+      "f1-score": 0.6666666666666666,
+      "support": 8.0
+    },
+    "DevTools::Inspector: Compatibility": {
+      "precision": 0.625,
+      "recall": 0.38461538461538464,
+      "f1-score": 0.47619047619047616,
+      "support": 13.0
+    },
+    "DevTools::Inspector: Layout": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1-score": 0.0,
+      "support": 16.0
+    },
+    "DevTools::Inspector: Rules": {
+      "precision": 0.7142857142857143,
+      "recall": 0.5405405405405406,
+      "f1-score": 0.6153846153846154,
+      "support": 148.0
+    },
+    "DevTools::JSON Viewer": {
+      "precision": 0.75,
+      "recall": 0.5,
+      "f1-score": 0.6,
+      "support": 18.0
+    },
+    "DevTools::Memory": {
+      "precision": 1.0,
+      "recall": 0.1111111111111111,
+      "f1-score": 0.2,
+      "support": 18.0
+    },
+    "DevTools::Netmonitor": {
+      "precision": 0.7660818713450293,
+      "recall": 0.7005347593582888,
+      "f1-score": 0.7318435754189944,
+      "support": 187.0
+    },
+    "DevTools::Object Inspector": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1-score": 0.0,
+      "support": 6.0
+    },
+    "DevTools::Performance Tools (Profiler/Timeline)": {
+      "precision": 0.8823529411764706,
+      "recall": 0.46875,
+      "f1-score": 0.6122448979591837,
+      "support": 32.0
+    },
+    "DevTools::Responsive Design Mode": {
+      "precision": 0.8846153846153846,
+      "recall": 0.7540983606557377,
+      "f1-score": 0.8141592920353983,
+      "support": 61.0
+    },
+    "DevTools::Shared Components": {
+      "precision": 1.0,
+      "recall": 0.04,
+      "f1-score": 0.07692307692307693,
+      "support": 25.0
+    },
+    "DevTools::Source Editor": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1-score": 0.0,
+      "support": 7.0
+    },
+    "DevTools::Storage Inspector": {
+      "precision": 0.7619047619047619,
+      "recall": 0.4444444444444444,
+      "f1-score": 0.5614035087719298,
+      "support": 36.0
+    },
+    "DevTools::Style Editor": {
+      "precision": 0.875,
+      "recall": 0.3888888888888889,
+      "f1-score": 0.5384615384615384,
+      "support": 36.0
+    },
+    "DevTools::about:debugging": {
+      "precision": 0.8823529411764706,
+      "recall": 0.6,
+      "f1-score": 0.7142857142857143,
+      "support": 50.0
+    },
+    "External Software Affecting Firefox": {
+      "precision": 0.6842105263157895,
+      "recall": 0.41935483870967744,
+      "f1-score": 0.52,
+      "support": 31.0
+    },
+    "External Software Affecting Firefox::Telemetry": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1-score": 0.0,
+      "support": 4.0
+    },
+    "Firefox Build System::Android Studio and Gradle Integration": {
+      "precision": 0.5370370370370371,
+      "recall": 0.4603174603174603,
+      "f1-score": 0.49572649572649574,
+      "support": 63.0
+    },
+    "Firefox Build System::Bootstrap Configuration": {
+      "precision": 0.7142857142857143,
+      "recall": 0.6481481481481481,
+      "f1-score": 0.6796116504854369,
+      "support": 54.0
+    },
+    "Firefox Build System::Build Documentation": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1-score": 0.0,
+      "support": 10.0
+    },
+    "Firefox Build System::General: Unsupported Platforms": {
+      "precision": 1.0,
+      "recall": 0.18181818181818182,
+      "f1-score": 0.3076923076923077,
+      "support": 11.0
+    },
+    "Firefox Build System::Mach Core": {
+      "precision": 0.5645161290322581,
+      "recall": 0.6481481481481481,
+      "f1-score": 0.603448275862069,
+      "support": 54.0
+    },
+    "Firefox Build System::MozillaBuild": {
+      "precision": 1.0,
+      "recall": 0.4166666666666667,
+      "f1-score": 0.5882352941176471,
+      "support": 12.0
+    },
+    "Firefox Build System::Task Configuration": {
+      "precision": 0.596958174904943,
+      "recall": 0.6946902654867256,
+      "f1-score": 0.6421267893660532,
+      "support": 226.0
+    },
+    "Firefox Build System::Third Party Packaging": {
+      "precision": 0.782608695652174,
+      "recall": 0.5901639344262295,
+      "f1-score": 0.6728971962616822,
+      "support": 61.0
+    },
+    "Firefox Build System::Toolchains": {
+      "precision": 0.5901639344262295,
+      "recall": 0.782608695652174,
+      "f1-score": 0.6728971962616822,
+      "support": 138.0
+    },
+    "Firefox for Android::Accounts and Sync": {
+      "precision": 0.43902439024390244,
+      "recall": 0.25,
+      "f1-score": 0.3185840707964602,
+      "support": 72.0
+    },
+    "Firefox for Android::App Links": {
+      "precision": 0.6037735849056604,
+      "recall": 0.6153846153846154,
+      "f1-score": 0.6095238095238096,
+      "support": 52.0
+    },
+    "Firefox for Android::Autofill": {
+      "precision": 0.9662921348314607,
+      "recall": 0.7889908256880734,
+      "f1-score": 0.8686868686868687,
+      "support": 109.0
+    },
+    "Firefox for Android::Bookmarks": {
+      "precision": 0.75,
+      "recall": 0.3925233644859813,
+      "f1-score": 0.5153374233128835,
+      "support": 107.0
+    },
+    "Firefox for Android::Browser Engine": {
+      "precision": 0.42857142857142855,
+      "recall": 0.21238938053097345,
+      "f1-score": 0.28402366863905326,
+      "support": 113.0
+    },
+    "Firefox for Android::Collections": {
+      "precision": 0.5,
+      "recall": 0.08333333333333333,
+      "f1-score": 0.14285714285714285,
+      "support": 12.0
+    },
+    "Firefox for Android::Crash Reporting": {
+      "precision": 0.7777777777777778,
+      "recall": 0.375,
+      "f1-score": 0.5060240963855421,
+      "support": 56.0
+    },
+    "Firefox for Android::Design System and Theming": {
+      "precision": 0.75,
+      "recall": 0.23376623376623376,
+      "f1-score": 0.3564356435643564,
+      "support": 77.0
+    },
+    "Firefox for Android::Downloads": {
+      "precision": 0.5873015873015873,
+      "recall": 0.6491228070175439,
+      "f1-score": 0.6166666666666667,
+      "support": 57.0
+    },
+    "Firefox for Android::Experimentation and Telemetry": {
+      "precision": 0.5365853658536586,
+      "recall": 0.48034934497816595,
+      "f1-score": 0.5069124423963134,
+      "support": 229.0
+    },
+    "Firefox for Android::History": {
+      "precision": 0.5555555555555556,
+      "recall": 0.37037037037037035,
+      "f1-score": 0.4444444444444444,
+      "support": 54.0
+    },
+    "Firefox for Android::Homepage": {
+      "precision": 0.631578947368421,
+      "recall": 0.425531914893617,
+      "f1-score": 0.5084745762711864,
+      "support": 141.0
+    },
+    "Firefox for Android::L10N": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1-score": 0.0,
+      "support": 10.0
+    },
+    "Firefox for Android::Logins": {
+      "precision": 0.7058823529411765,
+      "recall": 0.3157894736842105,
+      "f1-score": 0.43636363636363634,
+      "support": 38.0
+    },
+    "Firefox for Android::Media": {
+      "precision": 0.125,
+      "recall": 0.06666666666666667,
+      "f1-score": 0.08695652173913043,
+      "support": 30.0
+    },
+    "Firefox for Android::Onboarding": {
+      "precision": 0.7301587301587301,
+      "recall": 0.6715328467153284,
+      "f1-score": 0.6996197718631179,
+      "support": 137.0
+    },
+    "Firefox for Android::PWA": {
+      "precision": 0.8666666666666667,
+      "recall": 0.40625,
+      "f1-score": 0.5531914893617021,
+      "support": 32.0
+    },
+    "Firefox for Android::Performance": {
+      "precision": 0.42857142857142855,
+      "recall": 0.2903225806451613,
+      "f1-score": 0.34615384615384615,
+      "support": 62.0
+    },
+    "Firefox for Android::Pocket": {
+      "precision": 0.38461538461538464,
+      "recall": 0.3125,
+      "f1-score": 0.3448275862068966,
+      "support": 16.0
+    },
+    "Firefox for Android::Privacy": {
+      "precision": 0.6078431372549019,
+      "recall": 0.3875,
+      "f1-score": 0.4732824427480916,
+      "support": 80.0
+    },
+    "Firefox for Android::Push": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1-score": 0.0,
+      "support": 9.0
+    },
+    "Firefox for Android::QR": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1-score": 0.0,
+      "support": 4.0
+    },
+    "Firefox for Android::Search": {
+      "precision": 0.7719298245614035,
+      "recall": 0.34375,
+      "f1-score": 0.4756756756756757,
+      "support": 128.0
+    },
+    "Firefox for Android::Settings": {
+      "precision": 0.7647058823529411,
+      "recall": 0.2826086956521739,
+      "f1-score": 0.4126984126984127,
+      "support": 46.0
+    },
+    "Firefox for Android::Share": {
+      "precision": 1.0,
+      "recall": 0.1111111111111111,
+      "f1-score": 0.2,
+      "support": 9.0
+    },
+    "Firefox for Android::Tabs": {
+      "precision": 0.784,
+      "recall": 0.697508896797153,
+      "f1-score": 0.7382297551789078,
+      "support": 281.0
+    },
+    "Firefox for Android::Toolbar": {
+      "precision": 0.7396061269146609,
+      "recall": 0.7681818181818182,
+      "f1-score": 0.7536231884057971,
+      "support": 440.0
+    },
+    "Firefox for Android::Tooling": {
+      "precision": 0.7706422018348624,
+      "recall": 0.56,
+      "f1-score": 0.6486486486486487,
+      "support": 150.0
+    },
+    "Firefox for Android::Top Sites": {
+      "precision": 0.42857142857142855,
+      "recall": 0.3,
+      "f1-score": 0.35294117647058826,
+      "support": 20.0
+    },
+    "Firefox for Android::Translations": {
+      "precision": 0.9302325581395349,
+      "recall": 0.5925925925925926,
+      "f1-score": 0.7239819004524887,
+      "support": 135.0
+    },
+    "Firefox for Android::UI Tests": {
+      "precision": 0.8894230769230769,
+      "recall": 0.9002433090024331,
+      "f1-score": 0.8948004836759371,
+      "support": 411.0
+    },
+    "Firefox for Android::WebAuthn": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1-score": 0.0,
+      "support": 5.0
+    },
+    "Firefox for Android::WebExtensions": {
+      "precision": 0.45454545454545453,
+      "recall": 0.30303030303030304,
+      "f1-score": 0.36363636363636365,
+      "support": 66.0
+    },
+    "Firefox::Address Bar": {
+      "precision": 0.6382252559726962,
+      "recall": 0.7857142857142857,
+      "f1-score": 0.704331450094162,
+      "support": 714.0
+    },
+    "Firefox::Bookmarks & History": {
+      "precision": 0.4611872146118721,
+      "recall": 0.543010752688172,
+      "f1-score": 0.49876543209876545,
+      "support": 186.0
+    },
+    "Firefox::Data Loss Prevention": {
+      "precision": 0.9736842105263158,
+      "recall": 0.6727272727272727,
+      "f1-score": 0.7956989247311828,
+      "support": 55.0
+    },
+    "Firefox::Disability Access": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1-score": 0.0,
+      "support": 18.0
+    },
+    "Firefox::Distributions": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1-score": 0.0,
+      "support": 5.0
+    },
+    "Firefox::Downloads Panel": {
+      "precision": 0.5970149253731343,
+      "recall": 0.45977011494252873,
+      "f1-score": 0.5194805194805194,
+      "support": 87.0
+    },
+    "Firefox::Enterprise Policies": {
+      "precision": 0.7837837837837838,
+      "recall": 0.5686274509803921,
+      "f1-score": 0.6590909090909091,
+      "support": 51.0
+    },
+    "Firefox::Extension Compatibility": {
+      "precision": 1.0,
+      "recall": 0.16666666666666666,
+      "f1-score": 0.2857142857142857,
+      "support": 6.0
+    },
+    "Firefox::File Handling": {
+      "precision": 0.40540540540540543,
+      "recall": 0.379746835443038,
+      "f1-score": 0.39215686274509803,
+      "support": 79.0
+    },
+    "Firefox::Firefox Accounts": {
+      "precision": 0.6666666666666666,
+      "recall": 0.26666666666666666,
+      "f1-score": 0.38095238095238093,
+      "support": 30.0
+    },
+    "Firefox::Firefox Monitor": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1-score": 0.0,
+      "support": 6.0
+    },
+    "Firefox::Firefox View": {
+      "precision": 0.8173076923076923,
+      "recall": 0.6439393939393939,
+      "f1-score": 0.7203389830508474,
+      "support": 132.0
+    },
+    "Firefox::Headless": {
+      "precision": 0.5,
+      "recall": 1.0,
+      "f1-score": 0.6666666666666666,
+      "support": 1.0
+    },
+    "Firefox::IP Protection": {
+      "precision": 0.9705882352941176,
+      "recall": 0.673469387755102,
+      "f1-score": 0.7951807228915663,
+      "support": 49.0
+    },
+    "Firefox::Installer": {
+      "precision": 0.6533333333333333,
+      "recall": 0.5104166666666666,
+      "f1-score": 0.5730994152046783,
+      "support": 96.0
+    },
+    "Firefox::Keyboard Navigation": {
+      "precision": 0.5,
+      "recall": 0.045454545454545456,
+      "f1-score": 0.08333333333333333,
+      "support": 22.0
+    },
+    "Firefox::Launcher Process": {
+      "precision": 0.8,
+      "recall": 0.4,
+      "f1-score": 0.5333333333333333,
+      "support": 10.0
+    },
+    "Firefox::Menus": {
+      "precision": 0.38636363636363635,
+      "recall": 0.33663366336633666,
+      "f1-score": 0.35978835978835977,
+      "support": 101.0
+    },
+    "Firefox::Messaging System": {
+      "precision": 0.6785714285714286,
+      "recall": 0.7614503816793893,
+      "f1-score": 0.7176258992805755,
+      "support": 524.0
+    },
+    "Firefox::Migration": {
+      "precision": 0.7402597402597403,
+      "recall": 0.6705882352941176,
+      "f1-score": 0.7037037037037037,
+      "support": 85.0
+    },
+    "Firefox::New Tab Page": {
+      "precision": 0.6820987654320988,
+      "recall": 0.7647058823529411,
+      "f1-score": 0.7210440456769984,
+      "support": 578.0
+    },
+    "Firefox::Nimbus Desktop Client": {
+      "precision": 0.7857142857142857,
+      "recall": 0.6547619047619048,
+      "f1-score": 0.7142857142857143,
+      "support": 84.0
+    },
+    "Firefox::Normandy Client": {
+      "precision": 0.8,
+      "recall": 0.26666666666666666,
+      "f1-score": 0.4,
+      "support": 30.0
+    },
+    "Firefox::Normandy Server": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1-score": 0.0,
+      "support": 3.0
+    },
+    "Firefox::PDF Viewer": {
+      "precision": 0.7511111111111111,
+      "recall": 0.8711340206185567,
+      "f1-score": 0.8066825775656324,
+      "support": 388.0
+    },
+    "Firefox::Page Info Window": {
+      "precision": 0.5,
+      "recall": 0.4,
+      "f1-score": 0.4444444444444444,
+      "support": 10.0
+    },
+    "Firefox::Performance": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1-score": 0.0,
+      "support": 3.0
+    },
+    "Firefox::Pocket": {
+      "precision": 0.5185185185185185,
+      "recall": 0.45161290322580644,
+      "f1-score": 0.4827586206896552,
+      "support": 31.0
+    },
+    "Firefox::Private Browsing": {
+      "precision": 0.36363636363636365,
+      "recall": 0.46511627906976744,
+      "f1-score": 0.40816326530612246,
+      "support": 43.0
+    },
+    "Firefox::Profile Backup": {
+      "precision": 0.875,
+      "recall": 0.7466666666666667,
+      "f1-score": 0.8057553956834532,
+      "support": 75.0
+    },
+    "Firefox::Protections UI": {
+      "precision": 0.7619047619047619,
+      "recall": 0.48484848484848486,
+      "f1-score": 0.5925925925925926,
+      "support": 66.0
+    },
+    "Firefox::Remote Settings Client": {
+      "precision": 0.6,
+      "recall": 0.2222222222222222,
+      "f1-score": 0.32432432432432434,
+      "support": 27.0
+    },
+    "Firefox::Screenshots": {
+      "precision": 0.8387096774193549,
+      "recall": 0.7761194029850746,
+      "f1-score": 0.8062015503875969,
+      "support": 67.0
+    },
+    "Firefox::Search": {
+      "precision": 0.6024844720496895,
+      "recall": 0.708029197080292,
+      "f1-score": 0.6510067114093959,
+      "support": 274.0
+    },
+    "Firefox::Security": {
+      "precision": 0.5957446808510638,
+      "recall": 0.30434782608695654,
+      "f1-score": 0.4028776978417266,
+      "support": 92.0
+    },
+    "Firefox::Session Restore": {
+      "precision": 0.6240601503759399,
+      "recall": 0.5886524822695035,
+      "f1-score": 0.6058394160583942,
+      "support": 141.0
+    },
+    "Firefox::Settings UI": {
+      "precision": 0.5652173913043478,
+      "recall": 0.5,
+      "f1-score": 0.5306122448979592,
+      "support": 234.0
+    },
+    "Firefox::Shell Integration": {
+      "precision": 0.49019607843137253,
+      "recall": 0.47619047619047616,
+      "f1-score": 0.4830917874396135,
+      "support": 105.0
+    },
+    "Firefox::Sidebar": {
+      "precision": 0.6983471074380165,
+      "recall": 0.7130801687763713,
+      "f1-score": 0.7056367432150313,
+      "support": 237.0
+    },
+    "Firefox::Site Identity": {
+      "precision": 0.7777777777777778,
+      "recall": 0.45652173913043476,
+      "f1-score": 0.5753424657534246,
+      "support": 46.0
+    },
+    "Firefox::Site Permissions": {
+      "precision": 0.5625,
+      "recall": 0.4186046511627907,
+      "f1-score": 0.48,
+      "support": 43.0
+    },
+    "Firefox::Sync": {
+      "precision": 0.5108695652173914,
+      "recall": 0.47,
+      "f1-score": 0.4895833333333333,
+      "support": 100.0
+    },
+    "Firefox::System Add-ons: Off-train Deployment": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1-score": 0.0,
+      "support": 2.0
+    },
+    "Firefox::Tabbed Browser": {
+      "precision": 0.5566166439290586,
+      "recall": 0.7513812154696132,
+      "f1-score": 0.6394984326018809,
+      "support": 543.0
+    },
+    "Firefox::Theme": {
+      "precision": 0.41233766233766234,
+      "recall": 0.45357142857142857,
+      "f1-score": 0.43197278911564624,
+      "support": 280.0
+    },
+    "Firefox::Toolbars and Customization": {
+      "precision": 0.5517241379310345,
+      "recall": 0.39669421487603307,
+      "f1-score": 0.46153846153846156,
+      "support": 121.0
+    },
+    "Firefox::Top Sites": {
+      "precision": 1.0,
+      "recall": 0.15384615384615385,
+      "f1-score": 0.26666666666666666,
+      "support": 13.0
+    },
+    "Firefox::Tours": {
+      "precision": 1.0,
+      "recall": 0.75,
+      "f1-score": 0.8571428571428571,
+      "support": 12.0
+    },
+    "Firefox::Translations": {
+      "precision": 0.7920792079207921,
+      "recall": 0.7843137254901961,
+      "f1-score": 0.7881773399014779,
+      "support": 204.0
+    },
+    "Firefox::Web Apps": {
+      "precision": 0.5,
+      "recall": 0.0625,
+      "f1-score": 0.1111111111111111,
+      "support": 16.0
+    },
+    "Firefox::WebPayments UI": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1-score": 0.0,
+      "support": 5.0
+    },
+    "Firefox::about:logins": {
+      "precision": 0.6923076923076923,
+      "recall": 0.4931506849315068,
+      "f1-score": 0.576,
+      "support": 73.0
+    },
+    "Toolkit::Add-ons Manager": {
+      "precision": 0.5852272727272727,
+      "recall": 0.6242424242424243,
+      "f1-score": 0.6041055718475073,
+      "support": 165.0
+    },
+    "Toolkit::Alerts Service": {
+      "precision": 0.5,
+      "recall": 0.06666666666666667,
+      "f1-score": 0.11764705882352941,
+      "support": 15.0
+    },
+    "Toolkit::Application Update": {
+      "precision": 0.5921052631578947,
+      "recall": 0.6666666666666666,
+      "f1-score": 0.627177700348432,
+      "support": 135.0
+    },
+    "Toolkit::Async Tooling": {
+      "precision": 0.5,
+      "recall": 0.125,
+      "f1-score": 0.2,
+      "support": 8.0
+    },
+    "Toolkit::Autocomplete": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1-score": 0.0,
+      "support": 10.0
+    },
+    "Toolkit::Background Tasks": {
+      "precision": 0.6923076923076923,
+      "recall": 0.45,
+      "f1-score": 0.5454545454545454,
+      "support": 20.0
+    },
+    "Toolkit::Blocklist Implementation": {
+      "precision": 0.6666666666666666,
+      "recall": 0.2,
+      "f1-score": 0.3076923076923077,
+      "support": 10.0
+    },
+    "Toolkit::Blocklist Policy Requests": {
+      "precision": 1.0,
+      "recall": 0.9642857142857143,
+      "f1-score": 0.9818181818181818,
+      "support": 56.0
+    },
+    "Toolkit::Content Prompts": {
+      "precision": 1.0,
+      "recall": 0.08333333333333333,
+      "f1-score": 0.15384615384615385,
+      "support": 12.0
+    },
+    "Toolkit::Crash Reporting": {
+      "precision": 0.5968992248062015,
+      "recall": 0.5968992248062015,
+      "f1-score": 0.5968992248062015,
+      "support": 129.0
+    },
+    "Toolkit::Data Sanitization": {
+      "precision": 0.5072463768115942,
+      "recall": 0.5555555555555556,
+      "f1-score": 0.5303030303030303,
+      "support": 63.0
+    },
+    "Toolkit::Default Browser Agent": {
+      "precision": 0.7777777777777778,
+      "recall": 0.3684210526315789,
+      "f1-score": 0.5,
+      "support": 19.0
+    },
+    "Toolkit::Downloads API": {
+      "precision": 0.3333333333333333,
+      "recall": 0.05555555555555555,
+      "f1-score": 0.09523809523809523,
+      "support": 18.0
+    },
+    "Toolkit::FeatureGate": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 1.0
+    },
+    "Toolkit::Find Toolbar": {
+      "precision": 0.5,
+      "recall": 0.5625,
+      "f1-score": 0.5294117647058824,
+      "support": 32.0
+    },
+    "Toolkit::Form Autofill": {
+      "precision": 0.8596491228070176,
+      "recall": 0.8990825688073395,
+      "f1-score": 0.8789237668161435,
+      "support": 327.0
+    },
+    "Toolkit::Form Manager": {
+      "precision": 0.8181818181818182,
+      "recall": 0.5,
+      "f1-score": 0.6206896551724138,
+      "support": 18.0
+    },
+    "Toolkit::Gecko Trace": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1-score": 0.0,
+      "support": 6.0
+    },
+    "Toolkit::Password Manager": {
+      "precision": 0.708185053380783,
+      "recall": 0.7425373134328358,
+      "f1-score": 0.7249544626593807,
+      "support": 268.0
+    },
+    "Toolkit::Password Manager: Site Compatibility": {
+      "precision": 0.75,
+      "recall": 0.41379310344827586,
+      "f1-score": 0.5333333333333333,
+      "support": 29.0
+    },
+    "Toolkit::Performance Monitoring": {
+      "precision": 0.5,
+      "recall": 0.36363636363636365,
+      "f1-score": 0.42105263157894735,
+      "support": 11.0
+    },
+    "Toolkit::Picture-in-Picture": {
+      "precision": 0.7833333333333333,
+      "recall": 0.8952380952380953,
+      "f1-score": 0.8355555555555556,
+      "support": 105.0
+    },
+    "Toolkit::Places": {
+      "precision": 0.7375,
+      "recall": 0.45384615384615384,
+      "f1-score": 0.5619047619047619,
+      "support": 130.0
+    },
+    "Toolkit::Popup Blocker": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1-score": 0.0,
+      "support": 3.0
+    },
+    "Toolkit::PopupNotifications and Notification Bars": {
+      "precision": 0.6666666666666666,
+      "recall": 0.2222222222222222,
+      "f1-score": 0.3333333333333333,
+      "support": 9.0
+    },
+    "Toolkit::Preferences": {
+      "precision": 0.5652173913043478,
+      "recall": 0.5909090909090909,
+      "f1-score": 0.5777777777777777,
+      "support": 22.0
+    },
+    "Toolkit::Printing": {
+      "precision": 0.4375,
+      "recall": 0.2916666666666667,
+      "f1-score": 0.35,
+      "support": 24.0
+    },
+    "Toolkit::Reader Mode": {
+      "precision": 0.6511627906976745,
+      "recall": 0.6829268292682927,
+      "f1-score": 0.6666666666666666,
+      "support": 41.0
+    },
+    "Toolkit::Relay": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1-score": 0.0,
+      "support": 2.0
+    },
+    "Toolkit::Safe Browsing": {
+      "precision": 0.6666666666666666,
+      "recall": 0.34146341463414637,
+      "f1-score": 0.45161290322580644,
+      "support": 41.0
+    },
+    "Toolkit::Startup and Profile System": {
+      "precision": 0.5644444444444444,
+      "recall": 0.7175141242937854,
+      "f1-score": 0.6318407960199005,
+      "support": 177.0
+    },
+    "Toolkit::Telemetry": {
+      "precision": 0.562753036437247,
+      "recall": 0.6682692307692307,
+      "f1-score": 0.610989010989011,
+      "support": 208.0
+    },
+    "Toolkit::Themes": {
+      "precision": 0.4603174603174603,
+      "recall": 0.32222222222222224,
+      "f1-score": 0.3790849673202614,
+      "support": 90.0
+    },
+    "Toolkit::Toolbars and Toolbar Customization": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1-score": 0.0,
+      "support": 2.0
+    },
+    "Toolkit::UI Widgets": {
+      "precision": 0.5793991416309013,
+      "recall": 0.5769230769230769,
+      "f1-score": 0.5781584582441114,
+      "support": 234.0
+    },
+    "Toolkit::UniFFI Bindings": {
+      "precision": 0.8888888888888888,
+      "recall": 0.5333333333333333,
+      "f1-score": 0.6666666666666666,
+      "support": 15.0
+    },
+    "Toolkit::Video/Audio Controls": {
+      "precision": 0.6086956521739131,
+      "recall": 0.42424242424242425,
+      "f1-score": 0.5,
+      "support": 33.0
+    },
+    "Toolkit::View Source": {
+      "precision": 0.4444444444444444,
+      "recall": 0.4444444444444444,
+      "f1-score": 0.4444444444444444,
+      "support": 9.0
+    },
+    "Toolkit::about:memory": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1-score": 0.0,
+      "support": 7.0
+    },
+    "WebExtensions::Android": {
+      "precision": 0.5833333333333334,
+      "recall": 0.4666666666666667,
+      "f1-score": 0.5185185185185185,
+      "support": 15.0
+    },
+    "WebExtensions::Compatibility": {
+      "precision": 1.0,
+      "recall": 0.35714285714285715,
+      "f1-score": 0.5263157894736842,
+      "support": 14.0
+    },
+    "WebExtensions::Developer Outreach": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1-score": 0.0,
+      "support": 10.0
+    },
+    "WebExtensions::Developer Tools": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1-score": 0.0,
+      "support": 17.0
+    },
+    "WebExtensions::Experiments": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1-score": 0.0,
+      "support": 2.0
+    },
+    "WebExtensions::Frontend": {
+      "precision": 0.2857142857142857,
+      "recall": 0.20689655172413793,
+      "f1-score": 0.24,
+      "support": 29.0
+    },
+    "WebExtensions::Request Handling": {
+      "precision": 0.8333333333333334,
+      "recall": 0.5,
+      "f1-score": 0.625,
+      "support": 30.0
+    },
+    "WebExtensions::Storage": {
+      "precision": 1.0,
+      "recall": 0.26666666666666666,
+      "f1-score": 0.42105263157894735,
+      "support": 15.0
+    },
+    "WebExtensions::Themes": {
+      "precision": 1.0,
+      "recall": 0.07142857142857142,
+      "f1-score": 0.13333333333333333,
+      "support": 14.0
+    },
+    "accuracy": 0.5878468368479467,
+    "macro avg": {
+      "precision": 0.5774453014370352,
+      "recall": 0.3957335204909584,
+      "f1-score": 0.4433415775065352,
+      "support": 36040.0
+    },
+    "weighted avg": {
+      "precision": 0.6076246524472941,
+      "recall": 0.5878468368479467,
+      "f1-score": 0.5798082304020951,
+      "support": 36040.0
+    }
+  }
+}

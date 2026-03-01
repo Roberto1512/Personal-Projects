@@ -1,0 +1,56 @@
+# ===========================
+# Model artifacts & large binary files
+# ===========================
+*.safetensors
+*.pt
+*.pth
+*.h5
+*.joblib
+*.pkl
+*.onnx
+*.bin
+
+# ===========================
+# Datasets (large files)
+# ===========================
+*.parquet
+*.csv
+!requirements.txt
+
+# ===========================
+# Python virtual environments
+# ===========================
+Lib/
+Scripts/
+__pycache__/
+*.pyc
+pyvenv.cfg
+.venv/
+venv/
+
+# ===========================
+# IDE / OS
+# ===========================
+.idea/
+.svn/
+.vs/
+*.swp
+Thumbs.db
+.DS_Store
+
+# ===========================
+# DVC
+# ===========================
+*.dvc
+.dvc/
+
+# ===========================
+# Docker
+# ===========================
+.dockerignore
+
+# ===========================
+# Temp files
+# ===========================
+temp/
+*.tmp
