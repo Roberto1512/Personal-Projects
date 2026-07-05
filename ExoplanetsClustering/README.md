@@ -47,10 +47,27 @@ py -3.11 -m venv .venv
 .\.venv\Scripts\python.exe -m pip install -r requirements.txt
 $env:MPLBACKEND = "Agg"
 
+<<<<<<< HEAD
 Get-ChildItem .\notebook\*.ipynb | Sort-Object Name | ForEach-Object {
     .\.venv\Scripts\python.exe -m jupyter nbconvert `
         --to notebook --execute $_.FullName --inplace `
         --ExecutePreprocessor.timeout=1200
+=======
+Quindi eseguire i notebook in sequenza:
+
+```powershell
+$env:MPLBACKEND='Agg'
+$nbs = @(
+  '01_Audit_LogTransform_Preprocessing.ipynb',
+  '02_EDA_and_Feature_Space.ipynb',
+  '03_Clustering_Core.ipynb',
+  '04_Cluster_Interpretation.ipynb',
+  '05_Supervised_Leakage_Aware_Classification.ipynb',
+  '06_Report_Tables_and_Figures.ipynb'
+)
+foreach ($nb in $nbs) {
+  ..\.venv\Scripts\python.exe -m nbconvert --to notebook --execute $nb --inplace --ExecutePreprocessor.timeout=1200
+>>>>>>> de03577a200018dc2bbf26d8ce96562e7625ebc6
 }
 ```
 
