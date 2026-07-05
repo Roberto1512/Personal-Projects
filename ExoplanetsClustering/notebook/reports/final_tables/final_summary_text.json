@@ -1,0 +1,45 @@
+{
+    "clustering": {
+        "final_feature_set": "A_planetary_orbital",
+        "final_method": "kmeans",
+        "final_k": 4,
+        "final_silhouette": 0.4471,
+        "bootstrap_mean": 0.4116,
+        "bootstrap_std": 0.0648
+    },
+    "supervised": {
+        "best_A": {
+            "setup": "A_full",
+            "model": "Decision Tree",
+            "cv_accuracy_mean": 0.9995901639344262,
+            "cv_accuracy_std": 0.0005019446194227761,
+            "cv_f1_macro_mean": 0.9991648851688435,
+            "cv_f1_macro_std": 0.0011137734048558647,
+            "test_accuracy": 1.0,
+            "test_macro_f1": 1.0,
+            "best_params": {
+                "model__max_depth": null,
+                "model__min_samples_leaf": 1
+            }
+        },
+        "best_B": {
+            "setup": "B_ablation",
+            "model": "Random Forest",
+            "cv_accuracy_mean": 0.6245901639344262,
+            "cv_accuracy_std": 0.019937166145828345,
+            "cv_f1_macro_mean": 0.5265108733770891,
+            "cv_f1_macro_std": 0.020074587751126267,
+            "test_accuracy": 0.5959016393442623,
+            "test_macro_f1": 0.49035381938980943,
+            "best_params": {
+                "model__max_depth": null,
+                "model__min_samples_leaf": 5,
+                "model__n_estimators": 200
+            }
+        },
+        "removed_features_setup_B": [
+            "planet_radius_earth_log",
+            "planet_mass_earth_log"
+        ]
+    }
+}

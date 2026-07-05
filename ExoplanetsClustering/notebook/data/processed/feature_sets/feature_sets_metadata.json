@@ -1,0 +1,38 @@
+{
+    "feature_set_A_name": "A_planetary_orbital",
+    "feature_set_A": [
+        "equilibrium_temp_k",
+        "orbital_eccentricity",
+        "orbital_period_days_log",
+        "planet_radius_earth_log",
+        "planet_mass_earth_log",
+        "semi_major_axis_au_log"
+    ],
+    "feature_set_B_name": "B_planetary_orbital_stellar",
+    "feature_set_B": [
+        "equilibrium_temp_k",
+        "orbital_eccentricity",
+        "orbital_period_days_log",
+        "planet_radius_earth_log",
+        "planet_mass_earth_log",
+        "semi_major_axis_au_log",
+        "star_temp_k",
+        "star_radius_sun",
+        "star_mass_sun",
+        "star_age_gyr",
+        "star_surface_gravity",
+        "star_metallicity"
+    ],
+    "excluded_from_clustering": [
+        "planet_type",
+        "star_type",
+        "orbital_period_cat",
+        "dist_category",
+        "habitable_zone_flag",
+        "ra",
+        "dec",
+        "disc_year",
+        "discovery_method",
+        "disc_facility"
+    ]
+}

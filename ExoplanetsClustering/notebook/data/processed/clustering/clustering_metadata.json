@@ -1,0 +1,50 @@
+{
+    "highest_silhouette_raw": {
+        "feature_set": "B_planetary_orbital_stellar",
+        "method": "agglomerative_single",
+        "k": 4,
+        "silhouette": 0.8228098598643738,
+        "cluster_sizes": "6145|2|2|1",
+        "min_cluster_size": 1,
+        "max_cluster_fraction": 0.9991869918699187,
+        "degenerate_heuristic": true
+    },
+    "best_by_balance_heuristic": {
+        "feature_set": "A_planetary_orbital",
+        "method": "kmeans",
+        "k": 4,
+        "silhouette": 0.4470858036933995,
+        "cluster_sizes": "4054|1174|850|72",
+        "min_cluster_size": 72,
+        "max_cluster_fraction": 0.6591869918699187,
+        "degenerate_heuristic": false
+    },
+    "parsimonious_k2_alternative": {
+        "feature_set": "A_planetary_orbital",
+        "method": "kmeans",
+        "k": 2,
+        "silhouette": 0.44599009086717084,
+        "cluster_sizes": "4196|1954",
+        "min_cluster_size": 1954,
+        "max_cluster_fraction": 0.6822764227642276,
+        "degenerate_heuristic": false
+    },
+    "silhouette_delta_k4_minus_k2": 0.0010957128262286675,
+    "final_feature_set": "A_planetary_orbital",
+    "final_features": [
+        "equilibrium_temp_k",
+        "orbital_eccentricity",
+        "orbital_period_days_log",
+        "planet_radius_earth_log",
+        "planet_mass_earth_log",
+        "semi_major_axis_au_log"
+    ],
+    "final_method": "kmeans",
+    "final_k": 4,
+    "final_silhouette": 0.4470858036933995,
+    "selection_rule": "compare all KMeans configurations with k=2..8; retain k=4 as an interpretation-oriented solution while reporting k=2 as the parsimonious alternative",
+    "selection_reason": "k=4 has the highest KMeans silhouette, but differs from k=2 by only about 0.0011; it is retained for richer interpretation, not claimed as statistically superior",
+    "balance_diagnostic_heuristic": "flag if min cluster size < max(30, 1% of n) or largest cluster fraction > 0.95; diagnostic only, not a selection filter",
+    "bootstrap_mean": 0.41158948792287153,
+    "bootstrap_std": 0.06477472797016899
+}

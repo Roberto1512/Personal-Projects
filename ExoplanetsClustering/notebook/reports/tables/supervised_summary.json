@@ -1,0 +1,88 @@
+{
+    "target": "planet_type",
+    "excluded_target_classes": [
+        "Unknown"
+    ],
+    "target_names": [
+        "Gas Giant",
+        "Mini-Neptune",
+        "Neptune-like",
+        "Sub-Earth",
+        "Super-Earth",
+        "Super-Jupiter"
+    ],
+    "n_samples": 6100,
+    "setup_A_features": [
+        "equilibrium_temp_k",
+        "orbital_eccentricity",
+        "orbital_period_days_log",
+        "planet_radius_earth_log",
+        "planet_mass_earth_log",
+        "semi_major_axis_au_log",
+        "star_temp_k",
+        "star_radius_sun",
+        "star_mass_sun",
+        "star_age_gyr",
+        "star_surface_gravity",
+        "star_metallicity",
+        "n_stars",
+        "n_planets",
+        "multi_planet_system",
+        "dist_from_earth_pc_log"
+    ],
+    "setup_B_features": [
+        "equilibrium_temp_k",
+        "orbital_eccentricity",
+        "orbital_period_days_log",
+        "semi_major_axis_au_log",
+        "star_temp_k",
+        "star_radius_sun",
+        "star_mass_sun",
+        "star_age_gyr",
+        "star_surface_gravity",
+        "star_metallicity",
+        "n_stars",
+        "n_planets",
+        "multi_planet_system",
+        "dist_from_earth_pc_log"
+    ],
+    "ablation_removed_features": [
+        "planet_radius_earth_log",
+        "planet_mass_earth_log"
+    ],
+    "best_A_by_test_macro_f1": {
+        "setup": "A_full",
+        "model": "Decision Tree",
+        "cv_accuracy_mean": 0.9995901639344262,
+        "cv_accuracy_std": 0.0005019446194227761,
+        "cv_f1_macro_mean": 0.9991648851688435,
+        "cv_f1_macro_std": 0.0011137734048558647,
+        "test_accuracy": 1.0,
+        "test_macro_f1": 1.0,
+        "best_params": {
+            "model__max_depth": null,
+            "model__min_samples_leaf": 1
+        }
+    },
+    "best_B_by_test_macro_f1": {
+        "setup": "B_ablation",
+        "model": "Random Forest",
+        "cv_accuracy_mean": 0.6245901639344262,
+        "cv_accuracy_std": 0.019937166145828345,
+        "cv_f1_macro_mean": 0.5265108733770891,
+        "cv_f1_macro_std": 0.020074587751126267,
+        "test_accuracy": 0.5959016393442623,
+        "test_macro_f1": 0.49035381938980943,
+        "best_params": {
+            "model__max_depth": null,
+            "model__min_samples_leaf": 5,
+            "model__n_estimators": 200
+        }
+    },
+    "additional_statistical_outputs": [
+        "repeated_cv_macro_f1_setup_B.csv",
+        "corrected_resampled_ttest_setup_B.csv",
+        "confidence_intervals_macro_f1.csv",
+        "confidence_intervals_macro_f1.png"
+    ]
+}

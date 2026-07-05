@@ -1,0 +1,83 @@
+{
+    "n_samples": 6150,
+    "n_raw_columns": 31,
+    "label_and_derived_cols_excluded_from_modeling": [
+        "planet_type",
+        "star_type",
+        "orbital_period_cat",
+        "dist_category",
+        "habitable_zone_flag"
+    ],
+    "identifier_and_meta_cols_excluded_from_clustering": [
+        "planet_name",
+        "host_star",
+        "discovery_method",
+        "disc_facility",
+        "ra",
+        "dec",
+        "disc_year",
+        "is_recent_discovery",
+        "controversial_flag"
+    ],
+    "log_transform_cols_original": [
+        "orbital_period_days",
+        "planet_radius_earth",
+        "planet_mass_earth",
+        "semi_major_axis_au",
+        "dist_from_earth_pc"
+    ],
+    "log_transform_cols_final": [
+        "orbital_period_days_log",
+        "planet_radius_earth_log",
+        "planet_mass_earth_log",
+        "semi_major_axis_au_log",
+        "dist_from_earth_pc_log"
+    ],
+    "planetary_orbital_features": [
+        "equilibrium_temp_k",
+        "orbital_eccentricity",
+        "orbital_period_days_log",
+        "planet_radius_earth_log",
+        "planet_mass_earth_log",
+        "semi_major_axis_au_log"
+    ],
+    "stellar_features": [
+        "star_temp_k",
+        "star_radius_sun",
+        "star_mass_sun",
+        "star_age_gyr",
+        "star_surface_gravity",
+        "star_metallicity"
+    ],
+    "supervised_context_features": [
+        "n_stars",
+        "n_planets",
+        "multi_planet_system",
+        "dist_from_earth_pc_log"
+    ],
+    "modeling_features": [
+        "equilibrium_temp_k",
+        "orbital_eccentricity",
+        "orbital_period_days_log",
+        "planet_radius_earth_log",
+        "planet_mass_earth_log",
+        "semi_major_axis_au_log",
+        "star_temp_k",
+        "star_radius_sun",
+        "star_mass_sun",
+        "star_age_gyr",
+        "star_surface_gravity",
+        "star_metallicity",
+        "n_stars",
+        "n_planets",
+        "multi_planet_system",
+        "dist_from_earth_pc_log"
+    ],
+    "imputer_strategy": "median",
+    "scaler": "StandardScaler",
+    "notes": [
+        "habitable_zone_flag is kept only for post-hoc interpretation, never as a clustering feature",
+        "supervised notebooks fit imputer/scaler inside CV pipelines to avoid test leakage",
+        "star_vmag excluded from supervised features: observational bias (corr=0.69 with dist_from_earth_pc_log), not intrinsic planet system property"
+    ]
+}
