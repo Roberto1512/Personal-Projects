@@ -31,7 +31,6 @@ py -3.11 -m venv .venv
 Quindi eseguire i notebook in sequenza:
 
 ```powershell
-cd C:\Users\rober\Desktop\UNI\ML\ProgettoML\notebook_final
 $env:MPLBACKEND='Agg'
 $nbs = @(
   '01_Audit_LogTransform_Preprocessing.ipynb',
