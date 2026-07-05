@@ -6,9 +6,9 @@ import re
 import torch
 import transformers
 
-# ------------------ Paths ------------------
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))                 # .../Semantic/training_code_en
-PROJECT_ROOT = os.path.abspath(os.path.join(BASE_DIR, ".."))          # .../Semantic
+
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+PROJECT_ROOT = os.path.abspath(os.path.join(BASE_DIR, ".."))
 MODELS_DIR = os.path.join(PROJECT_ROOT, "models")
 
 SUPPORTED_LANGS = ("en", "it")
@@ -23,7 +23,7 @@ MODEL_SPECS = {
     "it": {
         "clf_dir": "model_classifier_it",
         "s2s_dir": "model_inclusive_rewriter_it",
-        # prefix come nella versione vecchia
+
         "prefix": (
             "[INCLUSIVO] "
             "Riformula la frase in modo inclusivo e rispettoso, mantenendo il tema. "
@@ -61,14 +61,13 @@ def normalize_label(raw_label: str, id2label) -> str:
     return lab
 
 
-# canonical label mapping )
 LABEL_ALIASES = {
-    # italian -> canonical
+
     "inclusiva": "inclusive",
     "non_inclusiva": "not_inclusive",
     "non inclusiva": "not_inclusive",
     "non-inclusiva": "not_inclusive",
-    # english canonical
+
     "inclusive": "inclusive",
     "not_inclusive": "not_inclusive",
 }
@@ -87,10 +86,10 @@ def clean_rewrite_output(raw: str, original: str = "", lang: str = "en") -> str:
 
     s = raw.strip()
 
-    # 1)  "Suggestion:" / "Suggerimento:" 
-    s = re.sub(r"(?i)\b(suggestion|suggerimento)\s*:\s*", "", s).strip()
 
-    # 2) se il modello ripete
+    s = re.sub(r"(i)\b(suggestion|suggerimento)\s*:\s*", "", s).strip()
+
+
     if lang == "it":
         pat = r"\b(riscrivi\s+la\s+frase|riformula\s+la\s+frase)\b"
     else:
@@ -104,29 +103,28 @@ def clean_rewrite_output(raw: str, original: str = "", lang: str = "en") -> str:
         else:
             s = s[:m.start()].strip()
 
-    # 3) elimina frasi tipo "usando un linguaggio inclusivo" / "using inclusive language" se restano 
-    s = re.sub(r"(?i)\busando\s+un\s+linguaggio\s+inclusivo\b\s*:?\s*", "", s).strip()
-    s = re.sub(r"(?i)\busing\s+inclusive\s+language\b\s*:?\s*", "", s).strip()
 
-    # 4) se ci sono più righe, tieni l'ultima significativa
+    s = re.sub(r"(i)\busando\s+un\s+linguaggio\s+inclusivo\b\s*:\s*", "", s).strip()
+    s = re.sub(r"(i)\busing\s+inclusive\s+language\b\s*:\s*", "", s).strip()
+
+
     lines = [x.strip() for x in s.splitlines() if x.strip()]
     if lines:
         s = lines[-1].strip()
 
-    # 5) se l'output ripete l'originale all'inizio
+
     if original:
         o = original.strip().lower()
         sl = s.strip().lower()
         if sl.startswith(o):
             s = s[len(original.strip()):].strip(" \t\n:-")
 
-    # 6) normalizza spazi
+
     s = re.sub(r"\s+", " ", s).strip()
 
     return s
 
 
-# ------------------ Models ------------------
 DEVICE = 0 if torch.cuda.is_available() else -1
 
 
@@ -172,7 +170,7 @@ def load_models(lang: str):
 
 
 def split_sentences_simple(text: str):
-    sents = re.split(r"(?<=[.!?])\s+", text.strip())
+    sents = re.split(r"(<=[.!])\s+", text.strip())
     return [s.strip() for s in sents if s.strip()]
 
 

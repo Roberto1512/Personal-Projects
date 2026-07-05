@@ -1,6 +1,68 @@
-# ===========================
-# Model artifacts & large binary files
-# ===========================
+# Python bytecode and caches
+__pycache__/
+*.py[cod]
+*.pyd
+*.so
+*$py.class
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.hypothesis/
+.tox/
+.nox/
+.cache/
+
+# Python environments and packaging
+.venv/
+venv/
+env/
+ENV/
+pyvenv.cfg
+build/
+dist/
+*.egg-info/
+
+# Jupyter
+.ipynb_checkpoints/
+*.nbconvert.ipynb
+
+# Coverage
+.coverage
+.coverage.*
+coverage.xml
+htmlcov/
+
+# Local configuration and secrets
+.env
+.env.*
+!.env.example
+!.env.template
+*.pem
+*.key
+*.p12
+*.pfx
+
+# IDE and operating-system metadata
+.idea/
+.vscode/
+.vs/
+.svn/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Logs and temporary files
+*.log
+*.tmp
+*.bak
+*.orig
+temp/
+tmp/
+
+# Machine-learning models and experiment runs
 *.safetensors
 *.pt
 *.pth
@@ -9,48 +71,24 @@
 *.pkl
 *.onnx
 *.bin
+*.keras
+*.ckpt
+checkpoint-*/
+mlruns/
+wandb/
+runs/
+lightning_logs/
+events.out.tfevents.*
 
-# ===========================
-# Datasets (large files)
-# ===========================
+# Large tabular datasets and generated tables
 *.parquet
 *.csv
-!requirements.txt
 
-# ===========================
-# Python virtual environments
-# ===========================
-Lib/
-Scripts/
-__pycache__/
-*.pyc
-pyvenv.cfg
-.venv/
-venv/
+# DVC local state; commit .dvc/config, dvc.yaml, dvc.lock and *.dvc pointers
+.dvc/cache/
+.dvc/tmp/
 
-# ===========================
-# IDE / OS
-# ===========================
-.idea/
-.svn/
-.vs/
-*.swp
-Thumbs.db
-.DS_Store
-
-# ===========================
-# DVC
-# ===========================
-*.dvc
-.dvc/
-
-# ===========================
-# Docker
-# ===========================
-.dockerignore
-
-# ===========================
-# Temp files
-# ===========================
-temp/
-*.tmp
+# Local databases
+*.sqlite
+*.sqlite3
+*.db-journal

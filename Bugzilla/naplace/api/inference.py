@@ -17,11 +17,11 @@ from naplace.observability.metrics import (
     time_it_seconds,
 )
 
-# Root e cartella modelli
+
 ROOT_DIR = Path(__file__).resolve().parents[2]
 MODELS_DIR = getattr(config, "MODELS_DIR", ROOT_DIR / "models")
 
-# --- Percorsi GRU / LSTM ---
+
 GRU_MODEL_PATH = MODELS_DIR / "gru.h5"
 GRU_TOKENIZER_PATH = MODELS_DIR / "gru_tokenizer.pkl"
 GRU_LABELS_PATH = MODELS_DIR / "gru_label_classes.npy"
@@ -30,16 +30,15 @@ LSTM_MODEL_PATH = MODELS_DIR / "lstm.h5"
 LSTM_TOKENIZER_PATH = MODELS_DIR / "lstm_tokenizer.pkl"
 LSTM_LABELS_PATH = MODELS_DIR / "lstm_label_classes.npy"
 
-# --- Percorsi SetFit ---
+
 SETFIT_DIR = MODELS_DIR / "setfit_component"
 SETFIT_MAPPING_PATH = SETFIT_DIR / "label_mapping.json"
 
-# --- Percorso TF-IDF (sklearn) ---
+
 TFIDF_MODEL_PATH = MODELS_DIR / "tfidf_sgd.joblib"
 _tfidf_model = None
 
 
-# Cache in memoria (lazy load)
 _gru_model = None
 _gru_tokenizer = None
 _gru_label_classes = None
@@ -66,20 +65,15 @@ def _record_metrics(model_name: str, elapsed_seconds: float, n_predictions: int)
     MODEL_INFERENCE_DURATION_SECONDS.labels(model_name=model_name).observe(elapsed_seconds)
 
 
-# =========================
-#    GRU / LSTM HELPERS
-# =========================
-
-
 def _lazy_load_gru():
     global _gru_model, _gru_tokenizer, _gru_label_classes
     if _gru_model is None:
         if not GRU_MODEL_PATH.is_file():
-            raise SystemExit(f"❌ Modello GRU non trovato in {GRU_MODEL_PATH}")
+            raise SystemExit(f"ERROR Modello GRU non trovato in {GRU_MODEL_PATH}")
         if not GRU_TOKENIZER_PATH.is_file():
-            raise SystemExit(f"❌ Tokenizer GRU non trovato in {GRU_TOKENIZER_PATH}")
+            raise SystemExit(f"ERROR Tokenizer GRU non trovato in {GRU_TOKENIZER_PATH}")
         if not GRU_LABELS_PATH.is_file():
-            raise SystemExit(f"❌ Label classes GRU non trovate in {GRU_LABELS_PATH}")
+            raise SystemExit(f"ERROR Label classes GRU non trovate in {GRU_LABELS_PATH}")
 
         _gru_model = load_model(GRU_MODEL_PATH)
         _gru_tokenizer = _load_pickle(GRU_TOKENIZER_PATH)
@@ -92,11 +86,11 @@ def _lazy_load_lstm():
     global _lstm_model, _lstm_tokenizer, _lstm_label_classes
     if _lstm_model is None:
         if not LSTM_MODEL_PATH.is_file():
-            raise SystemExit(f"❌ Modello LSTM non trovato in {LSTM_MODEL_PATH}")
+            raise SystemExit(f"ERROR Modello LSTM non trovato in {LSTM_MODEL_PATH}")
         if not LSTM_TOKENIZER_PATH.is_file():
-            raise SystemExit(f"❌ Tokenizer LSTM non trovato in {LSTM_TOKENIZER_PATH}")
+            raise SystemExit(f"ERROR Tokenizer LSTM non trovato in {LSTM_TOKENIZER_PATH}")
         if not LSTM_LABELS_PATH.is_file():
-            raise SystemExit(f"❌ Label classes LSTM non trovate in {LSTM_LABELS_PATH}")
+            raise SystemExit(f"ERROR Label classes LSTM non trovate in {LSTM_LABELS_PATH}")
 
         _lstm_model = load_model(LSTM_MODEL_PATH)
         _lstm_tokenizer = _load_pickle(LSTM_TOKENIZER_PATH)
@@ -154,22 +148,17 @@ def predict_lstm(texts: List[str]) -> List[PredictionItem]:
     return results
 
 
-# =========================
-#        SETFIT
-# =========================
-
-
 def _lazy_load_setfit():
     """Carica SetFitModel + mapping id->label."""
     global _setfit_model, _setfit_id2label
 
     if _setfit_model is None:
         if not SETFIT_DIR.is_dir():
-            raise SystemExit(f"❌ Directory SetFit non trovata: {SETFIT_DIR}")
+            raise SystemExit(f"ERROR Directory SetFit non trovata: {SETFIT_DIR}")
 
         if not SETFIT_MAPPING_PATH.is_file():
             raise SystemExit(
-                f"❌ File label_mapping.json non trovato: {SETFIT_MAPPING_PATH}\n"
+                f"ERROR File label_mapping.json non trovato: {SETFIT_MAPPING_PATH}\n"
                 "Assicurati di aver eseguito scripts/train_setfit.py."
             )
 
@@ -179,7 +168,7 @@ def _lazy_load_setfit():
             mapping = json.load(f)
 
         raw_id2label = mapping.get("id2label", {})
-        # chiavi salvate come stringhe → convertiamo a int
+
         _setfit_id2label = {int(k): v for k, v in raw_id2label.items()}
 
     return _setfit_model, _setfit_id2label
@@ -189,7 +178,7 @@ def _lazy_load_tfidf():
     global _tfidf_model
     if _tfidf_model is None:
         if not TFIDF_MODEL_PATH.is_file():
-            raise SystemExit(f"❌ Modello TF-IDF non trovato in {TFIDF_MODEL_PATH}")
+            raise SystemExit(f"ERROR Modello TF-IDF non trovato in {TFIDF_MODEL_PATH}")
         import joblib
 
         _tfidf_model = joblib.load(TFIDF_MODEL_PATH)
@@ -237,13 +226,13 @@ def predict_setfit(texts: List[str]) -> List[PredictionItem]:
 
     elapsed = time_it_seconds()
 
-    # id predetti
+
     pred_ids = model.predict(texts)
 
-    # proviamo a ottenere anche le probabilità (se disponibile)
+
     try:
         proba = model.predict_proba(texts)
-        # SetFit può restituire torch.Tensor: convertiamo a numpy per evitare crash con np.max
+
         if hasattr(proba, "detach"):
             proba = proba.detach().cpu().numpy()
         else:
@@ -258,7 +247,7 @@ def predict_setfit(texts: List[str]) -> List[PredictionItem]:
 
         p: float | None
         if proba is not None:
-            # proba[i] è il vettore di probabilità su tutte le classi
+
             p = float(np.max(proba[i]))
         else:
             p = None

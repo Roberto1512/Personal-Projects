@@ -40,13 +40,13 @@ def parse_args() -> argparse.Namespace:
 
 
 def main() -> None:
-    # Avoid MLflow's emoji log messages breaking on Windows cp1252 consoles.
+
     if hasattr(sys.stdout, "reconfigure"):
         sys.stdout.reconfigure(encoding="utf-8")
 
     args = parse_args()
 
-    # Inizializza DagsHub + MLflow (stessa convenzione degli altri script)
+
     dagshub.init(repo_owner="se4ai2526-uniba", repo_name="Naplace", mlflow=True)
     mlflow.set_experiment("Naplace Bug Report Classification")
 
@@ -61,7 +61,7 @@ def main() -> None:
     )
 
     with mlflow.start_run(run_name="setfit_eval_test"):
-        # Log parametri principali dell’eval
+
         mlflow.log_param("model", "setfit")
         mlflow.log_param("run_type", "eval_test")
         mlflow.log_param("model_dir", str(args.model_dir))
@@ -70,7 +70,7 @@ def main() -> None:
         mlflow.log_param("text_fields", ",".join(config.text_fields))
         mlflow.log_param("label_field", config.label_field)
 
-        # Esegui valutazione su test.jsonl
+
         metrics: Dict[str, Any] = eval_setfit_on_test(
             model_dir=args.model_dir,
             test_path=args.test_path,
@@ -78,12 +78,12 @@ def main() -> None:
             config=config,
         )
 
-        # Log delle metriche numeriche su MLflow
+
         for key, value in metrics.items():
             if isinstance(value, (int, float)):
                 mlflow.log_metric(key, float(value))
 
-        # Salva il file JSON di metriche come artifact
+
         mlflow.log_artifact(str(args.metrics_path))
 
         print("[SetFit-EVAL] Run logged to MLflow.")

@@ -74,7 +74,7 @@ def parse_args() -> argparse.Namespace:
 
 
 if __name__ == "__main__":
-    # Avoid MLflow's emoji log messages breaking on Windows cp1252 consoles.
+
     if hasattr(sys.stdout, "reconfigure"):
         sys.stdout.reconfigure(encoding="utf-8")
 
@@ -83,7 +83,7 @@ if __name__ == "__main__":
     dagshub.init(repo_owner="se4ai2526-uniba", repo_name="Naplace", mlflow=True)
     mlflow.set_experiment("Naplace Bug Report Classification")
 
-    # 🔴 Disattiva l’autolog di MLflow per evitare conflitti con Transformers/SetFit
+
     mlflow.autolog(disable=True)
 
     config = SetFitConfig(
@@ -100,7 +100,7 @@ if __name__ == "__main__":
     )
 
     with mlflow.start_run(run_name="setfit_component"):
-        # parametri
+
         mlflow.log_param("model", "setfit")
         mlflow.log_param("base_model", config.model_name)
         mlflow.log_param("num_epochs", config.num_epochs)

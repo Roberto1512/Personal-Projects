@@ -1,13 +1,10 @@
-# tests/test_behavioral_model.py
+
 
 import pytest
 
 from naplace.modeling.predict import predict_component_lstm
 
 
-# -----------------------------
-# Fixture: predictor riutilizzabile
-# -----------------------------
 @pytest.fixture(scope="module")
 def predict():
     """
@@ -20,9 +17,6 @@ def predict():
     return _predict
 
 
-# -----------------------------
-# 1) Invariance Tests
-# -----------------------------
 def test_invariance_whitespace_and_case(predict):
     """
     Cambiamenti superficiali (spazi, maiuscole/minuscole) non dovrebbero
@@ -34,7 +28,7 @@ def test_invariance_whitespace_and_case(predict):
     labels = predict([t1, t2])
 
     assert len(labels) == 2
-    # Invariance: stessa label attesa
+
     assert labels[0] == labels[1]
 
 
@@ -50,9 +44,8 @@ def test_invariance_small_rewording(predict):
 
     assert len(labels) == 2
     assert labels[0] == labels[1]
-# -----------------------------
-# 2) Directional Tests
-# -----------------------------
+
+
 @pytest.mark.xfail(reason="Current model tends to map different bug types to 'General' component.")
 def test_directional_ui_vs_network(predict):
     """
@@ -66,7 +59,7 @@ def test_directional_ui_vs_network(predict):
     labels = predict([ui_bug, network_bug])
 
     assert len(labels) == 2
-    # Directional: ci aspetteremmo component diversi
+
     assert labels[0] != labels[1]
 
 
@@ -80,9 +73,7 @@ def test_directional_crash_vs_layout(predict):
     assert len(labels) == 2
     assert labels[0] != labels[1]
 
-# -----------------------------
-# 3) Minimum Functionality Tests
-# -----------------------------
+
 @pytest.mark.parametrize(
     "text",
     [
@@ -119,7 +110,7 @@ def test_directional_stacktrace_detection(predict):
 
     labels = predict([text_with_stack, no_stack])
 
-    # Spec desiderata: due label diverse
+
     assert labels[0] != labels[1], \
         "Stacktrace bug should not share label with a layout UI bug"
 

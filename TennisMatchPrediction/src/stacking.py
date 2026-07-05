@@ -56,7 +56,7 @@ def main():
 
     os.makedirs(args.out_dir, exist_ok=True)
 
-    # ----- Load data -----
+
     print("Loading features...")
     df = pd.read_parquet(args.features)
     train, val, test = time_split(df)
@@ -78,7 +78,7 @@ def main():
     X_val = X_val.fillna(medians)
     X_test = X_test.fillna(medians)
 
-    # ----- Load base models -----
+
     models_dir = os.path.join(args.out_dir, "models")
     base_models = {}
     for fname in sorted(os.listdir(models_dir)):
@@ -88,7 +88,7 @@ def main():
 
     print(f"Loaded {len(base_models)} base models: {list(base_models.keys())}")
 
-    # ----- Build meta-features -----
+
     print("\nBuilding meta-features from base model predictions...")
     meta_val, meta_names = build_meta_features(base_models, X_val)
     meta_test, _ = build_meta_features(base_models, X_test)
@@ -97,15 +97,15 @@ def main():
     print(f"Meta-feature matrix shape: val={meta_val.shape}, test={meta_test.shape}")
     print(f"Meta-feature columns: {meta_names}")
 
-    # Show correlation between base model predictions
+
     print("\n--- Base Model Prediction Correlations (Validation) ---")
     corr_df = pd.DataFrame(meta_val, columns=meta_names).corr()
     print(corr_df.round(3).to_string())
 
-    # ----- Train meta-learner -----
+
     print("\n--- Training Meta-Learner (Stacked Ensemble) ---")
 
-    # Try multiple regularization strengths for the meta-learner
+
     best_meta_ll = float("inf")
     best_meta_model = None
     best_meta_C = None
@@ -128,7 +128,7 @@ def main():
 
     print(f"\n  ** Best meta-learner: C={best_meta_C} (val_LL={best_meta_ll:.4f})")
 
-    # ----- Evaluate stacked ensemble on TEST -----
+
     print("\n" + "=" * 60)
     print("STACKED ENSEMBLE — TEST SET EVALUATION")
     print("=" * 60)
@@ -136,7 +136,7 @@ def main():
     meta_prob_test = best_meta_model.predict_proba(meta_test)[:, 1]
     stack_metrics = compute_metrics(y_test, meta_prob_test)
 
-    # Load best single model for comparison
+
     best_single = joblib.load(os.path.join(args.out_dir, "best_model.joblib"))
     single_prob_test = best_single.predict_proba(X_test)[:, 1]
     single_metrics = compute_metrics(y_test, single_prob_test)
@@ -150,20 +150,20 @@ def main():
           f"{stack_metrics['auc']:8.4f}  {stack_metrics['accuracy']:8.4f}  "
           f"{stack_metrics['brier']:8.4f}")
 
-    # Improvement
+
     ll_delta = single_metrics["log_loss"] - stack_metrics["log_loss"]
     auc_delta = stack_metrics["auc"] - single_metrics["auc"]
     acc_delta = stack_metrics["accuracy"] - single_metrics["accuracy"]
     print(f"\n  Improvement:  LL {ll_delta:+.4f}  AUC {auc_delta:+.4f}  Acc {acc_delta:+.4f}")
 
-    # ----- Meta-learner coefficients (interpretability) -----
+
     print("\n--- Meta-Learner Coefficients ---")
     meta_lr = best_meta_model.named_steps["lr"]
     coefs = meta_lr.coef_[0]
     for name, coef in sorted(zip(meta_names, coefs), key=lambda x: abs(x[1]), reverse=True):
         print(f"  {name:25s}  coef = {coef:+.4f}")
 
-    # ----- Save results -----
+
     results = {
         "stacked_ensemble": stack_metrics,
         "best_single": single_metrics,
@@ -171,17 +171,17 @@ def main():
         "base_models": meta_names,
     }
 
-    # Save stacked model
+
     joblib.dump(best_meta_model, os.path.join(args.out_dir, "stacked_model.joblib"))
 
-    # Save comparison CSV
+
     comp_df = pd.DataFrame([
         {"model": "Best Single (LogReg)", **single_metrics},
         {"model": "Stacked Ensemble", **stack_metrics},
     ])
     comp_df.to_csv(os.path.join(args.out_dir, "step4_stacking_results.csv"), index=False)
 
-    # Save meta-learner coefficients
+
     coef_df = pd.DataFrame({
         "base_model": meta_names,
         "coefficient": coefs,

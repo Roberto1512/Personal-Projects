@@ -1,54 +1,57 @@
-# Exoplanet ML Project
+# Exoplanets Clustering
 
-Versione del progetto di Machine Learning sugli esopianeti.
+Progetto di machine learning per l'analisi di un dataset NASA sugli esopianeti. La pipeline combina audit dei dati, preprocessing, clustering non supervisionato, interpretazione dei cluster e classificazione supervisionata.
 
-## Struttura attuale
+## Struttura
 
-- `input/`
-  - dataset raw originale: `nasa_exoplanet_intelligence.csv`
-- `notebook_final/`
-  - pipeline;
-  - notebook 01-06;
-  - output processati, tabelle e figure finali;
-  - documentazione tecnica in `README_notebook_final.md`.
-- `REPORT_FINALE_ESAME.md`
-  - report finale.
-- `requirements.txt`
-  - dipendenze Python 3.11 dirette e versionate per la riproducibilita'.
-- `.venv/`
-  - ambiente Python locale usato per eseguire i notebook; non e' necessario includerlo nella consegna.
+```text
+ExoplanetsClustering/
+|-- input/
+|   `-- nasa_exoplanet_intelligence.csv
+|-- notebook/
+|   |-- 01_Audit_LogTransform_Preprocessing.ipynb
+|   |-- 02_EDA_and_Feature_Space.ipynb
+|   |-- 03_Clustering_Core.ipynb
+|   |-- 04_Cluster_Interpretation.ipynb
+|   |-- 05_Supervised_Leakage_Aware_Classification.ipynb
+|   |-- 06_Report_Tables_and_Figures.ipynb
+|   |-- data/processed/
+|   `-- reports/
+|       |-- figures/
+|       |-- final_figures/
+|       |-- tables/
+|       `-- final_tables/
+|-- Report_Selvaggi_Roberto_Pio.pdf
+|-- Selvaggi_Roberto_Pio_ML.pptx
+|-- requirements.txt
+`-- README.md
+```
 
+## Notebook
 
-## Come rieseguire la pipeline
+1. Audit, trasformazioni logaritmiche, imputazione e standardizzazione.
+2. Analisi esplorativa e definizione degli spazi di feature.
+3. Confronto degli algoritmi di clustering e selezione della configurazione.
+4. Profilazione e interpretazione dei cluster mediante variabili esterne.
+5. Classificazione supervisionata con split e valutazioni progettati per limitare il leakage.
+6. Consolidamento delle tabelle e delle figure usate nel report.
 
-Creare l'ambiente e installare le dipendenze dalla root:
+Gli output elaborati sono salvati in `notebook/data/processed/`; tabelle e figure sono raccolte in `notebook/reports/`.
+
+## Esecuzione
+
+Da PowerShell, nella directory del progetto:
 
 ```powershell
 py -3.11 -m venv .venv
 .\.venv\Scripts\python.exe -m pip install -r requirements.txt
-```
+$env:MPLBACKEND = "Agg"
 
-Quindi eseguire i notebook in sequenza:
-
-```powershell
-cd C:\Users\rober\Desktop\UNI\ML\ProgettoML\notebook_final
-$env:MPLBACKEND='Agg'
-$nbs = @(
-  '01_Audit_LogTransform_Preprocessing.ipynb',
-  '02_EDA_and_Feature_Space.ipynb',
-  '03_Clustering_Core.ipynb',
-  '04_Cluster_Interpretation.ipynb',
-  '05_Supervised_Leakage_Aware_Classification.ipynb',
-  '06_Report_Tables_and_Figures.ipynb'
-)
-foreach ($nb in $nbs) {
-  ..\.venv\Scripts\python.exe -m nbconvert --to notebook --execute $nb --inplace --ExecutePreprocessor.timeout=1200
+Get-ChildItem .\notebook\*.ipynb | Sort-Object Name | ForEach-Object {
+    .\.venv\Scripts\python.exe -m jupyter nbconvert `
+        --to notebook --execute $_.FullName --inplace `
+        --ExecutePreprocessor.timeout=1200
 }
 ```
 
-## Output principali
-
-- `notebook_final/reports/final_tables/`
-- `notebook_final/reports/final_figures/`
-
-La versione finale contiene 16 tabelle CSV, un riepilogo JSON e 12 figure consolidate, incluse il confronto esterno post-hoc tramite Adjusted Rand Index, l'audit/sensitivity analysis del cluster estremo e le analisi su intervalli di confidenza Macro-F1, repeated cross-validation e corrected resampled t-test per il Setup B supervisionato.
+I notebook devono essere eseguiti nell'ordine numerico indicato dai nomi dei file.

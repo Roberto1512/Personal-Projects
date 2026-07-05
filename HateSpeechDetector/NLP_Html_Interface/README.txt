@@ -1,42 +1,28 @@
-# 🧠 NLP Toxicity Classifier WebApp
+# NLP Toxicity Classifier Web App
 
-## 📁 Struttura del progetto
+Interfaccia Flask per classificare una conversazione come tossica o non tossica tramite un modello Transformer salvato localmente.
 
+## Struttura
+
+```text
+NLP_Html_Interface/
+|-- app.py
+|-- index.html
+|-- requirements.txt
+|-- logo.png
+|-- best_toxic_model/
+`-- README.txt
 ```
-NLP/
-├── app.py                  # Backend Flask
-├── index.html              # Interfaccia web (form HTML)
-├── requirements.txt        # Pacchetti Python richiesti
-├── README.md               # Questo file
-└── best_toxic_model/       # Modello BERT fine-tuned salvato
 
-## ⚙️ Setup ambiente virtuale in Visual Studio Code (VSC)
+La directory `best_toxic_model/` deve contenere configurazione, tokenizer e pesi compatibili con `AutoModelForSequenceClassification`.
 
-### 1. Apri la cartella `NLP/` in VSC
+## Installazione e avvio
 
-### 2. Da terminale su VSC svolgere gli altri punti 
+```powershell
+python -m venv .venv
+.\.venv\Scripts\Activate.ps1
+pip install -r requirements.txt
+python app.py
+```
 
-          ## 📌 Dipendenze principali
-          - Flask
-          - torch
-          - transformers
-          - accelerate
-          
-          Installabili via:
-          pip install -r requirements.txt
-          
-          ## 🚀 Avvio dell'applicazione
-          
-          1. Assicurati che la cartella `best_toxic_model/` contenga il modello salvato da HuggingFace.
-          
-          2. Runna app.py (va bene anche direttamente da vsc in alto a destra facendo run project):
-              Assicurati di avere l'ambiente pronto (venv con percorso a py installato sul tuo pc
-                  
-                  python app.py
-
-3. Apri il browser e visita:
-http://127.0.0.1:5000
-
-4. Scrivi una conversazione nella textarea e clicca su "Analizza"
-   - Se tossica, verrà mostrata anche una **spiegazione generata da Mistral** 
-
+L'applicazione è disponibile su `http://127.0.0.1:5000`. L'endpoint `POST /predict` accetta un oggetto JSON con il campo `text` e restituisce etichetta e probabilità di tossicità.

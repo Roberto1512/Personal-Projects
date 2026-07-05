@@ -1,4 +1,4 @@
-## ERA ASSENTE
+
 
 
 from __future__ import annotations
@@ -30,7 +30,7 @@ def build_markdown_summary(results: Dict[str, Any]) -> str:
 
     lines.append("# Great Expectations – Train data validation\n")
 
-    lines.append(f"- Overall success: {'✅ PASSED' if success else '❌ FAILED'}")
+    lines.append(f"- Overall success: {'OK PASSED' if success else 'ERROR FAILED'}")
 
     if successful is not None and total is not None:
         lines.append(f"- Expectations passed: {successful}/{total}")
@@ -44,7 +44,7 @@ def build_markdown_summary(results: Dict[str, Any]) -> str:
         kwargs = r.get("kwargs", {})
         column = kwargs.get("column")
         success_flag = r.get("success", False)
-        status_emoji = "✅" if success_flag else "❌"
+        status_emoji = "OK" if success_flag else "ERROR"
 
         if column is not None:
             label = f"{status_emoji} `{exp_type}` on column `{column}`"

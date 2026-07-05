@@ -5,7 +5,10 @@ __pycache__/
 *.pyc
 *.pyo
 *.pyd
-*.json
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.ipynb_checkpoints/
 
 # ---- OS / editor ----
 .DS_Store
@@ -16,6 +19,7 @@ Thumbs.db
 ~$*.docx
 ~WRL*.tmp
 *.tmp
+*.bak
 
 # ---- Logs ----
 *.log
@@ -31,6 +35,8 @@ modelli/
 *.safetensors
 *.bin
 *.pt
+*.pth
+*.onnx
 
 # ---- Large datasets (optional) ----
 # If too big, ignore raw and keep only small samples
@@ -38,3 +44,7 @@ modelli/
 # data/**/split/
 /data
 /models
+
+# DVC local state; keep *.dvc pointers and project metadata tracked
+.dvc/cache/
+.dvc/tmp/

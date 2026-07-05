@@ -27,7 +27,7 @@ class TFIDFConfig:
     max_iter: int = 300
 
     def __post_init__(self) -> None:
-        # Ensure text_fields is always a tuple of field names (not a single string).
+
         if isinstance(self.text_fields, str):
             self.text_fields = (self.text_fields,)
         else:
@@ -66,7 +66,7 @@ def train_tfidf_classifier(
     output_dir.mkdir(parents=True, exist_ok=True)
     metrics_path.parent.mkdir(parents=True, exist_ok=True)
 
-    # Load train and test splits
+
     train_texts, train_labels = _load_texts_and_labels(
         train_path, config.text_fields, config.label_field
     )
@@ -74,7 +74,7 @@ def train_tfidf_classifier(
         test_path, config.text_fields, config.label_field
     )
 
-    # TF-IDF
+
     vectorizer = TfidfVectorizer(
         max_features=config.max_features,
         ngram_range=config.ngram_range,
@@ -83,7 +83,7 @@ def train_tfidf_classifier(
     X_train = vectorizer.fit_transform(train_texts)
     X_test = vectorizer.transform(test_texts)
 
-    # Classifier
+
     clf = LogisticRegression(
         C=config.C,
         penalty=config.penalty,
@@ -104,7 +104,7 @@ def train_tfidf_classifier(
 
     report = classification_report(test_labels, preds, output_dict=True)
 
-    # Save metrics (in reports/)
+
     metrics = {
         "accuracy": float(acc),
         "f1_macro": float(f1_macro),
@@ -114,7 +114,7 @@ def train_tfidf_classifier(
     with metrics_path.open("w", encoding="utf-8") as f:
         json.dump(metrics, f, indent=2)
 
-    # Save model + vectorizer (in models/baseline_tfidf/)
+
     joblib.dump(clf, output_dir / "tfidf_logreg.pkl")
     joblib.dump(vectorizer, output_dir / "tfidf_vectorizer.pkl")
 

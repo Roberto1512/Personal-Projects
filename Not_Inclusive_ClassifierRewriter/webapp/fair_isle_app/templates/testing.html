@@ -8,7 +8,7 @@
 
   <div class="assistant-card">
     <div class="assistant-grid">
-      <!-- Left panel -->
+
       <div class="panel">
         <div class="panel-head">
           <div class="panel-title">{{ t.testing.original_text }}</div>
@@ -30,7 +30,7 @@
         </div>
       </div>
 
-      <!-- Right panel -->
+
       <div class="panel">
         <div class="panel-head">
           <div class="panel-title">{{ t.testing.suggestions }}</div>
@@ -39,7 +39,7 @@
           </div>
         </div>
 
-        <!-- CHANGED: output box + legend bar separated -->
+
         <div class="panel-body">
           <div class="output-box" id="output_text">
             {% if output_html %}
@@ -62,12 +62,12 @@
     </div>
   </div>
 
-  <!-- Feedback card -->
+
   <div class="home-card" style="margin-top: 16px; background:#fff; padding: 18px;">
     <div class="home-h">{{ t.testing.feedback_title }}</div>
 
     <form id="feedback-form">
-      <!-- hidden target payload (saved in JSON) -->
+
       <input type="hidden" id="fb_target_index" name="target_index" value="">
       <input type="hidden" id="fb_target_label" name="target_label" value="">
       <input type="hidden" id="fb_target_score" name="target_score" value="">
@@ -77,7 +77,7 @@
 
       <fieldset id="fb_fieldset" disabled style="opacity:.60;">
 
-        <!-- Q1 -->
+
         <div class="mb-2" style="font-weight: 900; font-size: 13px; color: #374151;">
           {{ t.testing.feedback_q1 }}
         </div>
@@ -91,7 +91,7 @@
           </label>
         </div>
 
-        <!-- Animated container -->
+
         <div class="mb-3 fb-proposed" id="fb_proposed_wrap" aria-hidden="true">
           <label class="form-label" style="font-weight: 900; font-size: 13px; color: #374151;">
             {{ t.testing.proposed_label }}
@@ -100,7 +100,7 @@
             placeholder="{{ t.testing.proposed_placeholder }}"></textarea>
         </div>
 
-        <!-- Q2 -->
+
         <div class="mb-2" style="font-weight: 900; font-size: 13px; color: #374151;">
           {{ t.testing.feedback_q2 }}
         </div>
@@ -123,7 +123,7 @@
     </form>
   </div>
 
-  <!-- Popup modal -->
+
   <div class="modal fade feedback-modal" id="feedbackModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-sm modal-dialog-centered">
       <div class="modal-content">
@@ -133,9 +133,9 @@
   </div>
 
   <style>
-    /* Keep output box height aligned with textarea */
+
     .output-box{
-      min-height: 250px;              /* same baseline as textarea */
+      min-height: 250px;
       max-height: 420px;
       overflow: auto;
       border-radius: 12px;
@@ -144,7 +144,7 @@
       background: #fff;
     }
 
-    /* Separate legend from output, like the left bottom row */
+
     .legend-bar{
       margin-top: 12px;
       padding-top: 10px;
@@ -152,10 +152,10 @@
       display: flex;
       align-items: center;
       justify-content: flex-start;
-      min-height: 42px;               /* visually similar to left bottom row */
+      min-height: 42px;
     }
 
-    /* Smooth reveal for proposed rewrite */
+
     .fb-proposed{
       max-height: 0;
       opacity: 0;
@@ -307,7 +307,6 @@
       document.getElementById("input_text").focus();
     });
 
-    // initial state
     setFeedbackEnabled(false, true);
 
     document.getElementById("feedback-form").addEventListener("submit", function(e){
@@ -317,7 +316,6 @@
         return;
       }
 
-      // READ values BEFORE disabling
       var rewriteChoice = document.querySelector('input[name="rewrite_correct"]:checked');
       var classChoice = document.querySelector('input[name="classification_correct"]:checked');
       var proposed = document.getElementById("fb_proposed").value.trim();
@@ -337,7 +335,6 @@
         return;
       }
 
-      // Lock UI WITHOUT resetting user inputs
       setFeedbackEnabled(false, false);
 
       $.ajax({

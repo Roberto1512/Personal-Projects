@@ -18,33 +18,23 @@ Script Python per il download automatico di immagini da fonti web:
 - **Fonte**: Pagine del National Counterterrorism Center (NCTC) — `https://www.dni.gov/nctc/`.
 - **Funzionamento**: Parsing HTML → estrazione tag `<img>` → costruzione URL assoluti → download e salvataggio locale delle immagini.
 
-### 2. Dataset di Immagini
+### 2. Notebook di Addestramento
 
-Le immagini raccolte (da web scraping e/o da altre fonti) sono state suddivise in **3 categorie** per l'addestramento multi-classe:
+Le tre directory di lavoro contengono i notebook usati per addestrare e valutare i modelli YOLO:
 
 | Cartella | Contenuto |
 |---|---|
-| `dataset_armi/` | Immagini di armamenti e equipaggiamento militare |
-| `dataset_bandiere/` | Immagini di bandiere, loghi e simboli di organizzazioni |
-| `dataset_terroristi/` | Immagini di soggetti d'interesse (riconoscimento facciale/pattern) |
+| `dataset_armi/Training_Weapons.ipynb` | Armi ed equipaggiamento |
+| `dataset_bandiere/Training_Flags.ipynb` | Bandiere, loghi e simboli |
+| `dataset_terroristi/Training_Terrorist.ipynb` | Persone e soggetti d'interesse |
 
 ### 3. Pipeline di Addestramento (`pipeline/`)
 
-Cuore del progetto: contiene il notebook e i modelli addestrati.
+Contiene il notebook di inferenza, immagini di esempio e risultati di valutazione.
 
 #### Notebook
 
-- **`pipeline.ipynb`** (~14 KB): Notebook Jupyter che implementa la pipeline completa di training e valutazione. Include preprocessing, data augmentation, definizione dell'architettura della rete neurale, training loop e metriche di valutazione.
-
-#### Modelli Addestrati (`pipeline/models/`)
-
-Tre modelli **PyTorch** (`.pt`) pre-addestrati, uno per ciascuna categoria di classificazione:
-
-| File | Dimensione | Task |
-|---|---|---|
-| `best_flags.pt` | ~19.6 MB | Classificazione bandiere/loghi |
-| `best_people.pt` | ~19.6 MB | Riconoscimento soggetti |
-| `best_weapons.pt` | ~19.6 MB | Classificazione armamenti |
+- **`pipeline.ipynb`**: carica i tre modelli YOLO, combina e filtra i rilevamenti, classifica il contesto e produce immagini annotate e risultati CSV. I file dei modelli non sono inclusi nella versione corrente del repository.
 
 #### Metriche di Valutazione
 
@@ -63,16 +53,15 @@ Per ciascun modello sono salvate le metriche di performance in sotto-cartelle de
 ```text
 .
 ├── WebScraping.py                          # Script per il download automatico di immagini dal web
-├── dataset_armi/                           # Dataset immagini: armamenti
-├── dataset_bandiere/                       # Dataset immagini: bandiere e loghi
-├── dataset_terroristi/                     # Dataset immagini: soggetti d'interesse
+├── dataset_armi/
+│   └── Training_Weapons.ipynb
+├── dataset_bandiere/
+│   └── Training_Flags.ipynb
+├── dataset_terroristi/
+│   └── Training_Terrorist.ipynb
 ├── pipeline/
-│   ├── pipeline.ipynb                      # Notebook principale: training + valutazione
+│   ├── pipeline.ipynb                      # Inferenza, fusione rilevamenti e classificazione
 │   ├── images/                             # Immagini di supporto/visualizzazione
-│   ├── models/                             # Modelli PyTorch addestrati
-│   │   ├── best_flags.pt
-│   │   ├── best_people.pt
-│   │   └── best_weapons.pt
 │   ├── terrorist_flags_metrics/            # Metriche classificazione bandiere
 │   │   ├── train_valid/
 │   │   └── test/
@@ -89,6 +78,6 @@ Per ciascun modello sono salvate le metriche di performance in sotto-cartelle de
 
 ## Tecnologie
 
-- **Python 3**, **PyTorch** (reti neurali convoluzionali)
+- **Python 3**, **PyTorch**, **Ultralytics YOLO**
 - **BeautifulSoup** + **requests** (web scraping)
 - **Jupyter Notebook** (sperimentazione e pipeline)

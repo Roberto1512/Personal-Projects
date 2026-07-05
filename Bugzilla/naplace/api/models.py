@@ -17,7 +17,7 @@ class PredictionRequest(BaseModel):
     texts: List[TextItem] = Field(
         ...,
         description="List of texts to classify",
-        # min_length=1,  # ❌ da togliere, rompe Pydantic v1
+
     )
 
 

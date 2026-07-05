@@ -10,16 +10,16 @@ import joblib
 from naplace.api.inference import predict_gru, predict_lstm, predict_setfit
 from naplace.api.models import PredictionItem
 
-# Percorso del file di test
+
 TEST_PATH = Path("data/interim/test.jsonl")
 
-# Quanti esempi campionare
+
 N_SAMPLES = 50
 
-# Seed per riproducibilità
+
 SEED = 42
 
-# Percorsi modelli TF-IDF
+
 BASELINE_TFIDF_DIR = Path("models/baseline_tfidf")
 TFIDF_SGD_PATH = Path("models/tfidf_sgd.joblib")
 
@@ -90,17 +90,17 @@ def _load_baseline_tfidf_predictor(model_dir: Path):
         model_dir / "baseline_tfidf.joblib",
     ]
 
-    # 1) tenta candidati noti
+
     for p in candidates:
         if p.is_file():
             return joblib.load(p)
 
-    # 2) fallback: se c'è UN solo file joblib/pkl nella cartella, carica quello
+
     files = sorted(list(model_dir.glob("*.joblib")) + list(model_dir.glob("*.pkl")))
     if len(files) == 1:
         return joblib.load(files[0])
 
-    # 3) fallback: prova a caricare vectorizer + classifier separati
+
     vec_candidates = [
         model_dir / "vectorizer.joblib",
         model_dir / "vectorizer.pkl",
@@ -162,7 +162,7 @@ def _predict_sklearn(
             )
         return out
 
-    # Pipeline / estimator unico
+
     y_pred = predictor.predict(texts)
 
     proba = None
@@ -204,12 +204,12 @@ def main() -> None:
 
     print(f"\nEseguo prediction su {n} esempi casuali...\n")
 
-    # --- Modelli API (già integrati) ---
+
     gru_preds = predict_gru(texts)
     lstm_preds = predict_lstm(texts)
     setfit_preds = predict_setfit(texts)
 
-    # --- TF-IDF baseline ---
+
     baseline_predictor = _load_baseline_tfidf_predictor(BASELINE_TFIDF_DIR)
     baseline_preds: Optional[List[PredictionItem]] = None
     if baseline_predictor is None:
@@ -217,7 +217,7 @@ def main() -> None:
     else:
         baseline_preds = _predict_sklearn(baseline_predictor, texts)
 
-    # --- TF-IDF SGD ---
+
     tfidf_sgd_preds: Optional[List[PredictionItem]] = None
     if not TFIDF_SGD_PATH.is_file():
         print(f"[WARN] TF-IDF SGD non trovato in {TFIDF_SGD_PATH} (salto).")
@@ -225,11 +225,11 @@ def main() -> None:
         sgd_pipeline = joblib.load(TFIDF_SGD_PATH)
         tfidf_sgd_preds = _predict_sklearn(sgd_pipeline, texts)
 
-    # Helper per check correttezza
+
     def is_correct(true_label: Optional[str], pred: PredictionItem) -> bool:
         return true_label is not None and pred.predicted_label == str(true_label)
 
-    # Stats
+
     totals = {"gru": 0, "lstm": 0, "setfit": 0, "tfidf": 0, "tfidf_sgd": 0}
 
     for idx in range(n):
@@ -259,7 +259,7 @@ def main() -> None:
             tfidf_line = (
                 f"TF-IDF PRED:  {tfidf_pred.predicted_label} "
                 f"(p={'-' if p is None else f'{p:.3f}'}) "
-                f"{'✔' if tfidf_ok else '✘' if true_label is not None else ''}"
+                f"{'OK' if tfidf_ok else 'ERROR' if true_label is not None else ''}"
             )
 
         if tfidf_sgd_preds is not None:
@@ -270,7 +270,7 @@ def main() -> None:
             tfidf_sgd_line = (
                 f"TFIDF-SGD:   {sgd_pred.predicted_label} "
                 f"(p={'-' if p is None else f'{p:.3f}'}) "
-                f"{'✔' if sgd_ok else '✘' if true_label is not None else ''}"
+                f"{'OK' if sgd_ok else 'ERROR' if true_label is not None else ''}"
             )
 
         print("=" * 90)
@@ -280,17 +280,17 @@ def main() -> None:
         print(
             f"GRU PRED:     {gru_pred.predicted_label} "
             f"(p={'-' if gru_pred.probability is None else f'{gru_pred.probability:.3f}'}) "
-            f"{'✔' if gru_ok else '✘' if true_label is not None else ''}"
+            f"{'OK' if gru_ok else 'ERROR' if true_label is not None else ''}"
         )
         print(
             f"LSTM PRED:    {lstm_pred.predicted_label} "
             f"(p={'-' if lstm_pred.probability is None else f'{lstm_pred.probability:.3f}'}) "
-            f"{'✔' if lstm_ok else '✘' if true_label is not None else ''}"
+            f"{'OK' if lstm_ok else 'ERROR' if true_label is not None else ''}"
         )
         print(
             f"SETFIT PRED:  {setfit_pred.predicted_label} "
             f"(p={'-' if setfit_pred.probability is None else f'{setfit_pred.probability:.3f}'}) "
-            f"{'✔' if setfit_ok else '✘' if true_label is not None else ''}"
+            f"{'OK' if setfit_ok else 'ERROR' if true_label is not None else ''}"
         )
         if tfidf_line:
             print(tfidf_line)

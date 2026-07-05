@@ -36,7 +36,7 @@ async def prometheus_http_middleware(request: Request, call_next):
     response = await call_next(request)
     duration = time.perf_counter() - start
 
-    # Metriche Prometheus
+
     HTTP_REQUEST_DURATION_SECONDS.labels(method=method, path=path).observe(duration)
     HTTP_REQUESTS_TOTAL.labels(
         method=method, path=path, status_code=str(response.status_code)

@@ -7,14 +7,14 @@ from transformers import (
 from torch.nn.functional import softmax
 import os
 
-# === Inizializzazione Flask ===
+
 app = Flask(__name__, static_folder='.', static_url_path='')
 
-# === Percorsi e dispositivo ===
+
 MODEL_DIR = "./best_toxic_model"
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
-# === Caricamento modello di classificazione ===
+
 tokenizer = AutoTokenizer.from_pretrained(MODEL_DIR, local_files_only=True)
 model = AutoModelForSequenceClassification.from_pretrained(
     MODEL_DIR, local_files_only=True
@@ -29,14 +29,14 @@ def classify_toxic(text):
     with torch.no_grad():
         logits = model(**enc).logits
         probs = softmax(logits, dim=1).cpu().numpy()[0]
-    return float(probs[1])  # score tossicità
+    return float(probs[1])
 
-# === Homepage: serve index.html ===
+
 @app.route("/")
 def serve_index():
     return send_from_directory('.', 'index.html')
 
-# === Endpoint API ===
+
 @app.route("/predict", methods=["POST"])
 def predict():
     data = request.get_json()
@@ -50,6 +50,6 @@ def predict():
         "explanation": explanation
     })
 
-# === Avvio ===
+
 if __name__ == "__main__":
     app.run(debug=True)

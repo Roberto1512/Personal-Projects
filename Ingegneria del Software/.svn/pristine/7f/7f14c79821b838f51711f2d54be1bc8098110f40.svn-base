@@ -157,7 +157,7 @@ body, html {
   let newsData = []; // Archiviazione dei dati delle notizie
 
  function loadNews(source, page) {
-  const apiKey = '0df1565c2528449a91143626c9d0194e';
+  const apiKey = 'REDACTED';
   const startIndex = (page - 1) * pageSize;
   // Calcola l'indice di partenza per la pagina corrente
 
@@ -249,7 +249,7 @@ body, html {
     });
 
     function loadNewsWithKeyword(source, keyword, page) {
-  const apiKey = '0df1565c2528449a91143626c9d0194e';
+  const apiKey = 'REDACTED';
   const startIndex = (page - 1) * pageSize;
 
   fetch(`https://newsapi.org/v2/top-headlines?sources=${source}&apiKey=${apiKey}&pageSize=${pageSize}&page=${page}`)

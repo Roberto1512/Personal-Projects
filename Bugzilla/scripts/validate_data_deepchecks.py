@@ -1,4 +1,4 @@
-# scripts/validate_data_deepchecks.py
+
 
 from io import StringIO
 import itertools
@@ -8,7 +8,7 @@ import pandas as pd
 from sklearn.metrics import get_scorer_names
 from sklearn.metrics._scorer import _SCORERS
 
-# Compatibility patch: Deepchecks expects a "max_error" scorer, removed in sklearn>=1.8.
+
 if "max_error" not in get_scorer_names() and "neg_max_error" in get_scorer_names():
     _SCORERS["max_error"] = _SCORERS["neg_max_error"]
 
@@ -23,14 +23,14 @@ TEST_PATH = INTERIM / "test.jsonl"
 
 def load_jsonl_sample(path: Path, max_lines: int = 10000) -> pd.DataFrame:
     if not path.exists():
-        raise SystemExit(f"❌ File not found: {path}. Run naplace/cli/split.py first.")
+        raise SystemExit(f"ERROR File not found: {path}. Run naplace/cli/split.py first.")
 
     with path.open("r", encoding="utf-8") as f:
         lines = list(itertools.islice(f, max_lines))
 
     lines = [ln for ln in lines if ln.strip()]
     if not lines:
-        raise SystemExit(f"❌ No valid lines found in {path}")
+        raise SystemExit(f"ERROR No valid lines found in {path}")
 
     buffer = StringIO("".join(lines))
     df = pd.read_json(buffer, lines=True)
@@ -38,19 +38,16 @@ def load_jsonl_sample(path: Path, max_lines: int = 10000) -> pd.DataFrame:
 
 
 def make_dc_dataset(df: pd.DataFrame) -> Dataset:
-    # Usiamo solo le colonne pulite e rilevanti
+
     candidate_cols = ["id", "text", "component"]
     cols = [c for c in candidate_cols if c in df.columns]
 
     if "component" not in cols:
-        raise SystemExit("❌ Column 'component' not found in dataframe for Deepchecks Dataset.")
+        raise SystemExit("ERROR Column 'component' not found in dataframe for Deepchecks Dataset.")
 
     df_small = df[cols].copy()
 
-    # Creiamo il Dataset:
-    # - label = "component"
-    # - le feature saranno tutte le altre colonne (id, text)
-    # - niente cat_features esplicite (Deepchecks se la cava da solo o non è critico qui)
+
     return Dataset(
         df_small,
         label="component",
@@ -65,7 +62,7 @@ def run_data_integrity(train_ds: Dataset):
     html_path = REPORTS / "deepchecks_data_integrity_train.html"
     result.save_as_html(str(html_path))
 
-    print(f"✅ Deepchecks Data Integrity completata. Report: {html_path}")
+    print(f"OK Deepchecks Data Integrity completata. Report: {html_path}")
 
 
 def run_train_test_validation(train_ds: Dataset, test_ds: Dataset):
@@ -76,7 +73,7 @@ def run_train_test_validation(train_ds: Dataset, test_ds: Dataset):
     html_path = REPORTS / "deepchecks_train_test_validation.html"
     result.save_as_html(str(html_path))
 
-    print(f"✅ Deepchecks Train-Test Validation completata. Report: {html_path}")
+    print(f"OK Deepchecks Train-Test Validation completata. Report: {html_path}")
 
 
 def main():

@@ -1,6 +1,5 @@
-# naplace/dataset.py
 
-# Inutile
+
 
 import json
 
@@ -19,17 +18,17 @@ def _macro_from_label(label: str) -> str | None:
       - "Firefox for Android"     -> "Firefox for Android"
       - "DevTools"                -> "DevTools"
     """
-    products = component.ComponentModel.PRODUCTS  # set come nel modello ufficiale
+    products = component.ComponentModel.PRODUCTS
 
     if "::" in label:
         macro = label.split("::", 1)[0]
         return macro if macro in products else None
 
-    # label "singole" tipo "DevTools", "WebExtensions", etc.
+
     if label in products:
         return label
 
-    # fallback ultra prudente
+
     return None
 
 
@@ -50,7 +49,7 @@ def download_bugbug_dataset():
     print("[Naplace] Downloading Mozilla bugs via Bugbug...")
     db.download(bugzilla.BUGS_DB)
 
-    # classes: dict {bug_id: component_label}
+
     classes, class_names = component.ComponentModel().get_labels()
     data = []
 
@@ -59,12 +58,12 @@ def download_bugbug_dataset():
     for bug in bugzilla.get_bugs():
         bug_id = bug["id"]
 
-        # prendiamo solo i bug che hanno label secondo le regole BugBug
+
         if bug_id not in classes:
             skipped_no_label += 1
             continue
 
-        label = classes[bug_id]  # es. "Core::DOM", "DevTools", "Firefox for Android"
+        label = classes[bug_id]
         macro = _macro_from_label(label)
         if macro is None:
             skipped_no_macro += 1
@@ -74,7 +73,7 @@ def download_bugbug_dataset():
         comments = bug.get("comments", []) or []
         description = comments[0]["text"] if comments else ""
 
-        # campo testuale principale usato dai modelli
+
         text = f"{summary}\n\n{description}".strip()
 
         data.append(
@@ -83,8 +82,8 @@ def download_bugbug_dataset():
                 "summary": summary,
                 "description": description,
                 "text": text,
-                "component": label,  # livello 2 (BugBug label)
-                "macro_component": macro,  # livello 1 (Core, Firefox, ...)
+                "component": label,
+                "macro_component": macro,
             }
         )
         kept += 1

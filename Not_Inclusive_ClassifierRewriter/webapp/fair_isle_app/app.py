@@ -10,7 +10,6 @@ import torch
 from transformers import pipeline
 
 
-# ------------------ Paths ------------------
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 PROJECT_ROOT = os.path.abspath(os.path.join(BASE_DIR, "../.."))
 MODELS_DIR = os.path.join(PROJECT_ROOT, "models")
@@ -28,7 +27,7 @@ MODEL_SPECS = {
     "it": {
         "clf_dir": "model_classifier_it",
         "s2s_dir": "model_inclusive_rewriter_it",
-        # ✅ prefix "buono" (come nella versione vecchia che funzionava)
+
         "prefix": (
             "[INCLUSIVO] "
             "Riformula la frase in modo inclusivo e rispettoso, mantenendo il tema. "
@@ -41,7 +40,6 @@ MODEL_SPECS = {
 MODELS_CACHE = {}
 
 
-# ------------------ Feedback storage (single JSON) ------------------
 FEEDBACK_DIR = Path(BASE_DIR) / "feedback"
 FEEDBACK_DIR.mkdir(parents=True, exist_ok=True)
 
@@ -50,11 +48,9 @@ if not FEEDBACK_FILE.exists():
     FEEDBACK_FILE.write_text("[]", encoding="utf-8")
 
 
-# ------------------ Device ------------------
 DEVICE = 0 if torch.cuda.is_available() else -1
 
 
-# ------------------ Load label map (optional) ------------------
 def load_label_map(clf_dir: str):
     label_map_path = os.path.join(clf_dir, "label_map.json")
     if not os.path.exists(label_map_path):
@@ -93,7 +89,6 @@ def canonicalize_label(label: str) -> str:
     return LABEL_ALIASES.get(lab, lab)
 
 
-# ------------------ Models ------------------
 def load_models(lang: str):
     lang = lang if lang in SUPPORTED_LANGS else DEFAULT_LANG
     if lang in MODELS_CACHE:
@@ -214,8 +209,8 @@ TEXTS = {
             "legend_not_inclusive": "Not inclusive",
             "legend_inclusive": "Inclusive",
             "feedback_title": "Feedback",
-            "feedback_q1": "Is the rewritten sentence correct?",
-            "feedback_q2": "Is the sentence classified correctly?",
+            "feedback_q1": "Is the rewritten sentence correct",
+            "feedback_q2": "Is the sentence classified correctly",
             "yes": "Yes",
             "no": "No",
             "proposed_label": "Your proposed rewrite",
@@ -328,8 +323,8 @@ TEXTS = {
             "legend_not_inclusive": "Non inclusivo",
             "legend_inclusive": "Inclusivo",
             "feedback_title": "Feedback",
-            "feedback_q1": "La frase riscritta risulta corretta?",
-            "feedback_q2": "La classificazione della frase risulta corretta?",
+            "feedback_q1": "La frase riscritta risulta corretta",
+            "feedback_q2": "La classificazione della frase risulta corretta",
             "yes": "Si",
             "no": "No",
             "proposed_label": "La tua proposta di riscrittura",
@@ -387,9 +382,8 @@ TEXTS = {
 }
 
 
-# ------------------ Helpers ------------------
 def split_sentences_simple(text: str):
-    sents = re.split(r"(?<=[.!?])\s+", text.strip())
+    sents = re.split(r"(<=[.!])\s+", text.strip())
     return [s.strip() for s in sents if s.strip()]
 
 
@@ -399,10 +393,10 @@ def clean_rewrite_output(raw: str, original: str = "", lang: str = "en") -> str:
 
     s = raw.strip()
 
-    # 1) rimuovi "Suggestion:" / "Suggerimento:" ovunque compaia
-    s = re.sub(r"(?i)\b(suggestion|suggerimento)\s*:\s*", "", s).strip()
 
-    # 2) se il modello ricomincia a ripetere la consegna, tronca il rumore
+    s = re.sub(r"(i)\b(suggestion|suggerimento)\s*:\s*", "", s).strip()
+
+
     if lang == "it":
         pat = r"\b(riscrivi\s+la\s+frase|riformula\s+la\s+frase)\b"
     else:
@@ -415,23 +409,23 @@ def clean_rewrite_output(raw: str, original: str = "", lang: str = "en") -> str:
         else:
             s = s[:m.start()].strip()
 
-    # 3) elimina eventuali code tipo "usando un linguaggio inclusivo"
-    s = re.sub(r"(?i)\busando\s+un\s+linguaggio\s+inclusivo\b\s*:?\s*", "", s).strip()
-    s = re.sub(r"(?i)\busing\s+inclusive\s+language\b\s*:?\s*", "", s).strip()
 
-    # 4) se ci sono più righe, tieni l'ultima significativa
+    s = re.sub(r"(i)\busando\s+un\s+linguaggio\s+inclusivo\b\s*:\s*", "", s).strip()
+    s = re.sub(r"(i)\busing\s+inclusive\s+language\b\s*:\s*", "", s).strip()
+
+
     lines = [x.strip() for x in s.splitlines() if x.strip()]
     if lines:
         s = lines[-1].strip()
 
-    # 5) se l'output ripete l'originale all'inizio, rimuovilo
+
     if original:
         o = original.strip().lower()
         sl = s.strip().lower()
         if sl.startswith(o):
             s = s[len(original.strip()):].strip(" \t\n:-")
 
-    # 6) normalizza spazi
+
     s = re.sub(r"\s+", " ", s).strip()
 
     return s
@@ -448,7 +442,7 @@ def classify_sentence(s: str, model_bundle: dict):
 def rewrite_sentence(s: str, model_bundle: dict, lang: str):
     raw = model_bundle["rewriter"](
         model_bundle["prefix"] + s,
-        max_new_tokens=96,          # ✅ come la versione vecchia
+        max_new_tokens=96,
         do_sample=False,
         num_beams=4,
         no_repeat_ngram_size=3,
@@ -578,7 +572,6 @@ def append_feedback(payload: dict):
     os.replace(tmp, FEEDBACK_FILE)
 
 
-# ------------------ Flask App ------------------
 app = Flask(__name__)
 
 
@@ -639,9 +632,9 @@ def submit_feedback():
     lang = normalize_lang(request.form.get("language"), get_current_lang())
     t = get_texts(lang)
 
-    rewrite_correct = (request.form.get("rewrite_correct") or "").strip().lower()  # yes|no
+    rewrite_correct = (request.form.get("rewrite_correct") or "").strip().lower()
     proposed_rewrite = (request.form.get("proposed_rewrite") or "").strip()
-    classification_correct = (request.form.get("classification_correct") or "").strip().lower()  # yes|no
+    classification_correct = (request.form.get("classification_correct") or "").strip().lower()
 
     input_text = (request.form.get("input_text") or "").strip()
 

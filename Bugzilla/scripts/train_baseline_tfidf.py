@@ -25,7 +25,7 @@ def parse_args():
 if __name__ == "__main__":
     args = parse_args()
 
-    # MLflow / DagsHub
+
     dagshub.init(repo_owner="se4ai2526-uniba", repo_name="Naplace", mlflow=True)
     mlflow.set_experiment("Naplace Bug Report Classification")
 
@@ -35,7 +35,7 @@ if __name__ == "__main__":
     )
 
     with mlflow.start_run(run_name="baseline_tfidf"):
-        # log parametri principali
+
         mlflow.log_param("model", "tfidf_logreg")
         mlflow.log_param("text_fields", ",".join(config.text_fields))
         mlflow.log_param("label_field", config.label_field)
@@ -56,12 +56,12 @@ if __name__ == "__main__":
         )
 
         metrics = result["metrics"]
-        # log metriche principali su MLflow
+
         for key in ("accuracy", "f1_macro", "f1_micro"):
             if key in metrics and isinstance(metrics[key], (int, float, float)):
                 mlflow.log_metric(key, float(metrics[key]))
 
-        # log artifacts
+
         mlflow.log_artifacts(result["model_dir"], artifact_path="baseline_tfidf")
         mlflow.log_artifact(result["metrics_path"])
 

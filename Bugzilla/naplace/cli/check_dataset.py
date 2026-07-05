@@ -1,4 +1,4 @@
-# naplace/cli/check_dataset.py
+
 
 from __future__ import annotations
 
@@ -12,7 +12,7 @@ from naplace.config import INTERIM
 
 def _check_split(path: Path, split_name: str, max_examples: int = 3) -> Dict[str, Any]:
     if not path.is_file():
-        print(f"❌ [{split_name}] File non trovato: {path}")
+        print(f"ERROR [{split_name}] File non trovato: {path}")
         return {"exists": False}
 
     print(f"\n=== [{split_name.upper()}] Analisi file: {path} ===")
@@ -75,7 +75,7 @@ def _check_split(path: Path, split_name: str, max_examples: int = 3) -> Dict[str
                 )
 
     if n_rows == 0:
-        print(f"[{split_name}] ⚠ Nessuna riga valida trovata.")
+        print(f"[{split_name}] WARNING Nessuna riga valida trovata.")
         return {"exists": True, "n_rows": 0}
 
     print(f"[{split_name}] Num. righe valide: {n_rows}")
@@ -93,7 +93,7 @@ def _check_split(path: Path, split_name: str, max_examples: int = 3) -> Dict[str
         for macro, cnt in macros.most_common():
             print(f"  - {macro}: {cnt}")
     else:
-        print("\n[Macro_component] ⚠ Nessun campo 'macro_component' trovato nel file.")
+        print("\n[Macro_component] WARNING Nessun campo 'macro_component' trovato nel file.")
 
     print("\nEsempi (troncati):")
     for ex in examples:
@@ -126,7 +126,7 @@ def main() -> None:
 
     print("\n=== Riepilogo finale ===")
     if not train_stats.get("exists") or not test_stats.get("exists"):
-        print("❌ Mancano uno o entrambi gli split (train/test).")
+        print("ERROR Mancano uno o entrambi gli split (train/test).")
         return
 
     print(

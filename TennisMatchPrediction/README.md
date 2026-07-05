@@ -20,7 +20,7 @@ Il progetto è organizzato in **4 step** sequenziali:
   - `h2h_p1_wins`, `h2h_p2_wins`, `h2h_diff` — storico head-to-head.
   - `form_diff`, `streak_diff` — forma recente e streak di vittorie/sconfitte.
   - One-hot encoding di `Surface` e `Court` (Indoor/Outdoor).
-- **Split temporale**: Train (< 2015), Validation (2015), Test (2016+).
+- **Split temporale**: Train (2006-2021), Validation (2022-2023), Test (2024-2025).
 - Baseline con **Logistic Regression** + **Rank-only baseline**.
 - **Metriche**: Accuracy, AUC-ROC, Log-Loss, Brier Score.
 - **Output**: `outputs/step1_features.parquet`, `outputs/feature_cols.joblib`.
@@ -70,22 +70,13 @@ Contributo algoritmico originale:
 
 ```text
 .
-├── data/
-│   └── atp_tennis.csv              # Dataset storico ATP (~8.5 MB, ~65k match)
 ├── src/
 │   ├── baseline.py                 # Step 1: Feature engineering + Elo + baseline
 │   ├── models_step2.py             # Step 2: 7 modelli + grid search + ablation
 │   ├── evaluation.py               # Step 3: Bootstrap CI + grafici calibrazione/ROC
 │   └── stacking.py                 # Step 4: Stacked Generalization Ensemble
 ├── outputs/
-│   ├── step1_features.parquet      # Feature matrix completa
-│   ├── feature_cols.joblib         # Lista colonne feature
-│   ├── best_model.joblib           # Miglior modello singolo
-│   ├── stacked_model.joblib        # Modello ensemble stacking
-│   ├── models/                     # 7 modelli base (best_*.joblib)
-│   ├── step2_*.csv                 # Risultati grid search, ablation, test
 │   ├── step3_test_metrics_with_ci.txt  # Metriche con intervalli di confidenza
-│   ├── step4_*.csv                 # Risultati stacking + coefficienti meta-learner
 │   ├── calibration_plot.png        # Grafico di calibrazione
 │   ├── roc_curve.png               # Curve ROC
 │   ├── feature_importance_*.png    # Feature importance (tree-based)
@@ -95,6 +86,8 @@ Contributo algoritmico originale:
 │   └── slides_final.md             # Presentazione finale
 └── requirements.txt                # Dipendenze Python
 ```
+
+Il dataset `data/atp_tennis.csv` e gli artefatti intermedi o di modello (`*.parquet`, `*.joblib`, `outputs/models/`) sono richiesti o generati dagli script, ma non sono presenti nella versione corrente del repository.
 
 ---
 

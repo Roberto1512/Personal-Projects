@@ -17,19 +17,19 @@ def read_jsonl(p: str | Path):
 
 
 if __name__ == "__main__":
-    # ---- MLflow (DagsHub) ----
+
     dagshub.init(repo_owner="se4ai2526-uniba", repo_name="Naplace", mlflow=True)
     mlflow.set_experiment("Naplace Bug Report Classification")
 
     Path("models").mkdir(exist_ok=True, parents=True)
     Path("reports").mkdir(exist_ok=True, parents=True)
 
-    # Dati
+
     train = read_jsonl("data/interim/train.jsonl")
     X_text = [r.get("text", "") for r in train]
     y_lbl = [r.get("component", "Unknown") for r in train]
 
-    # Tokenizer + label encoder
+
     max_words, max_len, emb_dim = 30000, 200, 128
     tok = Tokenizer(num_words=max_words, oov_token="<OOV>")
     tok.fit_on_texts(X_text)
@@ -39,9 +39,7 @@ if __name__ == "__main__":
     y = le.fit_transform(y_lbl)
     n_classes = len(le.classes_)
 
-    # =============================
-    # CLASS WEIGHTS (ANTI-COLLASSO)
-    # =============================
+
     class_weights_array = compute_class_weight(
         class_weight="balanced",
         classes=np.unique(y),
@@ -52,7 +50,7 @@ if __name__ == "__main__":
     print("Class weights generati (LSTM):")
     print("Esempio primi 10:", list(class_weights.items())[:10])
 
-    # Modello LSTM
+
     model = models.Sequential(
         [
             layers.Embedding(max_words, emb_dim, input_length=max_len),
@@ -77,7 +75,7 @@ if __name__ == "__main__":
             }
         )
 
-        # TRAIN + history per metriche
+
         history = model.fit(
             X,
             y,
@@ -88,7 +86,7 @@ if __name__ == "__main__":
             class_weight=class_weights,
         )
 
-        # Metriche finali
+
         train_acc = history.history.get("accuracy", [None])[-1]
         val_acc = history.history.get("val_accuracy", [None])[-1]
         train_loss = history.history.get("loss", [None])[-1]
@@ -103,13 +101,13 @@ if __name__ == "__main__":
         if val_loss is not None:
             mlflow.log_metric("val_loss", float(val_loss))
 
-        # Salvataggio artefatti modello
+
         np.save("models/lstm_label_classes.npy", le.classes_)
         with open("models/lstm_tokenizer.pkl", "wb") as f:
             pickle.dump(tok, f)
         model.save("models/lstm.h5")
 
-        # Salvo JSON metriche
+
         metrics = {
             "train_accuracy": float(train_acc) if train_acc is not None else None,
             "val_accuracy": float(val_acc) if val_acc is not None else None,
@@ -120,7 +118,7 @@ if __name__ == "__main__":
         with metrics_path.open("w", encoding="utf-8") as f:
             json.dump(metrics, f, indent=2)
 
-        # Log artifacts
+
         mlflow.log_artifact("models/lstm.h5")
         mlflow.log_artifact("models/lstm_tokenizer.pkl")
         mlflow.log_artifact("models/lstm_label_classes.npy")

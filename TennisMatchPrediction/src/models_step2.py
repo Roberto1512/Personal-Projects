@@ -20,9 +20,6 @@ from baseline import time_split, brier_score, get_feature_cols
 warnings.filterwarnings("ignore", category=UserWarning)
 
 
-# ----------------------------
-# Evaluation helpers
-# ----------------------------
 def compute_metrics(y_true, y_prob):
     """Compute all four metrics for a set of predictions."""
     y_pred = (y_prob >= 0.5).astype(int)
@@ -36,7 +33,7 @@ def compute_metrics(y_true, y_prob):
 
 
 def mcnemar_test(y_true, y_pred_a, y_pred_b):
-    """McNemar's test: are two classifiers significantly different?
+    """McNemar's test: are two classifiers significantly different
     Returns chi2 statistic and p-value.
     """
     from scipy.stats import chi2
@@ -44,21 +41,18 @@ def mcnemar_test(y_true, y_pred_a, y_pred_b):
     correct_a = (y_pred_a == y_true)
     correct_b = (y_pred_b == y_true)
 
-    # b = A correct, B wrong; c = A wrong, B correct
+
     b = int(np.sum(correct_a & ~correct_b))
     c = int(np.sum(~correct_a & correct_b))
 
     if b + c == 0:
-        return 0.0, 1.0  # identical predictions
+        return 0.0, 1.0
 
-    chi2_stat = (abs(b - c) - 1) ** 2 / (b + c)  # with continuity correction
+    chi2_stat = (abs(b - c) - 1) ** 2 / (b + c)
     p_value = 1 - chi2.cdf(chi2_stat, df=1)
     return chi2_stat, p_value
 
 
-# ----------------------------
-# Hyperparameter grids (small, reasoned)
-# ----------------------------
 HP_GRIDS = {
     "Logistic Regression": [
         {"C": 0.01}, {"C": 0.1}, {"C": 1.0}, {"C": 10.0},
@@ -134,9 +128,6 @@ def build_model(name, params):
         raise ValueError(f"Unknown model: {name}")
 
 
-# ----------------------------
-# Feature groups for ablation
-# ----------------------------
 ABLATION_GROUPS = {
     "A: Rank + Surface only": lambda cols: [
         c for c in cols if c in [
@@ -178,7 +169,7 @@ def main():
 
     feature_cols = get_feature_cols(df)
 
-    # Basic cleaning: rows must have rank_diff
+
     for split_df in [train, val, test]:
         split_df.dropna(subset=["rank_diff"], inplace=True)
 
@@ -189,15 +180,13 @@ def main():
     X_test_full = test[feature_cols].copy()
     y_test = test["target"].values
 
-    # Impute missing values with train medians (no leakage)
+
     medians = X_train_full.median(numeric_only=True)
     X_train_full = X_train_full.fillna(medians)
     X_val_full = X_val_full.fillna(medians)
     X_test_full = X_test_full.fillna(medians)
 
-    # =============================================
-    # PART 1: Hyperparameter Tuning on Validation
-    # =============================================
+
     print("\n" + "=" * 60)
     print("PART 1: HYPERPARAMETER TUNING (Validation Set)")
     print("=" * 60)
@@ -247,15 +236,13 @@ def main():
             best_per_family[family_name] = best_entry
             print(f"  ** Best: {best_entry['params']}  (val_LL={best_ll:.4f})")
 
-    # Save grid search results
+
     grid_df = pd.DataFrame(all_grid_results)
     grid_path = os.path.join(args.out_dir, "step2_val_grid_results.csv")
     grid_df.to_csv(grid_path, index=False)
     print(f"\nSaved grid results -> {grid_path}")
 
-    # =============================================
-    # PART 2: Best Model Per Family — Summary
-    # =============================================
+
     print("\n" + "=" * 60)
     print("PART 2: BEST MODEL PER FAMILY (sorted by val Log-Loss)")
     print("=" * 60)
@@ -274,13 +261,13 @@ def main():
     pd.DataFrame(summary_rows).to_csv(
         os.path.join(args.out_dir, "step2_val_results.csv"), index=False)
 
-    # Overall best
+
     overall_best_fam = min(best_per_family, key=lambda k: best_per_family[k]["metrics"]["log_loss"])
     overall_best = best_per_family[overall_best_fam]
     print(f"\n*** Overall best: {overall_best_fam} {overall_best['params']}  "
           f"(val_LL={overall_best['metrics']['log_loss']:.4f}) ***")
 
-    # Save best model + all family-best models
+
     best_model_path = os.path.join(args.out_dir, "best_model.joblib")
     joblib.dump(overall_best["model"], best_model_path)
     print(f"Saved best model -> {best_model_path}")
@@ -291,12 +278,10 @@ def main():
         safe_name = fam.lower().replace(" ", "_").replace("-", "")
         joblib.dump(entry["model"], os.path.join(models_dir, f"best_{safe_name}.joblib"))
 
-    # Save feature cols
+
     joblib.dump(feature_cols, os.path.join(args.out_dir, "feature_cols.joblib"))
 
-    # =============================================
-    # PART 3: Test Evaluation (One-Shot)
-    # =============================================
+
     print("\n" + "=" * 60)
     print("PART 3: TEST EVALUATION (One-Shot)")
     print("=" * 60)
@@ -313,14 +298,12 @@ def main():
     pd.DataFrame(test_rows).to_csv(
         os.path.join(args.out_dir, "step2_test_results.csv"), index=False)
 
-    # =============================================
-    # PART 4: McNemar's Test (Rank Baseline vs Best)
-    # =============================================
+
     print("\n" + "=" * 60)
     print("PART 4: McNEMAR'S TEST (Rank Baseline vs Best Model)")
     print("=" * 60)
 
-    # Rank baseline predictions on test
+
     rd_test = test["rank_diff"].fillna(0).values
     y_pred_rank = (rd_test > 0).astype(int)
     y_pred_best = overall_best["model"].predict(X_test_full)
@@ -332,9 +315,7 @@ def main():
     else:
         print("  -> No significant difference at alpha=0.05")
 
-    # =============================================
-    # PART 5: Feature Ablation Study
-    # =============================================
+
     print("\n" + "=" * 60)
     print("PART 5: FEATURE ABLATION (using best model family: {})".format(overall_best_fam))
     print("=" * 60)

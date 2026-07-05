@@ -1,4 +1,4 @@
-# naplace/modeling/predict.py
+
 
 import pickle
 
@@ -8,8 +8,7 @@ from tensorflow.keras.preprocessing.sequence import pad_sequences
 
 from naplace.config import MODELS
 
-# Lunghezza max delle sequenze: usa lo stesso valore che hai usato in training.
-# Se in training hai usato un altro valore (es. 200), cambialo qui per coerenza.
+
 MAX_LEN = 200
 
 
@@ -20,11 +19,11 @@ def _load_lstm_artifacts():
     classes_path = MODELS / "lstm_label_classes.npy"
 
     if not model_path.exists():
-        raise SystemExit(f"❌ Modello LSTM non trovato in {model_path}")
+        raise SystemExit(f"ERROR Modello LSTM non trovato in {model_path}")
     if not tok_path.exists():
-        raise SystemExit(f"❌ Tokenizer LSTM non trovato in {tok_path}")
+        raise SystemExit(f"ERROR Tokenizer LSTM non trovato in {tok_path}")
     if not classes_path.exists():
-        raise SystemExit(f"❌ Label classes LSTM non trovate in {classes_path}")
+        raise SystemExit(f"ERROR Label classes LSTM non trovate in {classes_path}")
 
     model = load_model(model_path)
 

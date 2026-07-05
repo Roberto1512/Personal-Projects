@@ -6,7 +6,7 @@ import os
 from pathlib import Path
 from typing import Any, Dict, Iterable, List, Optional, Tuple
 
-# Disable Transformers/SetFit MLflow auto-integration (causes callback crash on Windows HTTPS URIs).
+
 os.environ.setdefault("DISABLE_MLFLOW_INTEGRATION", "1")
 os.environ.setdefault("HF_MLFLOW_LOGGING_ENABLED", "0")
 from datasets import Dataset
@@ -25,11 +25,11 @@ class SetFitConfig:
     seed: int = 42
     text_fields: Tuple[str, ...] = ("summary", "text")
     label_field: str = "component"
-    max_samples_per_label: Optional[int] = 8  # limit few-shot pairs to avoid OOM on large datasets
-    num_iterations: Optional[int] = 10  # limit contrastive pairs to avoid huge datasets
+    max_samples_per_label: Optional[int] = 8
+    num_iterations: Optional[int] = 10
 
     def __post_init__(self) -> None:
-        # Normalize text_fields so a single string becomes a tuple.
+
         if isinstance(self.text_fields, str):
             self.text_fields = (self.text_fields,)
         else:
@@ -64,7 +64,7 @@ def _load_split(
     if missing:
         raise ValueError(f"Missing columns in {path}: {missing}")
 
-    # Se abbiamo già una vocab (caso VAL), scartiamo le label non presenti
+
     if label_vocab is not None:
         label_series = df[label_field].astype(str)
         known = set(label_vocab)
@@ -80,13 +80,13 @@ def _load_split(
     texts = df[list(text_fields)].fillna("").agg(" ".join, axis=1).tolist()
 
     if label_vocab is None:
-        # Train: costruiamo la vocab dalle categorie presenti
+
         labels_cat = df[label_field].astype("category")
         labels_cat = labels_cat.cat.remove_unused_categories()
         label_vocab = labels_cat.cat.categories.astype(str).tolist()
 
         if max_samples_per_label is not None and max_samples_per_label > 0:
-            # Downsample per label to keep SetFit pairs manageable on large datasets.
+
             df = df.assign(_label=labels_cat.cat.codes)
             df = df.groupby("_label", group_keys=False).apply(
                 lambda g: g.sample(
@@ -101,7 +101,7 @@ def _load_split(
             labels_cat.cat.codes.tolist() if hasattr(labels_cat, "cat") else labels_cat.tolist()
         )
     else:
-        # Val/Test: usiamo la vocab fissata dal train
+
         label_series = df[label_field].astype(str)
         mapping = {lab: i for i, lab in enumerate(label_vocab)}
         label_ids = [mapping[lab] for lab in label_series]
@@ -131,7 +131,7 @@ def train_setfit_classifier(
     output_dir.mkdir(parents=True, exist_ok=True)
     metrics_path.parent.mkdir(parents=True, exist_ok=True)
 
-    # 1) TRAIN → testi, id e vocab comune
+
     train_texts, train_labels_ids, label_vocab = _load_split(
         train_path,
         text_fields=config.text_fields,
@@ -141,7 +141,7 @@ def train_setfit_classifier(
         seed=config.seed,
     )
 
-    # 2) VAL → codifica label usando la stessa vocab del train
+
     val_texts, val_labels_ids, _ = _load_split(
         val_path,
         text_fields=config.text_fields,
@@ -154,10 +154,7 @@ def train_setfit_classifier(
     train_dataset = _make_hf_dataset(train_texts, train_labels_ids)
     val_dataset = _make_hf_dataset(val_texts, val_labels_ids)
 
-    # ==============
-    # LABEL MAPPING
-    # ==============
-    # Creiamo mapping id↔label a partire dalla vocab fissata
+
     id2label = {int(i): lab for i, lab in enumerate(label_vocab)}
     label2id = {lab: int(i) for i, lab in enumerate(label_vocab)}
 
@@ -167,7 +164,7 @@ def train_setfit_classifier(
         json.dump(label_mapping, f, indent=2, ensure_ascii=False)
     print(f"[SetFit] Label mapping saved to {mapping_path}")
 
-    # Modello SetFit
+
     model = SetFitModel.from_pretrained(
         config.model_name,
         use_differentiable_head=True,
@@ -177,7 +174,7 @@ def train_setfit_classifier(
         label2id=label2id,
     )
 
-    # Usa la nuova API Trainer con TrainingArguments espliciti e report_to disabilitato
+
     num_iterations = (
         None
         if config.num_iterations is not None and config.num_iterations <= 0
@@ -205,7 +202,7 @@ def train_setfit_classifier(
         metric="accuracy",
     )
 
-    # Rimuovi callback di tracking (MLflow/DagsHub) che su Windows rompono per via dei path con os.sep.
+
     def _strip_tracking_callbacks(callback_handler):
         if not hasattr(callback_handler, "callbacks"):
             return
@@ -226,7 +223,7 @@ def train_setfit_classifier(
     except Exception:
         pass
 
-    # Compatibility patch: newer transformers pass num_items_in_batch to compute_loss.
+
     try:
         import inspect
 
@@ -252,11 +249,11 @@ def train_setfit_classifier(
 
     trainer.train()
 
-    # accuracy (da trainer)
-    acc_metrics = trainer.evaluate()  # es. {"accuracy": 0.81}
+
+    acc_metrics = trainer.evaluate()
     accuracy = float(acc_metrics.get("accuracy", 0.0))
 
-    # f1_macro calcolato a mano
+
     val_preds_ids = model.predict(val_texts)
     f1_macro = f1_score(val_labels_ids, val_preds_ids, average="macro")
 
@@ -272,7 +269,7 @@ def train_setfit_classifier(
     with metrics_path.open("w", encoding="utf-8") as f:
         json.dump(metrics, f, indent=2)
 
-    # Salva modello
+
     model.save_pretrained(str(output_dir))
     print(f"[SetFit] Model saved to {output_dir}")
     print(f"[SetFit] Metrics saved to {metrics_path}")
@@ -306,15 +303,15 @@ def eval_setfit_on_test(
     metrics_path = Path(metrics_path)
 
     if not model_dir.is_dir():
-        raise SystemExit(f"❌ model_dir non esiste: {model_dir}")
+        raise SystemExit(f"ERROR model_dir non esiste: {model_dir}")
     if not test_path.is_file():
-        raise SystemExit(f"❌ test_path non esiste: {test_path}")
+        raise SystemExit(f"ERROR test_path non esiste: {test_path}")
 
-    # Carichiamo mapping id↔label
+
     mapping_file = model_dir / "label_mapping.json"
     if not mapping_file.is_file():
         raise SystemExit(
-            f"❌ label_mapping.json non trovato in {mapping_file}. "
+            f"ERROR label_mapping.json non trovato in {mapping_file}. "
             "Assicurati di aver rieseguito il training SetFit aggiornato."
         )
 
@@ -322,13 +319,13 @@ def eval_setfit_on_test(
         mapping = json.load(f)
 
     id2label_raw = mapping.get("id2label", {})
-    # Chiavi possono essere stringhe nel JSON → convertiamo a int
+
     id2label: Dict[int, str] = {int(k): str(v) for k, v in id2label_raw.items()}
 
     label2id_raw = mapping.get("label2id", {})
     label2id: Dict[str, int] = {str(k): int(v) for k, v in label2id_raw.items()}
 
-    # Carichiamo test: testi + label stringa
+
     df = pd.read_json(test_path, lines=True)
 
     if isinstance(config.text_fields, str):
@@ -343,7 +340,7 @@ def eval_setfit_on_test(
     texts_all = df[list(text_fields)].fillna("").agg(" ".join, axis=1).tolist()
     labels_all = df[config.label_field].astype(str).tolist()
 
-    # Filtriamo esempi con label NON presenti nel mapping (per sicurezza)
+
     X: List[str] = []
     y_true_labels: List[str] = []
     skipped = 0
@@ -357,21 +354,21 @@ def eval_setfit_on_test(
 
     if not X:
         raise SystemExit(
-            "❌ Nessun esempio nel test set con label compatibili col mapping SetFit."
+            "ERROR Nessun esempio nel test set con label compatibili col mapping SetFit."
         )
 
     print(f"[SetFit-EVAL] Esempi totali nel test: {len(texts_all)}")
     print(f"[SetFit-EVAL] Esempi usati (label note al modello): {len(X)}")
     print(f"[SetFit-EVAL] Esempi scartati (label sconosciute): {skipped}")
 
-    # Carichiamo modello SetFit salvato
+
     model = SetFitModel.from_pretrained(str(model_dir))
 
-    # Predizioni (id) e poi label stringa
+
     pred_ids = model.predict(X)
     y_pred_labels = [id2label[int(i)] for i in pred_ids]
 
-    # Metriche su label stringa
+
     acc = accuracy_score(y_true_labels, y_pred_labels)
     f1_macro = f1_score(y_true_labels, y_pred_labels, average="macro")
     f1_micro = f1_score(y_true_labels, y_pred_labels, average="micro")

@@ -195,7 +195,9 @@
 </head>
 <body>
   <div class="container">
-    <button class="theme-toggle" onclick="toggleTheme()">🌓</button>
+    <button class="theme-toggle" onclick="toggleTheme()" aria-label="Cambia tema">
+      <i class="fa-solid fa-circle-half-stroke"></i>
+    </button>
     <img src="logo.png" alt="Logo The Verifiers" class="logo">
     <h1>Verifica Tossicità</h1>
 
@@ -212,7 +214,7 @@
 
     <div class="history">
       <div class="history-header">
-        <h3>🕓 Ultime analisi</h3>
+        <h3><i class="fa-regular fa-clock"></i> Ultime analisi</h3>
         <button class="btn-secondary btn-icon" onclick="exportCSV()">
           <i class="fas fa-file-csv"></i>Esporta CSV
         </button>

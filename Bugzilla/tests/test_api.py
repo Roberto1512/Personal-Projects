@@ -35,7 +35,7 @@ def test_gru_predict_success():
     first_pred = data["predictions"][0]
     assert "input_text" in first_pred
     assert "predicted_label" in first_pred
-    # probability potrebbe essere None, ma in genere sarà un float
+
     assert "probability" in first_pred
 
 
@@ -63,6 +63,6 @@ def test_predict_with_empty_texts_returns_400():
     assert response.status_code == HTTPStatus.BAD_REQUEST
 
     data = response.json()
-    # detail viene dalla HTTPException nel main.py
+
     assert "detail" in data
     assert data["detail"] == "No texts provided for prediction."

@@ -1,4 +1,4 @@
-# naplace/cli/convert_bugbug.py
+
 from __future__ import annotations
 
 import json
@@ -31,7 +31,7 @@ def _first_comment_text(obj: Dict[str, Any], max_len: int = 1000) -> str:
 
 def convert_bugbug_dataset(src: Path, dst: Path) -> None:
     if not src.exists():
-        raise SystemExit(f"❌ Sorgente non trovata: {src} (esegui prima naplace.cli.prepare)")
+        raise SystemExit(f"ERROR Sorgente non trovata: {src} (esegui prima naplace.cli.prepare)")
 
     dst.parent.mkdir(parents=True, exist_ok=True)
 
@@ -54,13 +54,13 @@ def convert_bugbug_dataset(src: Path, dst: Path) -> None:
             except json.JSONDecodeError:
                 continue
 
-            # Campi base
+
             bug_id = obj.get("id")
             product = obj.get("product", "")
             component_raw = obj.get("component", "")
 
             summary = obj.get("summary", "") or ""
-            # il campo descrizione può chiamarsi in modi diversi a seconda della sorgente
+
             description = obj.get("description") or obj.get("text") or obj.get("short_desc") or ""
 
             comment_text = _first_comment_text(obj)
@@ -70,7 +70,7 @@ def convert_bugbug_dataset(src: Path, dst: Path) -> None:
                 skipped_no_text += 1
                 continue
 
-            # Etichette gerarchiche
+
             lbl = label_bug(product, component_raw)
             component_label = lbl.component_label
             macro_label = lbl.macro_component

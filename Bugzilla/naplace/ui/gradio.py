@@ -27,8 +27,7 @@ def _run_inference(model_name: str, text: str) -> Dict[str, Any]:
     if not text:
         return {"error": "Inserisci un testo (bug summary/description)."}
 
-    # Lazy import: evita di caricare TensorFlow/SetFit all'avvio della UI
-    # (molto utile in container/Spaces) :contentReference[oaicite:1]{index=1}
+
     from naplace.api.inference import predict_gru, predict_lstm, predict_setfit, predict_tfidf
 
     if model_name == "setfit":
@@ -50,7 +49,7 @@ def _make_curl(model_name: str, text: str) -> str:
     endpoint = f"{base}/predict/{model_name}"
     payload = {"texts": [{"text": (text or "").strip()}]}
     body = json.dumps(payload, ensure_ascii=False)
-    # Markdown code block (Gradio lo renderizza bene)
+
     return (
         "```bash\n"
         f'curl -X POST "{endpoint}" -H "Content-Type: application/json" -d \'{body}\'\n'

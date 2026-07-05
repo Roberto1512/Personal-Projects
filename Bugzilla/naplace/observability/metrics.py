@@ -5,28 +5,28 @@ from typing import Callable
 
 from prometheus_client import Counter, Histogram
 
-# Quante richieste riceviamo (con endpoint e status code)
+
 HTTP_REQUESTS_TOTAL = Counter(
     "naplace_http_requests_total",
     "Total HTTP requests",
     ["method", "path", "status_code"],
 )
 
-# Latenza richiesta (tempo totale in secondi)
+
 HTTP_REQUEST_DURATION_SECONDS = Histogram(
     "naplace_http_request_duration_seconds",
     "HTTP request duration in seconds",
     ["method", "path"],
 )
 
-# Quante predizioni facciamo per modello
+
 MODEL_PREDICTIONS_TOTAL = Counter(
     "naplace_model_predictions_total",
     "Total number of predictions per model",
     ["model_name"],
 )
 
-# Latenza inferenza per modello
+
 MODEL_INFERENCE_DURATION_SECONDS = Histogram(
     "naplace_model_inference_duration_seconds",
     "Model inference duration in seconds",

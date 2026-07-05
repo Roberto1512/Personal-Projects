@@ -72,19 +72,18 @@ def main() -> None:
             "Run your data pipeline first (convert + split)."
         )
 
-    # 1) Reference data (baseline)
+
     ref_texts = read_texts(INTERIM_TRAIN, max_n=800)
     if len(ref_texts) < 200:
         raise SystemExit("Not enough reference texts to run a drift demo.")
 
-    # 2) Current data (two cases)
-    # Case A: no drift (same distribution)
+
     cur_texts_no_drift = random.sample(ref_texts, k=200)
 
-    # Case B: drift (simulated)
+
     cur_texts_drift = make_shifted_batch(ref_texts, n=200)
 
-    # 3) Embeddings (turn text into numeric vectors)
+
     print("[AlibiDetect] Loading sentence-transformer embedder...")
     embedder = SentenceTransformer("sentence-transformers/all-MiniLM-L6-v2")
 
@@ -95,7 +94,7 @@ def main() -> None:
     print("[AlibiDetect] Building KSDrift detector...")
     detector = KSDrift(X_ref, p_val=0.05)
 
-    # ---- NO DRIFT TEST ----
+
     print("\n=== TEST A: Expected NO drift ===")
     X_cur_a = embedder.encode(cur_texts_no_drift, convert_to_numpy=True).astype(np.float32)
     pred_a = detector.predict(X_cur_a)
@@ -103,7 +102,7 @@ def main() -> None:
     print("Drift detected:", bool(pred_a["data"]["is_drift"]))
     print("p-value (min over features):", float(np.min(pred_a["data"]["p_val"])))
 
-    # ---- DRIFT TEST ----
+
     print("\n=== TEST B: Expected DRIFT ===")
     X_cur_b = embedder.encode(cur_texts_drift, convert_to_numpy=True).astype(np.float32)
     pred_b = detector.predict(X_cur_b)

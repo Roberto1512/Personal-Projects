@@ -16,7 +16,7 @@ def read_jsonl(p):
 
 
 def main():
-    # Init tracking only when running as a script to avoid side effects on import.
+
     dagshub.init(repo_owner="se4ai2526-uniba", repo_name="Naplace", mlflow=True)
     mlflow.set_experiment("Naplace Bug Report Classification")
 

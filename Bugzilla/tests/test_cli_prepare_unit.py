@@ -1,4 +1,4 @@
-# tests/test_cli_prepare_unit.py
+
 
 import json
 
@@ -10,7 +10,7 @@ from naplace.cli.prepare import (
 
 
 def test_json_to_jsonl_from_list(tmp_path):
-    # Creiamo un JSON "lista di dict"
+
     src = tmp_path / "data.json"
     dst = tmp_path / "out.jsonl"
 
@@ -37,7 +37,7 @@ def test_normalize_jsonl_filters_invalid_lines(tmp_path):
     src = tmp_path / "raw.jsonl"
     dst = tmp_path / "clean.jsonl"
 
-    # 2 righe valide, 1 vuota, 1 non-JSON
+
     lines = [
         json.dumps({"id": 1, "a": "ok"}),
         "",
@@ -59,12 +59,12 @@ def test_normalize_jsonl_filters_invalid_lines(tmp_path):
 
 
 def test_detect_encoding_simple_utf8(tmp_path):
-    # Caso base: file UTF-8 normale
+
     src = tmp_path / "file.txt"
     src.write_text("ciao", encoding="utf-8")
 
     enc = detect_encoding(src)
-    # Può restituire "utf-8" o "utf-8-sig" a seconda dei controlli,
-    # l'importante è che non esploda e che sia una stringa "sensata".
+
+
     assert isinstance(enc, str)
     assert "utf-8" in enc.lower()

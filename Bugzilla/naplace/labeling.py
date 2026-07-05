@@ -1,11 +1,11 @@
-# naplace/labeling.py
+
 
 from __future__ import annotations
 
 from dataclasses import dataclass
 from typing import Optional
 
-# Copiamo / ispiriamoci dalle costanti di ComponentModel
+
 BUGBUG_PRODUCTS = {
     "Core",
     "External Software Affecting Firefox",
@@ -46,10 +46,10 @@ CONFLATED_COMPONENTS_MAPPING = {
     "Firefox for Android": "Firefox for Android::General",
 }
 
-# Inversa, come in ComponentModel
+
 CONFLATED_COMPONENTS_INVERSE_MAPPING = {v: k for k, v in CONFLATED_COMPONENTS_MAPPING.items()}
 
-# Componenti che vogliamo considerare "non informative"
+
 TRASH_COMPONENTS = {"General", "Untriaged", "Foxfooding"}
 
 
@@ -57,8 +57,8 @@ TRASH_COMPONENTS = {"General", "Untriaged", "Foxfooding"}
 class BugLabel:
     """Etichette che vogliamo assegnare ad ogni bug."""
 
-    component_label: Optional[str]  # livello 2 (conflated / full)
-    macro_component: Optional[str]  # livello 1 (Core, Firefox, Toolkit, ...)
+    component_label: Optional[str]
+    macro_component: Optional[str]
 
 
 def is_meaningful(product: str, component: str) -> bool:
@@ -66,7 +66,7 @@ def is_meaningful(product: str, component: str) -> bool:
     if product in BUGBUG_PRODUCTS and component not in TRASH_COMPONENTS:
         return True
 
-    # qui potresti aggiungere ulteriori prodotti speciali (Cloud Services, ecc.)
+
     return False
 
 
@@ -84,24 +84,21 @@ def map_bug_to_component_label(product: str, component: str) -> Optional[str]:
     if not product or not component:
         return None
 
-    # Se il prodotto non è tra quelli che ci interessano → scartiamo
+
     if not is_meaningful(product, component):
         return None
 
     full_comp = f"{product}::{component}"
 
-    # Caso 1: il full_comp è uno di quelli "espansi" di CONFLATED_COMPONENTS_MAPPING
+
     if full_comp in CONFLATED_COMPONENTS_INVERSE_MAPPING:
         return CONFLATED_COMPONENTS_INVERSE_MAPPING[full_comp]
 
-    # Caso 2: il full_comp è un componente "normale" (esiste come label sensata)
-    # Qui non abbiamo get_meaningful_product_components, quindi usiamo una logica semplificata:
-    # - se product è nella lista di prodotti validi e il componente non è "General"/"Untriaged"/"Foxfooding",
-    #   teniamo il full_comp.
+
     if is_meaningful(product, component):
         return full_comp
 
-    # Caso 3: fallback "conflated" se inizia con uno dei prefix conflati
+
     for conflated_component in CONFLATED_COMPONENTS:
         if full_comp.startswith(conflated_component):
             return conflated_component
@@ -116,17 +113,17 @@ def macro_from_component_label(component_label: str) -> Optional[str]:
     if not component_label:
         return None
 
-    # Se è tipo "Core::Audio/Video" → macro è "Core"
+
     if "::" in component_label:
         macro = component_label.split("::", 1)[0]
         if macro in BUGBUG_PRODUCTS:
             return macro
 
-    # Label "singole" che corrispondono già a una macro (DevTools, WebExtensions, ecc.)
+
     if component_label in BUGBUG_PRODUCTS:
         return component_label
 
-    # Caso speciale: conflated component tipo "Core::DOM" (prima parte è macro)
+
     for prod in BUGBUG_PRODUCTS:
         if component_label.startswith(f"{prod}::"):
             return prod

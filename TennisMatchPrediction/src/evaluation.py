@@ -104,7 +104,7 @@ def plot_roc(models_dict, X, y, out_path):
 
 def plot_feature_importance(model, feature_cols, out_path, top_n=15):
     """Feature importance bar chart for tree-based models."""
-    # Extract the classifier from the pipeline
+
     clf = model.named_steps.get("clf", None)
     if clf is None:
         print("Cannot extract clf from pipeline, skipping feature importance")
@@ -149,7 +149,7 @@ def main():
     medians = X_train.median(numeric_only=True)
     X_test = X_test.fillna(medians)
 
-    # Load all saved models
+
     models_dir = os.path.join(args.out_dir, "models")
     best_model = joblib.load(os.path.join(args.out_dir, "best_model.joblib"))
 
@@ -163,23 +163,17 @@ def main():
     if not models_dict:
         models_dict = {"Best Model": best_model}
 
-    # =============================================
-    # 1) Calibration Plot (all models)
-    # =============================================
+
     print("\n--- Calibration Plot ---")
     plot_calibration(models_dict, X_test, y_test,
                      os.path.join(args.out_dir, "calibration_plot.png"))
 
-    # =============================================
-    # 2) ROC Curve (all models)
-    # =============================================
+
     print("\n--- ROC Curve ---")
     plot_roc(models_dict, X_test, y_test,
              os.path.join(args.out_dir, "roc_curve.png"))
 
-    # =============================================
-    # 3) Feature Importance (tree-based models)
-    # =============================================
+
     print("\n--- Feature Importance ---")
     for name, model in models_dict.items():
         clf = model.named_steps.get("clf", None)
@@ -189,9 +183,7 @@ def main():
                 model, feature_cols,
                 os.path.join(args.out_dir, f"feature_importance_{safe}.png"))
 
-    # =============================================
-    # 4) Bootstrap CI (95%) on Test — Best Model
-    # =============================================
+
     print("\n--- Bootstrap CI (95%) on Test Set ---")
     y_prob_test = best_model.predict_proba(X_test)[:, 1]
     ci_res = bootstrap_ci(y_test, y_prob_test, n_iterations=2000)

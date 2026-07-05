@@ -1,4 +1,4 @@
-# naplace/cli/prepare.py
+
 
 import io
 import json
@@ -6,11 +6,11 @@ from pathlib import Path
 
 from naplace.config import RAW
 
-# Sorgenti "esterni" (se un domani ti danno il dump BugBug in JSON/JSONL)
+
 SRC_JSONL = Path("data/external/bugzilla/bugbug_dataset.jsonl")
 SRC_JSON = Path("data/external/bugzilla/bugbug_dataset.json")
 
-# Destinazione "ufficiale" usata dal progetto
+
 DST = RAW / "bugbug_dataset.jsonl"
 
 
@@ -27,7 +27,7 @@ def detect_encoding(path: Path) -> str:
     if head.startswith(b"\xef\xbb\xbf"):
         return "utf-8-sig"
 
-    # fallback: tentativi comuni
+
     for enc in ("utf-8", "utf-8-sig", "latin-1"):
         try:
             path.read_text(encoding=enc)
@@ -57,7 +57,7 @@ def normalize_jsonl(src: Path, dst: Path) -> None:
             try:
                 obj = json.loads(line)
             except Exception:
-                # linea non-JSON: la saltiamo (comportamento atteso dai test)
+
                 continue
             fout.write(json.dumps(obj, ensure_ascii=False) + "\n")
 
@@ -96,7 +96,7 @@ if __name__ == "__main__":
         print(f"Converted {SRC_JSON} -> {DST} (UTF-8)")
     else:
         raise SystemExit(
-            "❌ No external BugBug dataset found in data/external/bugzilla/.\n"
+            "ERROR No external BugBug dataset found in data/external/bugzilla/.\n"
             "Per il flusso attuale stai già usando data/raw/bugbug_dataset.jsonl, "
             "quindi non serve lanciare questo script."
         )
